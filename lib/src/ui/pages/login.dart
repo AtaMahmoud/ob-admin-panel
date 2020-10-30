@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
-import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/create_account_button.dart';
 import 'package:ob_admin_panel/src/ui/widgets/custom_text_form_field.dart';
 import 'package:ob_admin_panel/src/ui/widgets/logo.dart';
@@ -86,7 +86,7 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
                         ),
                         GestureDetector(
                           onTap: () =>
-                              Navigator.pushNamed(context, HomePage.routeName),
+                              Navigator.pushNamed(context, MainPage.routeName),
                           child: SubmitButton(),
                         ),
                         SizedBox(
@@ -124,7 +124,13 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
           children: [
             Column(
               children: [
-                MobileLogo(),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 30,
+                    bottom: 15,
+                  ),
+                  child: MobileLogo(),
+                ),
                 SizedBox(
                   height: mediaQuery.height * 0.1,
                 ),
@@ -166,7 +172,7 @@ class _MobileLoginPageState extends State<MobileLoginPage> {
                         ),
                         GestureDetector(
                           onTap: () =>
-                              Navigator.pushNamed(context, HomePage.routeName),
+                              Navigator.pushNamed(context, MainPage.routeName),
                           child: SubmitButton(),
                         ),
                         SizedBox(

@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
-import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/login.dart';
 import 'package:ob_admin_panel/src/ui/pages/register.dart';
 
@@ -28,12 +26,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: _adminPanelTheme(),
       title: 'OB Admin Panel',
       routes: {
         '/': (BuildContext context) => LoginPage(),
         RegisterPage.routeName: (BuildContext context) => RegisterPage(),
-        HomePage.routeName: (BuildContext context) => HomePage(),
+        MainPage.routeName: (BuildContext context) => MainPage(),
       },
     );
   }

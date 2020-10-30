@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/ui/widgets/logo.dart';
 
-class AdminPanelHeader extends StatelessWidget {
+class DesktopHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,6 +84,46 @@ class AdminPanelHeader extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class MobileHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Builder(
+                builder: (
+                  BuildContext context,
+                ) =>
+                    IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+                    size: 35.0,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+              ),
+              Image.asset(
+                ImagePaths.SEARCH_ICON,
+                fit: BoxFit.contain,
+                width: 30,
+                height: 30,
+              ),
+            ],
+          ),
+        ),
+        MobileLogo(),
+      ],
     );
   }
 }

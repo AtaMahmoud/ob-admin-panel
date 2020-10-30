@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -26,15 +27,9 @@ class _HomeViewState extends State<HomeView>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 60,
-                child: Text(
-                  ConstantTexts.SEAPODS,
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+              TabTitle(ConstantTexts.SEAPODS),
+              SizedBox(
+                height: 20,
               ),
               buildTableHeader(),
               buildTableContent(),
@@ -70,30 +65,7 @@ class _HomeViewState extends State<HomeView>
             ),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    buildTableCell(
-                      'Second Wind $index',
-                    ),
-                    buildTableCell(
-                      'John Doe',
-                    ),
-                    buildTableCell(
-                      'Private',
-                    ),
-                    buildLocationField(
-                      'Panama',
-                      '12.979807',
-                      '46.4873986',
-                    ),
-                    buildTableCell(
-                      'Ok',
-                    ),
-                    buildTableCell(
-                      'Property manager',
-                    ),
-                  ],
-                ),
+                Row(children: _seapodDetails(index)),
                 if (index != itemCount - 1) buildDivider(),
               ],
             ),
@@ -101,6 +73,31 @@ class _HomeViewState extends State<HomeView>
         },
       ),
     );
+  }
+
+  List<Widget> _seapodDetails(int index) {
+    return [
+      buildTableCell(
+        'Second Wind $index',
+      ),
+      buildTableCell(
+        'John Doe',
+      ),
+      buildTableCell(
+        'Private',
+      ),
+      buildLocationField(
+        'Panama',
+        '12.979807',
+        '46.4873986',
+      ),
+      buildTableCell(
+        'Ok',
+      ),
+      buildTableCell(
+        'Property manager',
+      ),
+    ];
   }
 
   Widget buildTableHeader() {
@@ -123,28 +120,32 @@ class _HomeViewState extends State<HomeView>
         ),
       ),
       child: Row(
-        children: [
-          buildTableField(
-            ConstantTexts.SEAPOD,
-          ),
-          buildTableField(
-            ConstantTexts.OWNER,
-          ),
-          buildTableField(
-            ConstantTexts.TYPE,
-          ),
-          buildTableField(
-            ConstantTexts.LOCATION,
-          ),
-          buildTableField(
-            ConstantTexts.STATUS,
-          ),
-          buildTableField(
-            ConstantTexts.ACCESS_LEVEL,
-          ),
-        ],
+        children: _tableFields(),
       ),
     );
+  }
+
+  List<Widget> _tableFields() {
+    return [
+      buildTableField(
+        ConstantTexts.SEAPOD,
+      ),
+      buildTableField(
+        ConstantTexts.OWNER,
+      ),
+      buildTableField(
+        ConstantTexts.TYPE,
+      ),
+      buildTableField(
+        ConstantTexts.LOCATION,
+      ),
+      buildTableField(
+        ConstantTexts.STATUS,
+      ),
+      buildTableField(
+        ConstantTexts.ACCESS_LEVEL,
+      ),
+    ];
   }
 
   Widget buildTableField(
@@ -159,7 +160,7 @@ class _HomeViewState extends State<HomeView>
         child: Container(
           height: 25,
           child: Text(
-            cellName,
+            cellName.toUpperCase(),
             textAlign: TextAlign.start,
             style: TextStyle(
               fontSize: 11,

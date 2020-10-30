@@ -7,6 +7,10 @@ class ColorConstants {
   static const SEAPOD_TABLE_HEADER_BACKGROUND = 0xFFD9DDE4;
   static const TABLE_VIEW_TEXT_COLOR = 0xFFA9A9A9;
   static const TABLE_VIEW_DIVIDER_COLOR = 0xFFE9E9E9;
+  static const DRAWER_SCRIM_COLOR = 0x55F5F6F8;
+  static const TAPPED_MENU_BACKGROUND = 0xFFCBD1DC;
+  static const TABS_TITLE_COLOR = 0xFF0C1F30;
+  static const SEAPODS_CARD_BACKGROUND = 0xFFF3F4F6;
 }
 
 class ImagePaths {
@@ -26,7 +30,7 @@ class ConstantTexts {
   static const SUBMIT = 'SUBMIT';
   static const CREATE_ACCOUNT = 'CREATE ACCOUNT';
   static const HOME = 'HOME';
-  static const MAP = 'MAP';
+  static const MAP = 'Map';
   static const WEATHER_MARINE = 'WEATHER / MARINE';
   static const DEVICES = 'DEVICES';
   static const MESSAGES = 'MESSAGES';
@@ -34,14 +38,18 @@ class ConstantTexts {
   static const LOCATIONS = 'LOCATIONS';
   static const SEARCH = 'Search...';
   static const SEAPOD = 'SEAPOD';
-  static const OWNER = 'OWNER';
-  static const TYPE = 'TYPE';
-  static const LOCATION = 'LOCATION';
-  static const STATUS = 'STATUS';
-  static const ACCESS_LEVEL = 'ACCESS LEVEL';
+  static const OWNER = 'Owner';
+  static const TYPE = 'Type';
+  static const LOCATION = 'Location';
+  static const STATUS = 'Status';
+  static const ACCESS_LEVEL = 'Access Level';
   static const SEAPODS = 'SeaPods';
   static const LATITUDE = 'Latitude: ';
   static const LONGITUDE = 'Longitude: ';
+  static const SETTINGS = 'SETTINGS';
+  static const SWITCH_ACCOUNTS = 'SWITCH ACCOUNTS';
+  static const LOGOUT = 'LOGOUT';
+  static const NAME = 'Name';
 }
 
 class Constants {

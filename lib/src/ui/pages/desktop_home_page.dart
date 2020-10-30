@@ -9,6 +9,7 @@ import 'package:ob_admin_panel/src/ui/tabs/map.dart';
 import 'package:ob_admin_panel/src/ui/tabs/messages.dart';
 import 'package:ob_admin_panel/src/ui/tabs/weather.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
+import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
 
 class DesktopHomepage extends StatefulWidget {
   @override
@@ -47,7 +48,7 @@ class _DesktopHomepageState extends State<DesktopHomepage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AdminPanelHeader(),
+            DesktopHeader(),
             Expanded(
               child: Row(
                 children: [
@@ -122,32 +123,14 @@ class NavigationMenu extends StatelessWidget {
       width: Constants.LEFT_NAVIGATION_WIDTH,
       child: Column(
         children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: AssetImage(
-              'assets/images/avatar.png',
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            'Welcome Shimaa',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          ProfilePic(),
           SizedBox(
             height: 18,
           ),
           RotatedBox(
             quarterTurns: verticalRotation,
             child: _TabBar(
-              tabs: _buildTabs(
-                context: context,
-              ).map(
+              tabs: _buildTabs().map(
                 (widget) {
                   // Revert the rotation on the tabs.
                   return RotatedBox(
@@ -164,9 +147,7 @@ class NavigationMenu extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildTabs({
-    BuildContext context,
-  }) {
+  List<Widget> _buildTabs() {
     return [
       _AdminPanelTab(
         title: ConstantTexts.HOME,
@@ -174,7 +155,7 @@ class NavigationMenu extends StatelessWidget {
         tabController: _tabController,
       ),
       _AdminPanelTab(
-        title: ConstantTexts.MAP,
+        title: ConstantTexts.MAP.toUpperCase(),
         tabIndex: 1,
         tabController: _tabController,
       ),
