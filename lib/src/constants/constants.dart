@@ -20,12 +20,19 @@ class ImagePaths {
   static const SEARCH_ICON = 'assets/images/search_icon.png';
   static const SETTINGS_ICON = 'assets/images/settings_icon.png';
   static const LOGOUT_ICON = 'assets/images/logout_icon.png';
+  static const PROFILE_ICON = 'assets/images/profile.png';
+  static const SEAPOD_ICON = 'assets/images/seapod.png';
+  static const SPLASH = 'assets/images/splash.png';
 }
 
 class ConstantTexts {
   static const EMAIL = 'EMAIL';
   static const PASSWORD = 'PASSWORD';
   static const CONFIRM_PASSWORD = 'CONFIRM PASSWORD';
+  static const FIRST_NAME = 'FIRST NAME';
+  static const LAST_NAME = 'LAST NAME';
+  static const MOBILE_NUMBER = 'MOBILE NUMBER';
+  static const COUNTRY = 'COUNTRY';
   static const FORGOT_PASSWORD = 'Forgot Password?';
   static const SUBMIT = 'SUBMIT';
   static const CREATE_ACCOUNT = 'CREATE ACCOUNT';
@@ -50,6 +57,9 @@ class ConstantTexts {
   static const SWITCH_ACCOUNTS = 'SWITCH ACCOUNTS';
   static const LOGOUT = 'LOGOUT';
   static const NAME = 'Name';
+  static const LOGIN = 'LOGIN';
+  static const PROFILE = 'PROFILE';
+  static const ADD_NEW_SEAPOD = 'ADD NEW SEAPOD';
 }
 
 class Constants {

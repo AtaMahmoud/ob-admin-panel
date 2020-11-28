@@ -2,7 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/ui/widgets/logo.dart';
 
-class DesktopHeader extends StatelessWidget {
+class DesktopHeader extends StatefulWidget {
+  final Function showControlOptions;
+
+  DesktopHeader({
+    @required this.showControlOptions,
+  });
+
+  @override
+  _DesktopHeaderState createState() => _DesktopHeaderState();
+}
+
+class _DesktopHeaderState extends State<DesktopHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +29,7 @@ class DesktopHeader extends StatelessWidget {
               children: [
                 WebLogo(),
                 Container(
-                  width: 300,
+                  width: 380,
                   margin: EdgeInsets.only(
                     top: 45,
                   ),
@@ -60,20 +71,26 @@ class DesktopHeader extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 15,
-                        height: 15,
-                        child: Image.asset(
-                          ImagePaths.SETTINGS_ICON,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                        height: 15,
-                        child: Image.asset(
-                          ImagePaths.LOGOUT_ICON,
-                          fit: BoxFit.contain,
+                      GestureDetector(
+                        onTap: widget.showControlOptions,
+                        child: Container(
+                          width: 120,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color:
+                                Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Shimaa Ismail',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w100),
+                            ),
+                          ),
                         ),
                       ),
                     ],

@@ -4,7 +4,7 @@ import 'package:ob_admin_panel/src/ui/pages/mobile_navigation_pages/mobile_seapo
 import 'package:responsive_builder/responsive_builder.dart';
 
 class MainPage extends StatelessWidget {
-  static const routeName = '/main-page';
+  static const routeName = 'main-page';
 
   @override
   Widget build(BuildContext context) {

@@ -10,6 +10,7 @@ import 'package:ob_admin_panel/src/ui/tabs/messages.dart';
 import 'package:ob_admin_panel/src/ui/tabs/weather.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
+import 'package:speech_bubble/speech_bubble.dart';
 
 class DesktopHomepage extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class DesktopHomepage extends StatefulWidget {
 class _DesktopHomepageState extends State<DesktopHomepage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  bool _showControlOptions = false;
 
   @override
   void initState() {
@@ -42,49 +44,66 @@ class _DesktopHomepageState extends State<DesktopHomepage>
     var sizeCalcs = SizeCalcs(context: context);
     final tabViewHeight = sizeCalcs.calculateTabViewHeight();
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            DesktopHeader(),
-            Expanded(
-              child: Row(
-                children: [
-                  NavigationMenu(
-                    verticalRotation: verticalRotation,
-                    revertVerticalRotation: revertVerticalRotation,
-                    tabController: _tabController,
-                  ),
-                  RotatedBox(
-                    quarterTurns: verticalRotation,
-                    child: Container(
-                      height: tabViewHeight,
-                      width: tabViewWidth,
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: _buildTabViews().map(
-                          (widget) {
-                            // Revert the rotation on the tab views.
-                            return Container(
-                              color: Color(
-                                ColorConstants.TAB_BACKGROUND,
-                              ),
-                              child: widget,
-                            );
-                          },
-                        ).toList(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DesktopHeader(
+                  showControlOptions: () {
+                    setState(() {
+                      _showControlOptions = !_showControlOptions;
+                    });
+                  },
+                ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      NavigationMenu(
+                        verticalRotation: verticalRotation,
+                        revertVerticalRotation: revertVerticalRotation,
+                        tabController: _tabController,
                       ),
-                    ),
+                      RotatedBox(
+                        quarterTurns: verticalRotation,
+                        child: Container(
+                          height: tabViewHeight,
+                          width: tabViewWidth,
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: _buildTabViews().map(
+                              (widget) {
+                                // Revert the rotation on the tab views.
+                                return Container(
+                                  color: Color(
+                                    ColorConstants.TAB_BACKGROUND,
+                                  ),
+                                  child: widget,
+                                );
+                              },
+                            ).toList(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+                Container(
+                  height: Constants.BOTTOM_APP_PADDING_HEIGHT,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+            if (_showControlOptions)
+              Positioned(
+                right: 60,
+                top: Constants.HEADER_HEIGHT - 10,
+                child: DesktopControlOptions(),
               ),
-            ),
-            Container(
-              height: Constants.BOTTOM_APP_PADDING_HEIGHT,
-              color: Colors.white,
-            ),
           ],
         ),
       ),
@@ -101,6 +120,86 @@ class _DesktopHomepageState extends State<DesktopHomepage>
       AccessManagementView(),
       LocationsView(),
     ];
+  }
+}
+
+class DesktopControlOptions extends StatelessWidget {
+  const DesktopControlOptions({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SpeechBubble(
+        nipHeight: 15,
+        height: 160,
+        width: 210,
+        padding: EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 15,
+        ),
+        color: Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+        nipLocation: NipLocation.TOP_RIGHT,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildControlOption(
+              ImagePaths.SETTINGS_ICON,
+              ConstantTexts.SETTINGS,
+              () {},
+            ),
+            buildControlOption(
+              ImagePaths.PROFILE_ICON,
+              ConstantTexts.PROFILE,
+              () {},
+            ),
+            buildControlOption(
+              ImagePaths.SEAPOD_ICON,
+              ConstantTexts.ADD_NEW_SEAPOD,
+              () {},
+            ),
+            buildControlOption(
+              ImagePaths.LOGOUT_ICON,
+              ConstantTexts.LOGOUT,
+              () {},
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildControlOption(
+    String iconPath,
+    String controlOption,
+    Function onPressed,
+  ) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 20,
+            height: 20,
+            child: Image.asset(
+              iconPath,
+              fit: BoxFit.contain,
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 15),
+            child: Text(
+              controlOption,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

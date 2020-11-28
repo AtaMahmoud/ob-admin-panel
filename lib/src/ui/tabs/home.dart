@@ -15,7 +15,7 @@ class _HomeViewState extends State<HomeView>
       quarterTurns: Constants.TURNS_TO_ROTATE_LEFT,
       child: FractionallySizedBox(
         alignment: Alignment.topLeft,
-        widthFactor: 0.9,
+        widthFactor: 0.8,
         heightFactor: 0.95,
         child: Padding(
           padding: const EdgeInsets.only(
@@ -56,9 +56,6 @@ class _HomeViewState extends State<HomeView>
         itemCount: itemCount,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            margin: EdgeInsets.only(
-              right: 120,
-            ),
             padding: EdgeInsets.only(
               left: 20,
               right: 10,
@@ -103,9 +100,6 @@ class _HomeViewState extends State<HomeView>
   Widget buildTableHeader() {
     return Container(
       height: 40,
-      margin: EdgeInsets.only(
-        right: 120,
-      ),
       padding: EdgeInsets.only(
         left: 20,
         right: 10,
@@ -120,12 +114,12 @@ class _HomeViewState extends State<HomeView>
         ),
       ),
       child: Row(
-        children: _tableFields(),
+        children: _tableFieldsList(),
       ),
     );
   }
 
-  List<Widget> _tableFields() {
+  List<Widget> _tableFieldsList() {
     return [
       buildTableField(
         ConstantTexts.SEAPOD,
@@ -165,6 +159,7 @@ class _HomeViewState extends State<HomeView>
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w500,
+              color: Colors.black,
             ),
           ),
         ),

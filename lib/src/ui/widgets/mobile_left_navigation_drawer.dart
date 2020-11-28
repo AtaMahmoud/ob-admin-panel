@@ -1,9 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
+import 'package:ob_admin_panel/src/ui/pages/login.dart';
 import 'package:ob_admin_panel/src/ui/widgets/mobile_menu_item.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
+import 'package:provider/provider.dart';
 
 class MobileLeftNavigationMenu extends StatelessWidget {
   final int tappedMenuIndex;
@@ -80,7 +84,9 @@ class MobileLeftNavigationMenu extends StatelessWidget {
                       height: 15,
                     ),
                     ...[
-                      for (int i = 0; i < 3; i++) ...[_buildControlOptions()[i]]
+                      for (int i = 0; i < 3; i++) ...[
+                        _buildControlOptions(context)[i]
+                      ]
                     ],
                   ],
                 ),
@@ -92,7 +98,9 @@ class MobileLeftNavigationMenu extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildControlOptions() {
+  List<Widget> _buildControlOptions(
+    BuildContext context,
+  ) {
     return [
       MenuItem(
         title: ConstantTexts.SETTINGS,
@@ -100,8 +108,11 @@ class MobileLeftNavigationMenu extends StatelessWidget {
       MenuItem(
         title: ConstantTexts.SWITCH_ACCOUNTS,
       ),
-      MenuItem(
-        title: ConstantTexts.LOGOUT,
+      GestureDetector(
+        onTap: () => logout(context),
+        child: MenuItem(
+          title: ConstantTexts.LOGOUT,
+        ),
       ),
     ];
   }
@@ -139,5 +150,18 @@ class MobileLeftNavigationMenu extends StatelessWidget {
         isTapped: isTapped,
       ),
     ];
+  }
+
+  void logout(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) => SpinKitFadingCircle(
+        color: Color(ColorConstants.MAIN_COLOR),
+        size: 50,
+      ),
+    );
+    await Provider.of<AdminAuthProvider>(context, listen: false).logout();
+    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
   }
 }
