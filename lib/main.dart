@@ -9,6 +9,8 @@ import 'package:ob_admin_panel/src/ui/pages/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  //GoogleMap.init(Constants.MAP_API_KEY);
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

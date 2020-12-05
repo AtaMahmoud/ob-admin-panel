@@ -23,6 +23,7 @@ class ImagePaths {
   static const PROFILE_ICON = 'assets/images/profile.png';
   static const SEAPOD_ICON = 'assets/images/seapod.png';
   static const SPLASH = 'assets/images/splash.png';
+  static const SEAPOD_LOCATION_MARKER = 'assets/images/seapod_location.png';
 }
 
 class ConstantTexts {
@@ -63,6 +64,7 @@ class ConstantTexts {
 }
 
 class Constants {
+  static const String MAP_STYLE_FILE = 'assets/map_style.txt';
   static const double LEFT_NAVIGATION_WIDTH = 180.0;
   static const int TAB_COUNT = 7;
   static const int TURNS_TO_ROTATE_RIGHT = 1;

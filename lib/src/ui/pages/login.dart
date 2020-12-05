@@ -134,9 +134,9 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.of(context).pop();
     if (_adminProvider.authenticatedAdmin != null) {
       Navigator.pushReplacementNamed(context, MainPage.routeName);
-    } else {
+    } /* else {
       onLoginFailed(context);
-    }
+    } */
   }
 
   Future onLoginFailed(BuildContext context) {
