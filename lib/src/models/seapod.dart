@@ -1,3 +1,4 @@
+
 class SeaPod {
   List powerUtilities;
   List soundSystem;
@@ -238,14 +239,17 @@ class ActionHistory {
 class Location {
   double latitude;
   double longitude;
+  String locationName;
 
   Location(
     this.latitude,
     this.longitude,
+    this.locationName,
   );
 
   Location.fromJson(Map<String, dynamic> json) {
     latitude = json['latitude'];
     longitude = json['longitude'];
+    locationName = 'Panama';
   }
 }

@@ -14,9 +14,17 @@ class SeaPodsRepository {
       headers: headers,
     );
     List<SeaPod> allSeapods = List<SeaPod>();
-    response.data.forEach((seapod) {
-      allSeapods.add(SeaPod.fromJson(seapod));
+    response.data.forEach((e) async {
+      var seaPod = SeaPod.fromJson(e);
+     /*  final coordinates =
+          Coordinates(seaPod.location.latitude, seaPod.location.longitude);
+      var address =
+          await Geocoder.local.findAddressesFromCoordinates(coordinates);
+      seaPod.location.locationName = address.first.countryName;
+ */
+      allSeapods.add(seaPod);
     });
+
     return allSeapods;
   }
 }

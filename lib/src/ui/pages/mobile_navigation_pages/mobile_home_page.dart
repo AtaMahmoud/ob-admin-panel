@@ -114,7 +114,9 @@ class _MobileHomePageState extends State<MobileHomePage>
                   index: _index,
                   children: [
                     SeapodsTableView(allSeapods: allSeapods.data),
-                    MapMobileVersion(),
+                    MapMobileVersion(
+                      seapods: allSeapods.data,
+                    ),
                   ],
                 ),
               ),
@@ -212,7 +214,8 @@ class SeapodsTableView extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildSeapodCardText('Panama'),
+                      buildSeapodCardText(
+                          allSeapods[index].location.locationName),
                       buildSeapodCardText(ConstantTexts.LATITUDE +
                           allSeapods[index]
                               .location
