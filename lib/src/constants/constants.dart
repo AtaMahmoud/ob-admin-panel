@@ -11,6 +11,8 @@ class ColorConstants {
   static const TAPPED_MENU_BACKGROUND = 0xFFCBD1DC;
   static const TABS_TITLE_COLOR = 0xFF0C1F30;
   static const SEAPODS_CARD_BACKGROUND = 0xFFF3F4F6;
+  static const TEXT_COLOR = 0xFF4A525F;
+  static const SEAPOD_CARD_BACKGROUND = 0xFFA9B2C0;
 }
 
 class ImagePaths {
@@ -61,6 +63,13 @@ class ConstantTexts {
   static const LOGIN = 'LOGIN';
   static const PROFILE = 'PROFILE';
   static const ADD_NEW_SEAPOD = 'ADD NEW SEAPOD';
+  static const GENERAL_INFO = 'General Information';
+  static const OWNERSHIP = 'OWNERSHIP';
+  static const VESSLE_NAME = 'VESSLE NAME';
+  static const CURRENT_OCCUPANT = 'CURRENT OCCUPANT';
+  static const MODEL = 'MODEL';
+  static const HOME_CODE = 'HOME CODE';
+  static const YEAR = 'YEAR';
 }
 
 class Constants {

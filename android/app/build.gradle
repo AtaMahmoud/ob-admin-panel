@@ -21,7 +21,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-def dartEnvironmentVariables = [
+/* def dartEnvironmentVariables = [
     MAP_API_KEY: null,
     
 ];
@@ -32,7 +32,7 @@ if (project.hasProperty('dart-defines')) {
             def pair = URLDecoder.decode(entry).split('=')
             [(pair.first()): pair.last()]
         }
-}
+} */
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -56,7 +56,7 @@ android {
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        resValue "string", "map_api_key", dartEnvironmentVariables.MAP_API_KEY
+        //resValue "string", "map_api_key", dartEnvironmentVariables.MAP_API_KEY
     }
 
     buildTypes {

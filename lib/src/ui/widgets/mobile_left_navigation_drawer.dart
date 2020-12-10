@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/login.dart';
+import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/mobile_menu_item.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
 import 'package:provider/provider.dart';
@@ -70,7 +71,8 @@ class MobileLeftNavigationMenu extends StatelessWidget {
                     ),
                     ...[
                       for (int i = 0; i < Constants.TAB_COUNT; i++) ...[
-                        _buildNavigationMenues(tappedMenuIndex == i)[i]
+                        _buildNavigationMenues(
+                            tappedMenuIndex == i, context)[i],
                       ]
                     ],
                     SizedBox(
@@ -119,11 +121,15 @@ class MobileLeftNavigationMenu extends StatelessWidget {
 
   List<Widget> _buildNavigationMenues(
     bool isTapped,
+    BuildContext context,
   ) {
     return [
       MenuItem(
         title: ConstantTexts.HOME,
         isTapped: isTapped,
+        onTap: () {
+          Navigator.of(context).pushNamed(HomePage.routeName);
+        },
       ),
       MenuItem(
         title: ConstantTexts.MAP.toUpperCase(),

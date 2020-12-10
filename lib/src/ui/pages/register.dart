@@ -150,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   if (adminProvider.authenticatedAdmin !=
                                       null) {
                                     Navigator.pushReplacementNamed(
-                                        context, MainPage.routeName);
+                                        context, HomePage.routeName);
                                   }
                                 }
                               },

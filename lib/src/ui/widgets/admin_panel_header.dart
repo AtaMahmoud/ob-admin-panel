@@ -106,6 +106,12 @@ class _DesktopHeaderState extends State<DesktopHeader> {
 }
 
 class MobileHeader extends StatelessWidget {
+  final bool showLogo;
+
+  MobileHeader({
+    this.showLogo = true,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -139,7 +145,7 @@ class MobileHeader extends StatelessWidget {
             ],
           ),
         ),
-        MobileLogo(),
+        if (showLogo) MobileLogo(),
       ],
     );
   }

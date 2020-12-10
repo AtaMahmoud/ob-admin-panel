@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
     await _adminProvider.login(_email, _password);
     Navigator.of(context).pop();
     if (_adminProvider.authenticatedAdmin != null) {
-      Navigator.pushReplacementNamed(context, MainPage.routeName);
+      Navigator.pushReplacementNamed(context, HomePage.routeName);
     } /* else {
       onLoginFailed(context);
     } */

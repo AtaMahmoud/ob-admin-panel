@@ -5,6 +5,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ob_admin_panel/src/models/seapod.dart';
+import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
+import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
 class MapMobileVersion extends StatefulWidget {
@@ -22,7 +25,6 @@ class _MapMobileVersionState extends State<MapMobileVersion> {
   final Map<String, Marker> _markers = {};
   String _mapStyle;
   var _showInfoWindow = false;
-  SeaPod _selectedSeapod;
 
   @override
   void initState() {
@@ -51,6 +53,7 @@ class _MapMobileVersionState extends State<MapMobileVersion> {
 
     CameraPosition initialLocation =
         CameraPosition(zoom: 10, bearing: 30, target: pinPosition);
+    var seapodsProvider = Provider.of<SeaPodsProvider>(context, listen: false);
     return Stack(
       children: [
         GoogleMap(
@@ -78,7 +81,7 @@ class _MapMobileVersionState extends State<MapMobileVersion> {
                           seapod.location.latitude, seapod.location.longitude),
                       onTap: () {
                         setState(() {
-                          _selectedSeapod = seapod;
+                          seapodsProvider.updateSelectedSeapod(seapod);
                           _showInfoWindow = true;
                         });
                       });
@@ -93,9 +96,7 @@ class _MapMobileVersionState extends State<MapMobileVersion> {
             alignment: Alignment.centerRight,
             child: Container(
               margin: EdgeInsets.only(right: 30),
-              child: SeapodWindowInfo(
-                seapod: _selectedSeapod,
-              ),
+              child: SeapodWindowInfo(),
             ),
           )
       ],
@@ -104,12 +105,6 @@ class _MapMobileVersionState extends State<MapMobileVersion> {
 }
 
 class SeapodWindowInfo extends StatefulWidget {
-  final SeaPod seapod;
-
-  SeapodWindowInfo({
-    @required this.seapod,
-  });
-
   @override
   _SeapodWindowInfoState createState() => _SeapodWindowInfoState();
 }
@@ -122,6 +117,7 @@ class _SeapodWindowInfoState extends State<SeapodWindowInfo> {
       thickness: 1,
       height: 35,
     );
+    var selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
     return SpeechBubble(
       nipHeight: 20,
       height: 420,
@@ -140,36 +136,36 @@ class _SeapodWindowInfoState extends State<SeapodWindowInfo> {
             ConstantTexts.NAME + ': ',
           ),
           infoWidget(
-            widget.seapod.seaPodName,
+            selectedSeapod.seaPodName,
           ),
           titleWidget(
             ConstantTexts.OWNER + ': ',
           ),
           infoWidget(
-            widget.seapod.owners.join(', '),
+            selectedSeapod.owners.join(', '),
           ),
-          SeapodDetails(),
+          SeapodDetailsWidget(),
           divider,
           titleWidget(
             ConstantTexts.LOCATION + ': ',
           ),
           infoWidget(
-            widget.seapod.location.locationName,
+            selectedSeapod.location.locationName,
           ),
           titleWidget(
             ConstantTexts.LATITUDE,
           ),
           infoWidget(
-            widget.seapod.location.latitude.toStringAsFixed(4),
+            selectedSeapod.location.latitude.toStringAsFixed(4),
           ),
           titleWidget(
             ConstantTexts.LONGITUDE,
           ),
           infoWidget(
-            widget.seapod.location.longitude.toStringAsFixed(4),
+            selectedSeapod.location.longitude.toStringAsFixed(4),
           ),
           divider,
-          infoWidget('${ConstantTexts.STATUS}: ${widget.seapod.seaPodStatus}')
+          infoWidget('${ConstantTexts.STATUS}: ${selectedSeapod.seaPodStatus}')
         ],
       ),
     );
@@ -210,14 +206,19 @@ class _SeapodWindowInfoState extends State<SeapodWindowInfo> {
   }
 }
 
-class SeapodDetails extends StatelessWidget {
-  const SeapodDetails({
+class SeapodDetailsWidget extends StatelessWidget {
+  const SeapodDetailsWidget({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          SeapodDetailsPage.routeName,
+        );
+      },
       child: Container(
         height: 30,
         width: 100,

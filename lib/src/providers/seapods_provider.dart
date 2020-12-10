@@ -7,7 +7,10 @@ class SeaPodsProvider with ChangeNotifier {
   SeaPodsRepository _seaPodsRepository = SeaPodsRepository();
   ApiResponse<List<SeaPod>> _allSeapods;
 
+  SeaPod _selectedSeapod;
+
   ApiResponse<List<SeaPod>> get allSeaPods => _allSeapods;
+  SeaPod get selectedSeapod => _selectedSeapod;
 
   Future<void> getAllSeapods() async {
     _allSeapods = ApiResponse.loading('getting all seapods');
@@ -19,5 +22,9 @@ class SeaPodsProvider with ChangeNotifier {
       _allSeapods = ApiResponse.error(e.toString());
       notifyListeners();
     }
+  }
+
+  void updateSelectedSeapod(SeaPod seaPod) {
+    _selectedSeapod = seaPod;
   }
 }

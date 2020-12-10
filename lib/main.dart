@@ -5,6 +5,7 @@ import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/login.dart';
 import 'package:ob_admin_panel/src/ui/pages/register.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
 import 'package:ob_admin_panel/src/ui/pages/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (BuildContext context) =>
               _adminProvider.authenticatedAdmin != null
-                  ? MainPage()
+                  ? HomePage()
                   : FutureBuilder(
                       future: Provider.of<AdminAuthProvider>(
                         context,
@@ -63,7 +64,9 @@ class MyApp extends StatelessWidget {
                     ),
           LoginPage.routeName: (BuildContext context) => LoginPage(),
           RegisterPage.routeName: (BuildContext context) => RegisterPage(),
-          MainPage.routeName: (BuildContext context) => MainPage(),
+          HomePage.routeName: (BuildContext context) => HomePage(),
+          SeapodDetailsPage.routeName: (BuildContext context) => SeapodDetailsPage(),
+
         },
       ),
     );
