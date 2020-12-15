@@ -85,18 +85,18 @@ class SeaPod {
   SeaPod.fromJson(Map<String, dynamic> json) {
     /*  List powerUtilities;
   List soundSystem; */
-    masterBedroomFloorFinishing = List<String>();
+    masterBedroomFloorFinishing = [];
     json['masterBedroomFloorFinishing'].forEach((e) {
       masterBedroomFloorFinishing.add(e);
     });
     hasWeatherStation = json['hasWeatherStation'];
 
     hasCleanWaterLevelIndicator = json['hasCleanWaterLevelIndicator'];
-    permissionSets = List<String>();
+    permissionSets = [];
     json['permissionSets'].forEach((e) {
       permissionSets.add(e);
     });
-    lightScenes = List<String>();
+    lightScenes = [];
     json['lightScenes'].forEach((e) {
       lightScenes.add(e);
     });
@@ -126,8 +126,8 @@ class SeaPod {
     deckFloorFinishMaterial = json['deckFloorFinishMaterial'];
     seaPodStatus = json['seaPodStatus'];
     seaPodType = json['seaPodType'] ?? "";
-    users = List<User>();
-    owners = List<String>();
+    users = [];
+    owners = [];
     accessLevel = 'No Access';
     json['users'].forEach((user) {
       var userData = User.fromJson(user);
@@ -138,7 +138,7 @@ class SeaPod {
       users.add(userData);
     });
 
-    actionsHistory = List<ActionHistory>();
+    actionsHistory = [];
     json['actionsHistory'].forEach((actionHistory) {
       actionsHistory.add(ActionHistory.fromJson(actionHistory));
     });

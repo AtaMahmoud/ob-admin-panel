@@ -13,10 +13,11 @@ class HeadersManager {
     String email,
   ) async {
     Map<String, String> deviceData = {};
-    deviceData['Content-Type'] = 'application/json';
+    deviceData['content-type'] = 'application/json';
     deviceData['notificationToken'] =
         'fluMksedKxY:APA91bFMdxZD7Ouwh0aiVWuDcLrzPfNMkU6WbH_zljlCm_57samv/g3hLcsrcM9MkA45568IUWCnXI-7cBEMrl6NLtfqlauc8Wssa-xN5vXXFS2hb7mka0y1RJ698...';
     deviceData['hardwareId'] = email;
+    deviceData['Access-Control-Allow-Origin'] = '*';
 
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
@@ -31,7 +32,7 @@ class HeadersManager {
       deviceData['model'] = iosDeviceInfo.model;
     } else {
       // deviceData['hardwareId'] = "";
-      deviceData['model'] = "";
+      deviceData['model'] = "application/json";
     }
 
     return deviceData;
@@ -47,12 +48,13 @@ class HeadersManager {
   Future<Map<String, String>> getHeadersFromSharedPrefs() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map<String, String> resultMap = {};
-    if (sharedPreferences.containsKey('Content-Type')) {
-      resultMap['Content-Type'] = sharedPreferences.getString('Content-Type');
+    if (sharedPreferences.containsKey('content-type')) {
+      resultMap['content-type'] = sharedPreferences.getString('content-type');
       resultMap['notificationToken'] =
           sharedPreferences.getString('notificationToken');
       resultMap['hardwareId'] = sharedPreferences.getString('hardwareId');
-
+      resultMap['Access-Control-Allow-Origin'] =
+          sharedPreferences.get('Access-Control-Allow-Origin');
       resultMap['model'] = sharedPreferences.getString('model');
       resultMap['x-auth-token'] = sharedPreferences.getString('x-auth-token');
     }

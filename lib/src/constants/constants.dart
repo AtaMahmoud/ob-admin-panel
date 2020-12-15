@@ -26,6 +26,8 @@ class ImagePaths {
   static const SEAPOD_ICON = 'assets/images/seapod.png';
   static const SPLASH = 'assets/images/splash.png';
   static const SEAPOD_LOCATION_MARKER = 'assets/images/seapod_location.png';
+  static const LOCATION_ICON = 'assets/images/location_icon.png';
+  static const AVATAR = 'assets/images/avatar.png';
 }
 
 class ConstantTexts {

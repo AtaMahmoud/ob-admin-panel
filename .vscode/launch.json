@@ -5,15 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name" : "Flutter",
+            "request": "launch",
+            "type": "dart",
+            "args": [
 
-            "name": "web",
+               "--web-enable-expression-evaluation"
+            ], 
+
+           /*  "name": "web",
             "program": "lib/main.dart",
             "request": "launch",
             "type": "dart",
             "args": [
                 "--web-port=5000",
                 "--web-enable-expression-evaluation"
-            ],
+            ], */
            /*  "type": "pwa-chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",

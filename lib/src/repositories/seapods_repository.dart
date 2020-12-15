@@ -1,3 +1,4 @@
+import 'package:geocoder/geocoder.dart';
 import 'package:ob_admin_panel/src/configs/config.dart';
 import 'package:ob_admin_panel/src/helpers/api_base_helper.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
@@ -13,10 +14,10 @@ class SeaPodsRepository {
       url: Config.allSeaPods,
       headers: headers,
     );
-    List<SeaPod> allSeapods = List<SeaPod>();
+    List<SeaPod> allSeapods = [];
     response.data.forEach((e) async {
       var seaPod = SeaPod.fromJson(e);
-     /*  final coordinates =
+    /*   final coordinates =
           Coordinates(seaPod.location.latitude, seaPod.location.longitude);
       var address =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
