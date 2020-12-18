@@ -1,3 +1,6 @@
+import 'package:ob_admin_panel/src/models/light_scene.dart';
+import 'package:ob_admin_panel/src/models/permission_set.dart';
+import 'package:ob_admin_panel/src/models/user.dart';
 
 class SeaPod {
   List powerUtilities;
@@ -5,8 +8,8 @@ class SeaPod {
   List<String> masterBedroomFloorFinishing;
   bool hasWeatherStation;
   bool hasCleanWaterLevelIndicator;
-  List<String> permissionSets;
-  List<String> lightScenes;
+  List<PermissionSet> permissionSets;
+  List<LightScene> lightScenes;
   num seaPodOrientation;
   List accessRequests;
   List accessInvitation;
@@ -94,11 +97,11 @@ class SeaPod {
     hasCleanWaterLevelIndicator = json['hasCleanWaterLevelIndicator'];
     permissionSets = [];
     json['permissionSets'].forEach((e) {
-      permissionSets.add(e);
+      permissionSets.add(PermissionSet.fromJson(e));
     });
     lightScenes = [];
     json['lightScenes'].forEach((e) {
-      lightScenes.add(e);
+      lightScenes.add(LightScene.fromJson(e));
     });
     seaPodOrientation = json['seaPodOrientation'];
     /*  List accessRequests;
@@ -132,8 +135,8 @@ class SeaPod {
     json['users'].forEach((user) {
       var userData = User.fromJson(user);
       if (userData.type.toLowerCase() == 'owner') owners.add(userData.userName);
-      if (userData.type.toLowerCase() == 'admin')
-        accessLevel = userData.permissionSet;
+     /*  if (userData.type.toLowerCase() == 'admin')
+        accessLevel = userData.permissionSet; */
 
       users.add(userData);
     });
@@ -146,67 +149,6 @@ class SeaPod {
     vessleCode = json['vessleCode'];
     qrCodeImageUrl = json['qrCodeImageUrl'];
     v = json['__v'];
-  }
-}
-
-class User {
-  bool isDisabled;
-  Lighting lighting;
-  num accessPeriod;
-  num checkInDate;
-  String id;
-  String userName;
-  String profilePicUrl;
-  String notificationToken;
-  String type;
-  String permissionSet;
-
-  User(
-    this.isDisabled,
-    this.lighting,
-    this.accessPeriod,
-    this.checkInDate,
-    this.id,
-    this.userName,
-    this.profilePicUrl,
-    this.notificationToken,
-    this.type,
-    this.permissionSet,
-  );
-  User.fromJson(Map<String, dynamic> json) {
-    isDisabled = json['isDisabled'];
-    lighting = Lighting.fromJson(json['lighting']);
-    accessPeriod = json['accessPeriod'];
-    checkInDate = json['checkInDate'];
-    id = json['_id'];
-    userName = json['userName'];
-    profilePicUrl = json['profilePicUrl'];
-    notificationToken = json['notificationToken'];
-    type = json['type'];
-    permissionSet = json['permissionSet'];
-  }
-}
-
-class Lighting {
-  bool status;
-  num intensity;
-  List lightScenes;
-  String id;
-  String selectedScene;
-
-  Lighting(
-    this.status,
-    this.intensity,
-    this.lightScenes,
-    this.id,
-    this.selectedScene,
-  );
-
-  Lighting.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    intensity = json['intensity'];
-    id = json['_id'];
-    selectedScene = json['selectedScene'];
   }
 }
 

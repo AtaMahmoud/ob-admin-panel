@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/logo.dart';
+import 'package:provider/provider.dart';
 
 class DesktopHeader extends StatefulWidget {
   final Function showControlOptions;
@@ -16,6 +18,8 @@ class DesktopHeader extends StatefulWidget {
 class _DesktopHeaderState extends State<DesktopHeader> {
   @override
   Widget build(BuildContext context) {
+    var admin = Provider.of<AdminAuthProvider>(context, listen: false)
+        .authenticatedAdmin;
     return Container(
       padding: const EdgeInsets.only(right: 60),
       height: Constants.HEADER_HEIGHT,
@@ -83,12 +87,13 @@ class _DesktopHeaderState extends State<DesktopHeader> {
                           ),
                           child: Center(
                             child: Text(
-                              'Shimaa Ismail',
+                              '${admin.firstName} ${admin.lastName}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w100),
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w100,
+                              ),
                             ),
                           ),
                         ),

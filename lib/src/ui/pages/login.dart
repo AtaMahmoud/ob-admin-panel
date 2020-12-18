@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -134,9 +136,9 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.of(context).pop();
     if (_adminProvider.authenticatedAdmin != null) {
       Navigator.pushReplacementNamed(context, HomePage.routeName);
-    } /* else {
+    } else {
       onLoginFailed(context);
-    } */
+    }
   }
 
   Future onLoginFailed(BuildContext context) {

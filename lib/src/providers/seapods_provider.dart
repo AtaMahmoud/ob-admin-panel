@@ -14,14 +14,15 @@ class SeaPodsProvider with ChangeNotifier {
 
   Future<void> getAllSeapods() async {
     _allSeapods = ApiResponse.loading('getting all seapods');
-
-    try {
+    final seapods = await _seaPodsRepository.getAllSeapods();
+    _allSeapods = ApiResponse.completed(seapods);
+    /* try {
       final seapods = await _seaPodsRepository.getAllSeapods();
       _allSeapods = ApiResponse.completed(seapods);
     } catch (e) {
       _allSeapods = ApiResponse.error(e.toString());
       notifyListeners();
-    }
+    } */
   }
 
   void updateSelectedSeapod(SeaPod seaPod) {

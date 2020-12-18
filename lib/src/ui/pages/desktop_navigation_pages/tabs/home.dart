@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/models/seapod.dart';
+import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -9,6 +12,24 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
+  var _isInit = true;
+  SeaPodsProvider seaPodsProvider;
+
+  @override
+  void didChangeDependencies() async {
+    if (_isInit) {
+      seaPodsProvider = Provider.of<SeaPodsProvider>(
+        context,
+        listen: false,
+      );
+      await seaPodsProvider.getAllSeapods();
+      setState(() {});
+      _isInit = false;
+    }
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
@@ -32,7 +53,7 @@ class _HomeViewState extends State<HomeView>
                 height: 20,
               ),
               buildTableHeader(),
-              buildTableContent(),
+              if (!_isInit) buildTableContent(),
             ],
           ),
         ),
@@ -50,7 +71,7 @@ class _HomeViewState extends State<HomeView>
   }
 
   Widget buildTableContent() {
-    var itemCount = 20;
+    var itemCount = seaPodsProvider.allSeaPods.data.length;
     return Expanded(
       child: ListView.builder(
         itemCount: itemCount,
@@ -62,7 +83,11 @@ class _HomeViewState extends State<HomeView>
             ),
             child: Column(
               children: [
-                Row(children: _seapodDetails(index)),
+                Row(
+                  children: _seapodDetails(
+                    seaPodsProvider.allSeaPods.data[index],
+                  ),
+                ),
                 if (index != itemCount - 1) buildDivider(),
               ],
             ),
@@ -72,27 +97,25 @@ class _HomeViewState extends State<HomeView>
     );
   }
 
-  List<Widget> _seapodDetails(int index) {
+  List<Widget> _seapodDetails(SeaPod seaPod) {
     return [
       buildTableCell(
-        'Second Wind $index',
+        seaPod.seaPodName,
       ),
       buildTableCell(
-        'John Doe',
+        seaPod.owners.join(', '),
       ),
       buildTableCell(
-        'Private',
+        seaPod.seaPodType,
       ),
       buildLocationField(
-        'Panama',
-        '12.979807',
-        '46.4873986',
+        seaPod.location,
       ),
       buildTableCell(
-        'Ok',
+        seaPod.seaPodStatus,
       ),
       buildTableCell(
-        'Property manager',
+        seaPod.accessLevel,
       ),
     ];
   }
@@ -100,6 +123,7 @@ class _HomeViewState extends State<HomeView>
   Widget buildTableHeader() {
     return Container(
       height: 40,
+      width: MediaQuery.of(context).size.width * 0.8,
       padding: EdgeInsets.only(
         left: 20,
         right: 10,
@@ -183,7 +207,9 @@ class _HomeViewState extends State<HomeView>
           style: TextStyle(
             fontSize: 9,
             fontWeight: FontWeight.w500,
-            color: Color(ColorConstants.TABLE_VIEW_TEXT_COLOR),
+            color: Color(
+              ColorConstants.TABLE_VIEW_TEXT_COLOR,
+            ),
           ),
         ),
       ),
@@ -191,9 +217,7 @@ class _HomeViewState extends State<HomeView>
   }
 
   Widget buildLocationField(
-    String locationName,
-    String latitude,
-    String longitude,
+    Location seaPodLocation,
   ) {
     return Expanded(
       child: Padding(
@@ -206,7 +230,7 @@ class _HomeViewState extends State<HomeView>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              locationName,
+              seaPodLocation.locationName,
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 9,
@@ -215,7 +239,8 @@ class _HomeViewState extends State<HomeView>
               ),
             ),
             Text(
-              ConstantTexts.LATITUDE + latitude,
+              ConstantTexts.LATITUDE +
+                  seaPodLocation.latitude.toStringAsFixed(4),
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 9,
@@ -224,7 +249,8 @@ class _HomeViewState extends State<HomeView>
               ),
             ),
             Text(
-              ConstantTexts.LONGITUDE + longitude,
+              ConstantTexts.LONGITUDE +
+                  seaPodLocation.longitude.toStringAsFixed(4),
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 9,

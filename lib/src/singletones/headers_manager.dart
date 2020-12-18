@@ -1,4 +1,4 @@
-import 'package:device_info/device_info.dart';
+//import 'package:device_info/device_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 
@@ -18,8 +18,8 @@ class HeadersManager {
         'fluMksedKxY:APA91bFMdxZD7Ouwh0aiVWuDcLrzPfNMkU6WbH_zljlCm_57samv/g3hLcsrcM9MkA45568IUWCnXI-7cBEMrl6NLtfqlauc8Wssa-xN5vXXFS2hb7mka0y1RJ698...';
     deviceData['hardwareId'] = email;
     deviceData['Access-Control-Allow-Origin'] = '*';
-
-    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    deviceData['model'] = "application/json";
+    /*  final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
     if (UniversalPlatform.isAndroid) {
       final AndroidDeviceInfo androidDeviceInfo =
@@ -33,7 +33,7 @@ class HeadersManager {
     } else {
       // deviceData['hardwareId'] = "";
       deviceData['model'] = "application/json";
-    }
+    } */
 
     return deviceData;
   }

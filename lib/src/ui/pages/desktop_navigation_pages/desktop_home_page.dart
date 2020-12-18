@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
-import 'package:ob_admin_panel/src/ui/tabs/access_management.dart';
-import 'package:ob_admin_panel/src/ui/tabs/devices.dart';
-import 'package:ob_admin_panel/src/ui/tabs/home.dart';
-import 'package:ob_admin_panel/src/ui/tabs/locations.dart';
-import 'package:ob_admin_panel/src/ui/tabs/map.dart';
-import 'package:ob_admin_panel/src/ui/tabs/messages.dart';
-import 'package:ob_admin_panel/src/ui/tabs/weather.dart';
+import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/access_management.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/devices.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/home.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/locations.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/map.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/messages.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/weather.dart';
+import 'package:ob_admin_panel/src/ui/pages/login.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
+import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
 class DesktopHomepage extends StatefulWidget {
@@ -163,7 +166,12 @@ class DesktopControlOptions extends StatelessWidget {
             buildControlOption(
               ImagePaths.LOGOUT_ICON,
               ConstantTexts.LOGOUT,
-              () {},
+              () async {
+                await Provider.of<AdminAuthProvider>(context, listen: false)
+                    .logout();
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+              },
             ),
           ],
         ),
