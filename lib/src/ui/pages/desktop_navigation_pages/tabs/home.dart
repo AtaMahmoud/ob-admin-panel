@@ -3,6 +3,7 @@ import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/map_desktop_version.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
@@ -14,6 +15,7 @@ class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   var _isInit = true;
   SeaPodsProvider seaPodsProvider;
+  var _index = 0;
 
   @override
   void didChangeDependencies() async {
@@ -34,27 +36,121 @@ class _HomeViewState extends State<HomeView>
   Widget build(BuildContext context) {
     return RotatedBox(
       quarterTurns: Constants.TURNS_TO_ROTATE_LEFT,
-      child: FractionallySizedBox(
-        alignment: Alignment.topLeft,
-        widthFactor: 0.8,
-        heightFactor: 0.95,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 30,
-            top: 25,
-            bottom: 30,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TabTitle(ConstantTexts.SEAPODS),
-              SizedBox(
-                height: 20,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 30,
+          top: 25,
+          bottom: 30,
+        ),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TabTitle(
+                      _index == 0 ? ConstantTexts.SEAPODS : ConstantTexts.MAP,
+                    ),
+                    Container(
+                      height: 30,
+                      child: Row(
+                        children: [
+                          buildSwitcher(
+                            () {
+                              setState(() {
+                                _index = 1;
+                              });
+                            },
+                            ConstantTexts.MAP,
+                            BoxDecoration(
+                              color: Color(
+                                _index == 1
+                                    ? ColorConstants.SWITCHER_COLOR
+                                    : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(15),
+                                topLeft: Radius.circular(15),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 1,
+                            color: Colors.white,
+                          ),
+                          buildSwitcher(
+                            () {
+                              setState(() {
+                                _index = 0;
+                              });
+                            },
+                            ConstantTexts.LIST,
+                            BoxDecoration(
+                              color: Color(
+                                _index == 0
+                                    ? ColorConstants.SWITCHER_COLOR
+                                    : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(15),
+                                topRight: Radius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              buildTableHeader(),
-              if (!_isInit) buildTableContent(),
-            ],
+            ),
+            FractionallySizedBox(
+              alignment: Alignment.topLeft,
+              widthFactor: 0.8,
+              heightFactor: 0.95,
+              child: IndexedStack(
+                index: _index,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 80,
+                      ),
+                      buildTableHeader(),
+                      if (!_isInit) buildTableContent(),
+                    ],
+                  ),
+                  MapDesktopVersion(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector buildSwitcher(
+    Function onTap,
+    String text,
+    BoxDecoration decoration,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: decoration,
+        width: 72,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
         ),
       ),
@@ -123,7 +219,6 @@ class _HomeViewState extends State<HomeView>
   Widget buildTableHeader() {
     return Container(
       height: 40,
-      width: MediaQuery.of(context).size.width * 0.8,
       padding: EdgeInsets.only(
         left: 20,
         right: 10,

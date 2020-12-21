@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -9,6 +10,19 @@ import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
+import 'package:universal_platform/universal_platform.dart';
+
+class MapMobile extends StatelessWidget {
+  final List<SeaPod> seapods;
+
+  MapMobile({@required this.seapods});
+  @override
+  Widget build(BuildContext context) {
+    return UniversalPlatform.isAndroid || UniversalPlatform.isIOS
+        ? MapMobileVersion(seapods: seapods)
+        : Container();
+  }
+}
 
 class MapMobileVersion extends StatefulWidget {
   final List<SeaPod> seapods;

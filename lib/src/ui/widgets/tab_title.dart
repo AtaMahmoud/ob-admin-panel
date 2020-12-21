@@ -7,7 +7,7 @@ class TabTitle extends StatelessWidget {
 
   TabTitle(
     this.title, {
-    this.fontSize = 26.0,
+    this.fontSize = 24.0,
   });
 
   @override

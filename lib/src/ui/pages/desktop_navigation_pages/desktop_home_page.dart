@@ -6,7 +6,6 @@ import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/access
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/devices.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/home.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/locations.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/map.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/messages.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/weather.dart';
 import 'package:ob_admin_panel/src/ui/pages/login.dart';
@@ -116,7 +115,6 @@ class _DesktopHomepageState extends State<DesktopHomepage>
   List<Widget> _buildTabViews() {
     return [
       HomeView(),
-      MapView(),
       WeatherView(),
       DevicesView(),
       MessagesView(),
@@ -262,33 +260,28 @@ class NavigationMenu extends StatelessWidget {
         tabController: _tabController,
       ),
       _AdminPanelTab(
-        title: ConstantTexts.MAP.toUpperCase(),
+        title: ConstantTexts.WEATHER_MARINE,
         tabIndex: 1,
         tabController: _tabController,
       ),
       _AdminPanelTab(
-        title: ConstantTexts.WEATHER_MARINE,
+        title: ConstantTexts.DEVICES,
         tabIndex: 2,
         tabController: _tabController,
       ),
       _AdminPanelTab(
-        title: ConstantTexts.DEVICES,
+        title: ConstantTexts.MESSAGES,
         tabIndex: 3,
         tabController: _tabController,
       ),
       _AdminPanelTab(
-        title: ConstantTexts.MESSAGES,
+        title: ConstantTexts.ACCESS_MANAGEMENT,
         tabIndex: 4,
         tabController: _tabController,
       ),
       _AdminPanelTab(
-        title: ConstantTexts.ACCESS_MANAGEMENT,
-        tabIndex: 5,
-        tabController: _tabController,
-      ),
-      _AdminPanelTab(
         title: ConstantTexts.LOCATIONS,
-        tabIndex: 6,
+        tabIndex: 5,
         tabController: _tabController,
       ),
     ];

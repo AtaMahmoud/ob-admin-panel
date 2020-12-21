@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
@@ -113,9 +115,9 @@ class _MobileHomePageState extends State<MobileHomePage>
                   index: _index,
                   children: [
                     SeapodsView(allSeapods: allSeapods.data),
-                    MapMobileVersion(
-                      seapods: allSeapods.data,
-                    ),
+                      MapMobile(
+                        seapods: allSeapods.data,
+                      ),
                   ],
                 ),
               ),

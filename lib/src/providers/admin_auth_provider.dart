@@ -51,7 +51,6 @@ class AdminAuthProvider with ChangeNotifier {
       notifyListeners();
       return true;
     }
-
     return false;
   }
 

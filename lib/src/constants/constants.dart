@@ -13,6 +13,7 @@ class ColorConstants {
   static const SEAPODS_CARD_BACKGROUND = 0xFFF3F4F6;
   static const TEXT_COLOR = 0xFF4A525F;
   static const SEAPOD_CARD_BACKGROUND = 0xFFA9B2C0;
+  static const SWITCHER_COLOR = 0xFF717D90;
 }
 
 class ImagePaths {
@@ -72,12 +73,13 @@ class ConstantTexts {
   static const MODEL = 'MODEL';
   static const HOME_CODE = 'HOME CODE';
   static const YEAR = 'YEAR';
+  static const LIST = 'List';
 }
 
 class Constants {
   static const String MAP_STYLE_FILE = 'assets/map_style.txt';
   static const double LEFT_NAVIGATION_WIDTH = 180.0;
-  static const int TAB_COUNT = 7;
+  static const int TAB_COUNT = 6;
   static const int TURNS_TO_ROTATE_RIGHT = 1;
   static const int TURNS_TO_ROTATE_LEFT = 3;
   static const double HEADER_HEIGHT = 100.0;

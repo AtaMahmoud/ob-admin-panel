@@ -18,7 +18,7 @@ class DesktopHeader extends StatefulWidget {
 class _DesktopHeaderState extends State<DesktopHeader> {
   @override
   Widget build(BuildContext context) {
-    var admin = Provider.of<AdminAuthProvider>(context, listen: false)
+    var admin = Provider.of<AdminAuthProvider>(context, )
         .authenticatedAdmin;
     return Container(
       padding: const EdgeInsets.only(right: 60),

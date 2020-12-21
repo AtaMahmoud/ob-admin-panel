@@ -64,8 +64,8 @@ class MyApp extends StatelessWidget {
           LoginPage.routeName: (BuildContext context) => LoginPage(),
           RegisterPage.routeName: (BuildContext context) => RegisterPage(),
           HomePage.routeName: (BuildContext context) => HomePage(),
-          SeapodDetailsPage.routeName: (BuildContext context) => SeapodDetailsPage(),
-
+          SeapodDetailsPage.routeName: (BuildContext context) =>
+              SeapodDetailsPage(),
         },
       ),
     );

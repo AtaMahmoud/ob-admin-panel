@@ -8,7 +8,7 @@ class ProfilePic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var authenticatedAdmin =
-        Provider.of<AdminAuthProvider>(context, listen: false)
+        Provider.of<AdminAuthProvider>(context,)
             .authenticatedAdmin;
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
