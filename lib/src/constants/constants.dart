@@ -32,7 +32,7 @@ class ImagePaths {
 }
 
 class ConstantTexts {
-  static const EMAIL = 'EMAIL';
+  static const EMAIL = 'Email';
   static const PASSWORD = 'PASSWORD';
   static const CONFIRM_PASSWORD = 'CONFIRM PASSWORD';
   static const FIRST_NAME = 'FIRST NAME';
@@ -64,7 +64,7 @@ class ConstantTexts {
   static const LOGOUT = 'LOGOUT';
   static const NAME = 'Name';
   static const LOGIN = 'LOGIN';
-  static const PROFILE = 'PROFILE';
+  static const PROFILE = 'Profile';
   static const ADD_NEW_SEAPOD = 'ADD NEW SEAPOD';
   static const GENERAL_INFO = 'General Information';
   static const OWNERSHIP = 'OWNERSHIP';
@@ -74,6 +74,17 @@ class ConstantTexts {
   static const HOME_CODE = 'HOME CODE';
   static const YEAR = 'YEAR';
   static const LIST = 'List';
+  static const MEMBER_SINCE = 'Member Since';
+  static const GENDER = 'Gender';
+  static const NATIONALITY = 'Nationality';
+  static const LANGUAGES = 'Languages';
+  static const HEALTH_CONDITION = 'Health Condition';
+  static const CONTACTS = 'Contacts';
+  static const CONNECTED_HOMES = 'Connected Homes';
+  static const EMMERGENCY_CONTACT = 'Emmergency Contact';
+  static const VIEW = 'View';
+  static const PHONE = 'Phone';
+  
 }
 
 class Constants {

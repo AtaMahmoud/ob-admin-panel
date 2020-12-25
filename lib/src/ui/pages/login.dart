@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Column(
                           children: [
                             CustomTextFormField(
-                              label: ConstantTexts.EMAIL,
+                              label: ConstantTexts.EMAIL.toUpperCase(),
                               onSaved: (String value) {
                                 _email = value;
                               },

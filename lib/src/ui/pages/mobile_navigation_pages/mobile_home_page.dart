@@ -115,9 +115,9 @@ class _MobileHomePageState extends State<MobileHomePage>
                   index: _index,
                   children: [
                     SeapodsView(allSeapods: allSeapods.data),
-                      MapMobile(
-                        seapods: allSeapods.data,
-                      ),
+                    MapMobile(
+                      seapods: allSeapods.data,
+                    ),
                   ],
                 ),
               ),
@@ -178,7 +178,11 @@ class SeapodsView extends StatelessWidget {
                     width: _mediaQuery.width * 0.35,
                     child: buildSeapodCardText(ConstantTexts.NAME),
                   ),
-                  buildSeapodCardText(allSeapods[index].seaPodName)
+                  Expanded(
+                    child: buildSeapodCardText(
+                      allSeapods[index].seaPodName,
+                    ),
+                  ),
                 ],
               ),
               Row(

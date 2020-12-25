@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/mobile_left_navigation_drawer.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
@@ -46,6 +47,9 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
                   children: [
                     MobileHeader(
                       showLogo: false,
+                    ),
+                    SizedBox(
+                      height: 15,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -116,92 +120,95 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
     );
   }
 
-  Container buildOwnerInfoCard(
+  GestureDetector buildOwnerInfoCard(
     SeaPod selectedSeapod,
     String ownerName,
   ) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 10,
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-      height: 160,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Color(
-            0xFF9BACC2,
-          ),
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pushNamed(SeapodOwnersPage.routeName),
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 10,
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          //TODO: Add dynamic profile pic
-          CircleAvatar(
-            radius: 60,
-            backgroundImage: AssetImage(
-              ImagePaths.AVATAR,
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        height: 160,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Color(
+              0xFF9BACC2,
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                ConstantTexts.OWNER.toUpperCase() + '(S)',
-                style: TextStyle(
-                  color: Color(
-                    ColorConstants.TEXT_COLOR,
-                  ),
-                  fontSize: 15.0,
-                ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            //TODO: Add dynamic profile pic
+            CircleAvatar(
+              radius: 60,
+              backgroundImage: AssetImage(
+                ImagePaths.AVATAR,
               ),
-              Divider(
-                height: 8,
-              ),
-              Text(
-                ownerName,
-                style: TextStyle(
-                  color: Color(
-                    ColorConstants.MAIN_COLOR,
-                  ),
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Divider(
-                height: 35,
-              ),
-              Row(
-                children: [
-                  Text(
-                    ConstantTexts.TYPE.toUpperCase(),
-                    style: TextStyle(
-                      color: Color(
-                        ColorConstants.TEXT_COLOR,
-                      ),
-                      fontSize: 15.0,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  ConstantTexts.OWNER.toUpperCase() + '(S)',
+                  style: TextStyle(
+                    color: Color(
+                      ColorConstants.TEXT_COLOR,
                     ),
+                    fontSize: 15.0,
                   ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Text(
-                    selectedSeapod.seaPodType.toUpperCase(),
-                    style: TextStyle(
-                      color: Color(
-                        ColorConstants.TEXT_COLOR,
-                      ),
-                      fontSize: 15.0,
+                ),
+                Divider(
+                  height: 8,
+                ),
+                Text(
+                  ownerName,
+                  style: TextStyle(
+                    color: Color(
+                      ColorConstants.MAIN_COLOR,
                     ),
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              )
-            ],
-          )
-        ],
+                ),
+                Divider(
+                  height: 35,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      ConstantTexts.TYPE.toUpperCase(),
+                      style: TextStyle(
+                        color: Color(
+                          ColorConstants.TEXT_COLOR,
+                        ),
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                      selectedSeapod.seaPodType.toUpperCase(),
+                      style: TextStyle(
+                        color: Color(
+                          ColorConstants.TEXT_COLOR,
+                        ),
+                        fontSize: 15.0,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -344,6 +351,8 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
             color: Colors.white,
             height: 120,
             width: 120,
+            //TODO: add QrCodeImage
+            //child: Image.network(_selectedSeapod.qrCodeImageUrl),
           )
         ],
       ),

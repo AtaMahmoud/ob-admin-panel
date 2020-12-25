@@ -96,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               },
                             ),
                             CustomTextFormField(
-                              label: ConstantTexts.EMAIL,
+                              label: ConstantTexts.EMAIL.toUpperCase(),
                               validationText: _emailValidationText,
                               onSaved: (String value) {
                                 _admin.email = value;

@@ -6,6 +6,7 @@ import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/login.dart';
 import 'package:ob_admin_panel/src/ui/pages/register.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -66,6 +67,8 @@ class MyApp extends StatelessWidget {
           HomePage.routeName: (BuildContext context) => HomePage(),
           SeapodDetailsPage.routeName: (BuildContext context) =>
               SeapodDetailsPage(),
+          SeapodOwnersPage.routeName: (BuildContext context) =>
+              SeapodOwnersPage(),
         },
       ),
     );

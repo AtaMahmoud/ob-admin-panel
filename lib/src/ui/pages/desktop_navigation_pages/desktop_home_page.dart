@@ -153,7 +153,7 @@ class DesktopControlOptions extends StatelessWidget {
             ),
             buildControlOption(
               ImagePaths.PROFILE_ICON,
-              ConstantTexts.PROFILE,
+              ConstantTexts.PROFILE.toUpperCase(),
               () {},
             ),
             buildControlOption(
