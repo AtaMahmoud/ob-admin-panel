@@ -4,7 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/admin.dart';
 import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/login.dart';
 import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/custom_text_form_field.dart';
 import 'package:ob_admin_panel/src/ui/widgets/logo.dart';
@@ -12,7 +11,6 @@ import 'package:ob_admin_panel/src/ui/widgets/submit_button.dart';
 import 'package:provider/provider.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:speech_bubble/speech_bubble.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName = 'create-account';

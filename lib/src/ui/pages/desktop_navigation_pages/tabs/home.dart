@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/map_desktop_version.dart';
 import 'package:provider/provider.dart';
@@ -34,80 +35,85 @@ class _HomeViewState extends State<HomeView>
 
   @override
   Widget build(BuildContext context) {
-    return RotatedBox(
-      quarterTurns: Constants.TURNS_TO_ROTATE_LEFT,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 20,
-          right: 30,
-          top: 25,
-          bottom: 30,
-        ),
+    return Container(
+      color: Color(_index == 1
+          ? ColorConstants.MAP_BACKGROUND
+          : ColorConstants.TAB_BACKGROUND),
+      child: RotatedBox(
+        quarterTurns: Constants.TURNS_TO_ROTATE_LEFT,
         child: Stack(
           children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Container(
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TabTitle(
-                      _index == 0 ? ConstantTexts.SEAPODS : ConstantTexts.MAP,
-                    ),
-                    Container(
-                      height: 30,
-                      child: Row(
-                        children: [
-                          buildSwitcher(
-                            () {
-                              setState(() {
-                                _index = 1;
-                              });
-                            },
-                            ConstantTexts.MAP,
-                            BoxDecoration(
-                              color: Color(
-                                _index == 1
-                                    ? ColorConstants.SWITCHER_COLOR
-                                    : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(15),
-                                topLeft: Radius.circular(15),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 1,
-                            color: Colors.white,
-                          ),
-                          buildSwitcher(
-                            () {
-                              setState(() {
-                                _index = 0;
-                              });
-                            },
-                            ConstantTexts.LIST,
-                            BoxDecoration(
-                              color: Color(
-                                _index == 0
-                                    ? ColorConstants.SWITCHER_COLOR
-                                    : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                              ),
-                            ),
-                          ),
-                        ],
+            if (_index != 2)
+              Align(
+                alignment: Alignment.topLeft,
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 30,
+                    top: 25,
+                  ),
+                  height: 75,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TabTitle(
+                        ConstantTexts.SEAPODS,
                       ),
-                    ),
-                  ],
+                      Container(
+                        height: 30,
+                        child: Row(
+                          children: [
+                            buildSwitcher(
+                              () {
+                                setState(() {
+                                  _index = 1;
+                                });
+                              },
+                              ConstantTexts.MAP,
+                              BoxDecoration(
+                                color: Color(
+                                  _index == 1
+                                      ? ColorConstants.SWITCHER_COLOR
+                                      : ColorConstants
+                                          .LOGIN_REGISTER_TEXT_COLOR,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(15),
+                                  topLeft: Radius.circular(15),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 1,
+                              color: Colors.white,
+                            ),
+                            buildSwitcher(
+                              () {
+                                setState(() {
+                                  _index = 0;
+                                });
+                              },
+                              ConstantTexts.LIST,
+                              BoxDecoration(
+                                color: Color(
+                                  _index == 0
+                                      ? ColorConstants.SWITCHER_COLOR
+                                      : ColorConstants
+                                          .LOGIN_REGISTER_TEXT_COLOR,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
             FractionallySizedBox(
               alignment: Alignment.topLeft,
               widthFactor: 0.8,
@@ -115,17 +121,33 @@ class _HomeViewState extends State<HomeView>
               child: IndexedStack(
                 index: _index,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 80,
-                      ),
-                      buildTableHeader(),
-                      if (!_isInit) buildTableContent(),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 30,
+                      bottom: 30,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 80,
+                        ),
+                        buildTableHeader(),
+                        if (!_isInit) buildTableContent(),
+                      ],
+                    ),
                   ),
-                  MapDesktopVersion(),
+                  if (!_isInit)
+                    MapDesktopVersion(
+                      seapods: seaPodsProvider.allSeaPods.data,
+                      onMoreButtonTapped: () {
+                        setState(() {
+                          _index = 2;
+                        });
+                      },
+                    ),
+                  SeapodDetailsPage(),
                 ],
               ),
             ),

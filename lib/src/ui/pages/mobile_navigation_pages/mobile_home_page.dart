@@ -115,7 +115,7 @@ class _MobileHomePageState extends State<MobileHomePage>
                   index: _index,
                   children: [
                     SeapodsView(allSeapods: allSeapods.data),
-                    MapMobile(
+                    MapMobileVersion(
                       seapods: allSeapods.data,
                     ),
                   ],

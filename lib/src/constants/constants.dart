@@ -4,6 +4,7 @@ class ColorConstants {
   static const LOGIN_REGISTER_TEXT_COLOR = 0xFF8B96A9;
   static const MAIN_COLOR = 0xFF2E74B4;
   static const TAB_BACKGROUND = 0xFFF0F2F5;
+  static const MAP_BACKGROUND = 0xFFF2F5F7;
   static const SEAPOD_TABLE_HEADER_BACKGROUND = 0xFFD9DDE4;
   static const TABLE_VIEW_TEXT_COLOR = 0xFFA9A9A9;
   static const TABLE_VIEW_DIVIDER_COLOR = 0xFFE9E9E9;
@@ -84,6 +85,7 @@ class ConstantTexts {
   static const EMMERGENCY_CONTACT = 'Emmergency Contact';
   static const VIEW = 'View';
   static const PHONE = 'Phone';
+  static const ABOUT = 'About';
   
 }
 
