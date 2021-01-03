@@ -18,13 +18,13 @@ class MobileHomePage extends StatefulWidget {
   final int tabIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
-  final VoidCallback onMoreButtonTap;
+  final int homeIndex;
 
   MobileHomePage({
     @required this.tabIndex,
     @required this.onMapTap,
     @required this.onListTap,
-    @required this.onMoreButtonTap,
+    @required this.homeIndex,
   });
   @override
   _MobileHomePageState createState() => _MobileHomePageState();
@@ -57,83 +57,83 @@ class _MobileHomePageState extends State<MobileHomePage>
       fontWeight: FontWeight.w700,
     );
     var allSeapods = seaPodsProvider.allSeaPods;
-    return Scaffold(
-      drawer: MobileLeftNavigationMenu(
-        tappedMenuIndex: 0,
-      ),
-      drawerScrimColor: Color(ColorConstants.DRAWER_SCRIM_COLOR),
-      body: SafeArea(
-        child: Column(
-          children: [
-            if (widget.tabIndex != 2) MobileHeader(),
-            if (widget.tabIndex != 2)
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TabTitle(
-                      widget.tabIndex == 0
-                          ? ConstantTexts.SEAPODS
-                          : ConstantTexts.MAP,
+    return widget.homeIndex == 1
+        ? SeapodDetailsPage()
+        : Scaffold(
+            drawer: MobileLeftNavigationMenu(
+              tappedMenuIndex: 0,
+            ),
+            drawerScrimColor: Color(ColorConstants.DRAWER_SCRIM_COLOR),
+            body: SafeArea(
+              child: Column(
+                children: [
+                  MobileHeader(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TabTitle(
+                          widget.tabIndex == 0
+                              ? ConstantTexts.SEAPODS
+                              : ConstantTexts.MAP,
+                        ),
+                        Container(
+                          width: 100,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: widget.onListTap,
+                                child: Text(
+                                  ConstantTexts.LIST,
+                                  style: _textStyle,
+                                ),
+                              ),
+                              Text(
+                                '|',
+                                style: _textStyle,
+                              ),
+                              GestureDetector(
+                                onTap: widget.onMapTap,
+                                child: Text(
+                                  ConstantTexts.MAP,
+                                  style: _textStyle,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                  if (allSeapods.status == Status.LOADING ||
+                      allSeapods.data == null)
                     Container(
-                      width: 100,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      height: 300,
+                      child: SpinKitFadingCircle(
+                        color: Color(ColorConstants.MAIN_COLOR),
+                        size: 50,
+                      ),
+                    ),
+                  if (allSeapods.status == Status.COMPLETED &&
+                      allSeapods.data != null)
+                    Expanded(
+                      child: IndexedStack(
+                        index: widget.tabIndex,
                         children: [
-                          GestureDetector(
-                            onTap: widget.onListTap,
-                            child: Text(
-                              ConstantTexts.LIST,
-                              style: _textStyle,
-                            ),
-                          ),
-                          Text(
-                            '|',
-                            style: _textStyle,
-                          ),
-                          GestureDetector(
-                            onTap: widget.onMapTap,
-                            child: Text(
-                              ConstantTexts.MAP,
-                              style: _textStyle,
-                            ),
+                          SeapodsView(allSeapods: allSeapods.data),
+                          MapTab(
+                            seapods: allSeapods.data,
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                ],
               ),
-            if (allSeapods.status == Status.LOADING || allSeapods.data == null)
-              Container(
-                height: 300,
-                child: SpinKitFadingCircle(
-                  color: Color(ColorConstants.MAIN_COLOR),
-                  size: 50,
-                ),
-              ),
-            if (allSeapods.status == Status.COMPLETED &&
-                allSeapods.data != null)
-              Expanded(
-                child: IndexedStack(
-                  index: widget.tabIndex,
-                  children: [
-                    SeapodsView(allSeapods: allSeapods.data),
-                    MapTab(
-                      seapods: allSeapods.data,
-                      onMorebuttonTapped: widget.onMoreButtonTap,
-                    ),
-                    SeapodDetailsPage()
-                  ],
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
+            ),
+          );
   }
 }
 

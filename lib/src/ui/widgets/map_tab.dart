@@ -12,9 +12,10 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 class MapTab extends StatefulWidget {
   final List<SeaPod> seapods;
-  final VoidCallback onMorebuttonTapped;
 
-  MapTab({@required this.seapods, this.onMorebuttonTapped});
+  MapTab({
+    @required this.seapods,
+  });
 
   @override
   _MapTabState createState() => _MapTabState();
@@ -113,9 +114,7 @@ class _MapTabState extends State<MapTab> {
                   alignment: Alignment.centerRight,
                   child: Container(
                     margin: EdgeInsets.only(right: 30),
-                    child: SeapodWindowInfo(
-                      onMoreInfoTapped: widget.onMorebuttonTapped,
-                    ),
+                    child: SeapodWindowInfo(),
                   ),
                 )
             ],

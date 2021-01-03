@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
+import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
 class SeapodWindowInfo extends StatefulWidget {
-  final VoidCallback onMoreInfoTapped;
-
-  SeapodWindowInfo({this.onMoreInfoTapped});
-
   @override
   _SeapodWindowInfoState createState() => _SeapodWindowInfoState();
 }
@@ -48,9 +45,7 @@ class _SeapodWindowInfoState extends State<SeapodWindowInfo> {
           infoWidget(
             selectedSeapod.owners.join(', '),
           ),
-          SeapodDetailsWidget(
-            onTap: widget.onMoreInfoTapped,
-          ),
+          SeapodDetailsWidget(),
           divider,
           titleWidget(
             ConstantTexts.LOCATION + ': ',
@@ -115,15 +110,20 @@ class _SeapodWindowInfoState extends State<SeapodWindowInfo> {
 class SeapodDetailsWidget extends StatelessWidget {
   const SeapodDetailsWidget({
     Key key,
-    this.onTap,
   }) : super(key: key);
-
-  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => HomePage(
+              homeIndex: 1,
+            ),
+          ),
+        );
+      },
       child: Container(
         height: 30,
         width: 100,

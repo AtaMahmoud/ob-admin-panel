@@ -6,53 +6,51 @@ import 'package:responsive_builder/responsive_builder.dart';
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
 
+  final int homeIndex;
+
+  HomePage({
+    this.homeIndex = 0,
+  });
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int tabIndex = 0;
+  int homeTabsIndex = 0;
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         if (sizingInformation.deviceScreenType == DeviceScreenType.desktop)
           return DesktopHomepage(
-            tabIndex: tabIndex,
+            tabIndex: homeTabsIndex,
             onListTap: () {
               setState(() {
-                tabIndex = 0;
+                homeTabsIndex = 0;
               });
             },
             onMapTap: () {
               setState(() {
-                tabIndex = 1;
+                homeTabsIndex = 1;
               });
             },
-            onMoreButtonTap: () {
-              setState(() {
-                tabIndex = 2;
-              });
-            },
+            homeIndex: widget.homeIndex,
           );
         else
           return MobileHomePage(
-            tabIndex: tabIndex,
+            tabIndex: homeTabsIndex,
             onListTap: () {
               setState(() {
-                tabIndex = 0;
+                homeTabsIndex = 0;
               });
             },
             onMapTap: () {
               setState(() {
-                tabIndex = 1;
+                homeTabsIndex = 1;
               });
             },
-            onMoreButtonTap: () {
-              setState(() {
-                tabIndex = 2;
-              });
-            },
+            homeIndex: widget.homeIndex,
           );
       },
     );

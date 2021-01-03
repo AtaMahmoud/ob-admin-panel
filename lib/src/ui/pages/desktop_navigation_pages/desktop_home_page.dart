@@ -18,13 +18,13 @@ class DesktopHomepage extends StatefulWidget {
   final int tabIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
-  final VoidCallback onMoreButtonTap;
+  final int homeIndex;
 
   DesktopHomepage({
     @required this.tabIndex,
     @required this.onMapTap,
     @required this.onListTap,
-    @required this.onMoreButtonTap,
+    @required this.homeIndex,
   });
 
   @override
@@ -130,7 +130,7 @@ class _DesktopHomepageState extends State<DesktopHomepage>
         tabIndex: widget.tabIndex,
         onListTap: widget.onListTap,
         onMapTap: widget.onMapTap,
-        onMoreButtonTap: widget.onMoreButtonTap,
+        homeIndex: widget.homeIndex,
       ),
       WeatherView(),
       DevicesView(),
