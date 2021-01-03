@@ -15,6 +15,18 @@ import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
 class DesktopHomepage extends StatefulWidget {
+  final int tabIndex;
+  final VoidCallback onMapTap;
+  final VoidCallback onListTap;
+  final VoidCallback onMoreButtonTap;
+
+  DesktopHomepage({
+    @required this.tabIndex,
+    @required this.onMapTap,
+    @required this.onListTap,
+    @required this.onMoreButtonTap,
+  });
+
   @override
   _DesktopHomepageState createState() => _DesktopHomepageState();
 }
@@ -114,7 +126,12 @@ class _DesktopHomepageState extends State<DesktopHomepage>
 
   List<Widget> _buildTabViews() {
     return [
-      HomeView(),
+      HomeView(
+        tabIndex: widget.tabIndex,
+        onListTap: widget.onListTap,
+        onMapTap: widget.onMapTap,
+        onMoreButtonTap: widget.onMoreButtonTap,
+      ),
       WeatherView(),
       DevicesView(),
       MessagesView(),

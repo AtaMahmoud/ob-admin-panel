@@ -6,14 +6,26 @@ import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/helpers/api_response.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/mobile_navigation_pages/map_mobile_version.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
+import 'package:ob_admin_panel/src/ui/widgets/map_tab.dart';
 import 'package:ob_admin_panel/src/ui/widgets/mobile_left_navigation_drawer.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class MobileHomePage extends StatefulWidget {
+  final int tabIndex;
+  final VoidCallback onMapTap;
+  final VoidCallback onListTap;
+  final VoidCallback onMoreButtonTap;
+
+  MobileHomePage({
+    @required this.tabIndex,
+    @required this.onMapTap,
+    @required this.onListTap,
+    @required this.onMoreButtonTap,
+  });
   @override
   _MobileHomePageState createState() => _MobileHomePageState();
 }
@@ -22,7 +34,6 @@ class _MobileHomePageState extends State<MobileHomePage>
     with SingleTickerProviderStateMixin {
   var _isInit = true;
   SeaPodsProvider seaPodsProvider;
-  var _index = 0;
   @override
   void didChangeDependencies() async {
     if (_isInit) {
@@ -54,52 +65,48 @@ class _MobileHomePageState extends State<MobileHomePage>
       body: SafeArea(
         child: Column(
           children: [
-            MobileHeader(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TabTitle(
-                    _index == 0 ? ConstantTexts.SEAPODS : ConstantTexts.MAP,
-                  ),
-                  Container(
-                    width: 140,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _index = 0;
-                            });
-                          },
-                          child: Text(
-                            ConstantTexts.SEAPODS,
-                            style: _textStyle,
-                          ),
-                        ),
-                        Text(
-                          '|',
-                          style: _textStyle,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _index = 1;
-                            });
-                          },
-                          child: Text(
-                            ConstantTexts.MAP,
-                            style: _textStyle,
-                          ),
-                        ),
-                      ],
+            if (widget.tabIndex != 2) MobileHeader(),
+            if (widget.tabIndex != 2)
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TabTitle(
+                      widget.tabIndex == 0
+                          ? ConstantTexts.SEAPODS
+                          : ConstantTexts.MAP,
                     ),
-                  ),
-                ],
+                    Container(
+                      width: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: widget.onListTap,
+                            child: Text(
+                              ConstantTexts.LIST,
+                              style: _textStyle,
+                            ),
+                          ),
+                          Text(
+                            '|',
+                            style: _textStyle,
+                          ),
+                          GestureDetector(
+                            onTap: widget.onMapTap,
+                            child: Text(
+                              ConstantTexts.MAP,
+                              style: _textStyle,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
             if (allSeapods.status == Status.LOADING || allSeapods.data == null)
               Container(
                 height: 300,
@@ -112,12 +119,14 @@ class _MobileHomePageState extends State<MobileHomePage>
                 allSeapods.data != null)
               Expanded(
                 child: IndexedStack(
-                  index: _index,
+                  index: widget.tabIndex,
                   children: [
                     SeapodsView(allSeapods: allSeapods.data),
-                    MapMobileVersion(
+                    MapTab(
                       seapods: allSeapods.data,
+                      onMorebuttonTapped: widget.onMoreButtonTap,
                     ),
+                    SeapodDetailsPage()
                   ],
                 ),
               ),

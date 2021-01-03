@@ -3,11 +3,23 @@ import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
+import 'package:ob_admin_panel/src/ui/widgets/map_tab.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/map_desktop_version.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
+  final int tabIndex;
+  final VoidCallback onMapTap;
+  final VoidCallback onListTap;
+  final VoidCallback onMoreButtonTap;
+
+  HomeView({
+    @required this.tabIndex,
+    @required this.onMapTap,
+    @required this.onListTap,
+    @required this.onMoreButtonTap,
+  });
+
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -16,7 +28,6 @@ class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   var _isInit = true;
   SeaPodsProvider seaPodsProvider;
-  var _index = 0;
 
   @override
   void didChangeDependencies() async {
@@ -36,14 +47,14 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(_index == 1
+      color: Color(widget.tabIndex == 1
           ? ColorConstants.MAP_BACKGROUND
           : ColorConstants.TAB_BACKGROUND),
       child: RotatedBox(
         quarterTurns: Constants.TURNS_TO_ROTATE_LEFT,
         child: Stack(
           children: [
-            if (_index != 2)
+            if (widget.tabIndex != 2)
               Align(
                 alignment: Alignment.topLeft,
                 child: Container(
@@ -64,15 +75,11 @@ class _HomeViewState extends State<HomeView>
                         child: Row(
                           children: [
                             buildSwitcher(
-                              () {
-                                setState(() {
-                                  _index = 1;
-                                });
-                              },
+                              widget.onMapTap,
                               ConstantTexts.MAP,
                               BoxDecoration(
                                 color: Color(
-                                  _index == 1
+                                  widget.tabIndex == 1
                                       ? ColorConstants.SWITCHER_COLOR
                                       : ColorConstants
                                           .LOGIN_REGISTER_TEXT_COLOR,
@@ -88,15 +95,11 @@ class _HomeViewState extends State<HomeView>
                               color: Colors.white,
                             ),
                             buildSwitcher(
-                              () {
-                                setState(() {
-                                  _index = 0;
-                                });
-                              },
+                              widget.onListTap,
                               ConstantTexts.LIST,
                               BoxDecoration(
                                 color: Color(
-                                  _index == 0
+                                  widget.tabIndex == 0
                                       ? ColorConstants.SWITCHER_COLOR
                                       : ColorConstants
                                           .LOGIN_REGISTER_TEXT_COLOR,
@@ -119,7 +122,7 @@ class _HomeViewState extends State<HomeView>
               widthFactor: 0.8,
               heightFactor: 0.95,
               child: IndexedStack(
-                index: _index,
+                index: widget.tabIndex,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
@@ -139,13 +142,9 @@ class _HomeViewState extends State<HomeView>
                     ),
                   ),
                   if (!_isInit)
-                    MapDesktopVersion(
+                    MapTab(
                       seapods: seaPodsProvider.allSeaPods.data,
-                      onMoreButtonTapped: () {
-                        setState(() {
-                          _index = 2;
-                        });
-                      },
+                      onMorebuttonTapped: widget.onMoreButtonTap,
                     ),
                   SeapodDetailsPage(),
                 ],

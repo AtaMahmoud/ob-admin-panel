@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
@@ -124,12 +123,7 @@ class SeapodDetailsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap ??
-          () {
-            Navigator.of(context).pushNamed(
-              SeapodDetailsPage.routeName,
-            );
-          },
+      onTap: onTap,
       child: Container(
         height: 30,
         width: 100,
