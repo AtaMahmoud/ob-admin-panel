@@ -111,10 +111,13 @@ class _MapTabState extends State<MapTab> {
                 ),
               if (_showInfoWindow)
                 Align(
-                  alignment: Alignment.centerRight,
+                  alignment: sizingInformation.deviceScreenType ==
+                          DeviceScreenType.desktop
+                      ? Alignment.topLeft
+                      : Alignment.centerRight,
                   child: Container(
                     margin: EdgeInsets.only(right: 30),
-                    child: SeapodWindowInfo(),
+                    child: SeaPodInfoWindow(),
                   ),
                 )
             ],
