@@ -7,6 +7,10 @@ class SeaPodsProvider with ChangeNotifier {
   SeaPodsRepository _seaPodsRepository = SeaPodsRepository();
   ApiResponse<List<SeaPod>> _allSeapods;
 
+  SeaPodsProvider() {
+    _allSeapods = ApiResponse<List<SeaPod>>();
+  }
+
   SeaPod _selectedSeapod;
 
   ApiResponse<List<SeaPod>> get allSeaPods => _allSeapods;

@@ -50,110 +50,105 @@ class _HomeViewState extends State<HomeView>
       color: Color(widget.tabIndex == 1
           ? ColorConstants.MAP_BACKGROUND
           : ColorConstants.TAB_BACKGROUND),
-      child: RotatedBox(
-        quarterTurns: Constants.TURNS_TO_ROTATE_LEFT,
-        child: widget.homeIndex == 1
-            ? SeapodDetailsPage()
-            : Stack(
-                children: [
-                  if (widget.tabIndex != 2)
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          right: 30,
-                          top: 25,
-                        ),
-                        height: 75,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TabTitle(
-                              ConstantTexts.SEAPODS,
-                            ),
-                            Container(
-                              height: 30,
-                              child: Row(
-                                children: [
-                                  buildSwitcher(
-                                    widget.onMapTap,
-                                    ConstantTexts.MAP,
-                                    BoxDecoration(
-                                      color: Color(
-                                        widget.tabIndex == 1
-                                            ? ColorConstants.SWITCHER_COLOR
-                                            : ColorConstants
-                                                .LOGIN_REGISTER_TEXT_COLOR,
-                                      ),
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(15),
-                                        topLeft: Radius.circular(15),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 1,
-                                    color: Colors.white,
-                                  ),
-                                  buildSwitcher(
-                                    widget.onListTap,
-                                    ConstantTexts.LIST,
-                                    BoxDecoration(
-                                      color: Color(
-                                        widget.tabIndex == 0
-                                            ? ColorConstants.SWITCHER_COLOR
-                                            : ColorConstants
-                                                .LOGIN_REGISTER_TEXT_COLOR,
-                                      ),
-                                      borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+      child: widget.homeIndex == 1
+          ? SeapodDetailsPage()
+          : Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 30,
+                      top: 25,
                     ),
-                  FractionallySizedBox(
-                    alignment: Alignment.topLeft,
-                    widthFactor: 0.8,
-                    heightFactor: 0.95,
-                    child: IndexedStack(
-                      index: widget.tabIndex,
+                    height: 75,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 20,
-                            right: 30,
-                            bottom: 30,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        TabTitle(
+                          ConstantTexts.SEAPODS,
+                        ),
+                        Container(
+                          height: 30,
+                          child: Row(
                             children: [
-                              SizedBox(
-                                height: 80,
+                              buildSwitcher(
+                                widget.onMapTap,
+                                ConstantTexts.MAP,
+                                BoxDecoration(
+                                  color: Color(
+                                    widget.tabIndex == 1
+                                        ? ColorConstants.SWITCHER_COLOR
+                                        : ColorConstants
+                                            .LOGIN_REGISTER_TEXT_COLOR,
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(15),
+                                    topLeft: Radius.circular(15),
+                                  ),
+                                ),
                               ),
-                              buildTableHeader(),
-                              if (!_isInit) buildTableContent(),
+                              Container(
+                                width: 1,
+                                color: Colors.white,
+                              ),
+                              buildSwitcher(
+                                widget.onListTap,
+                                ConstantTexts.LIST,
+                                BoxDecoration(
+                                  color: Color(
+                                    widget.tabIndex == 0
+                                        ? ColorConstants.SWITCHER_COLOR
+                                        : ColorConstants
+                                            .LOGIN_REGISTER_TEXT_COLOR,
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(15),
+                                    topRight: Radius.circular(15),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        if (!_isInit)
-                          MapTab(
-                            seapods: seaPodsProvider.allSeaPods.data,
-                          ),
-                        SeapodDetailsPage(),
                       ],
                     ),
                   ),
-                ],
-              ),
-      ),
+                ),
+                FractionallySizedBox(
+                  alignment: Alignment.topLeft,
+                  widthFactor: 0.8,
+                  heightFactor: 0.95,
+                  child: IndexedStack(
+                    index: widget.tabIndex,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                          right: 30,
+                          bottom: 30,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 80,
+                            ),
+                            buildTableHeader(),
+                            if (!_isInit) buildTableContent(),
+                          ],
+                        ),
+                      ),
+                      if (!_isInit)
+                        MapTab(
+                          seapods: seaPodsProvider.allSeaPods.data,
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
     );
   }
 

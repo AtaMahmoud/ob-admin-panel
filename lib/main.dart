@@ -48,20 +48,20 @@ class MyApp extends StatelessWidget {
         title: 'OB Admin Panel',
         routes: {
           '/': (BuildContext context) =>
-              _adminProvider.authenticatedAdmin != null
-                  ? HomePage()
-                  : FutureBuilder(
+              _adminProvider.authenticatedAdmin == null
+                  ? FutureBuilder(
                       future: Provider.of<AdminAuthProvider>(
                         context,
                       ).autoLogin(),
-                      builder: (ctx, authResultSnapShot) =>
-                          authResultSnapShot.connectionState ==
-                                      ConnectionState.active ||
-                                  authResultSnapShot.connectionState ==
-                                      ConnectionState.waiting
-                              ? SplashScreen()
-                              : LoginPage(),
-                    ),
+                      builder: (ctx, authResultSnapShot) {
+                        return authResultSnapShot.connectionState ==
+                                    ConnectionState.active ||
+                                authResultSnapShot.connectionState ==
+                                    ConnectionState.waiting
+                            ? SplashScreen()
+                            : LoginPage();
+                      })
+                  : HomePage(),
           LoginPage.routeName: (BuildContext context) => LoginPage(),
           RegisterPage.routeName: (BuildContext context) => RegisterPage(),
           HomePage.routeName: (BuildContext context) => HomePage(),

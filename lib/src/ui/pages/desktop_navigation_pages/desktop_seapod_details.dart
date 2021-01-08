@@ -5,7 +5,12 @@ import 'package:ob_admin_panel/src/ui/widgets/seapod_info_cards.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
 
-class DesktopSeapodDetails extends StatelessWidget {
+class DesktopSeapodDetails extends StatefulWidget {
+  @override
+  _DesktopSeapodDetailsState createState() => _DesktopSeapodDetailsState();
+}
+
+class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
   @override
   Widget build(BuildContext context) {
     var _selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
@@ -13,55 +18,145 @@ class DesktopSeapodDetails extends StatelessWidget {
       color: Color(ColorConstants.MAIN_COLOR),
       fontSize: 10,
     );
-    var pixelRatio = MediaQuery.of(context).devicePixelRatio;
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 20,
-        top: 25,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TabTitle(
-            ConstantTexts.ABOUT,
-            fontSize: 22,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 10),
-            child: Row(
-              children: [
-                Text(
-                  ConstantTexts.OWNERSHIP,
-                  style: textStyle1,
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  ConstantTexts.DEVICES,
-                  style: textStyle1,
-                ),
-              ],
+
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 20,
+          top: 25,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TabTitle(
+              ConstantTexts.ABOUT,
+              fontSize: 22,
             ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Column(),
-              ),
-              Column(
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: Row(
                 children: [
-                  Container(
-                    width: 416 * pixelRatio,
-                    child: GeneralInfoCard(),
+                  Text(
+                    ConstantTexts.OWNERSHIP,
+                    style: textStyle1,
                   ),
-                  Container(
-                    width: 416,
-                    child: LocationInfoCard(),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    ConstantTexts.DEVICES,
+                    style: textStyle1,
                   ),
                 ],
-              )
-            ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        buildSeapodInfoContainer(
+                          ConstantTexts.VESSLE_NAME,
+                          _selectedSeapod.seaPodName,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        buildSeapodInfoContainer(
+                          ConstantTexts.CURRENT_OCCUPANT,
+                          _selectedSeapod.owners[0],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: 416,
+                          child: GeneralInfoCard(),
+                        ),
+                        Container(
+                          width: 416,
+                          child: LocationInfoCard(),
+                        ),
+                        ...[
+                          for (var owner in _selectedSeapod.owners) ...[
+                            Container(
+                              width: 416,
+                              child: OwnerInfoCard(
+                                ownerName: owner,
+                              ),
+                            ),
+                          ]
+                        ]
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  buildSeapodInfoContainer(
+    String infoTitle,
+    String info,
+  ) {
+    return Container(
+      width: 500,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            infoTitle,
+            style: TextStyle(
+              color: Color(ColorConstants.TEXT_COLOR),
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+            ),
+          ),
+          Container(
+            height: 40,
+            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.only(left: 10),
+            width: 350,
+            padding: const EdgeInsets.only(left: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    color: const Color(
+                      ColorConstants.TEXT_FIELD_BORDER,
+                    ),
+                  ),
+                ),
+              ),
+              child: Text(
+                info,
+                style: TextStyle(
+                  color: Color(
+                    ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                  ),
+                  fontSize: 15,
+                ),
+              ),
+            ),
           ),
         ],
       ),

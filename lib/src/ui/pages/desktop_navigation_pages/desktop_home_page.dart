@@ -58,7 +58,6 @@ class _DesktopHomepageState extends State<DesktopHomepage>
     var sizeCalcs = SizeCalcs(context: context);
     final tabViewHeight = sizeCalcs.calculateTabViewHeight();
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -96,7 +95,11 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                                   color: Color(
                                     ColorConstants.TAB_BACKGROUND,
                                   ),
-                                  child: widget,
+                                  child: RotatedBox(
+                                    quarterTurns:
+                                        Constants.TURNS_TO_ROTATE_LEFT,
+                                    child: widget,
+                                  ),
                                 );
                               },
                             ).toList(),

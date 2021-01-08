@@ -14,14 +14,16 @@ class PermissionSet {
   });
 
   PermissionSet.fromJson(Map<String, dynamic> json) {
-    isDefault = json['isDefault'];
-    id = json['_id'];
-    name = json['Name'];
-    sets = [];
-    json['Sets'].forEach((e) {
-      sets.add(Set.fromJson(e));
-    });
-    v = json['__v'];
+    if (json != null) {
+      isDefault = json['isDefault'];
+      id = json['_id'];
+      name = json['Name'];
+      sets = [];
+      json['Sets'].forEach((e) {
+        sets.add(Set.fromJson(e));
+      });
+      v = json['__v'];
+    }
   }
 }
 

@@ -105,7 +105,7 @@ class SeaPod {
     });
     seaPodOrientation = json['seaPodOrientation'];
     /*  List accessRequests;
-  List accessInvitation; */
+   List accessInvitation; */
     id = json['_id'];
 
     seaPodName = json['SeaPodName'];
@@ -135,7 +135,7 @@ class SeaPod {
     json['users'].forEach((user) {
       var userData = User.fromJson(user);
       if (userData.type.toLowerCase() == 'owner') owners.add(userData.userName);
-     /*  if (userData.type.toLowerCase() == 'admin')
+      /*  if (userData.type.toLowerCase() == 'admin')
         accessLevel = userData.permissionSet; */
 
       users.add(userData);
