@@ -203,7 +203,7 @@ class SeapodsView extends StatelessWidget {
                   ),
                   Expanded(
                     child: buildSeapodCardText(
-                      allSeapods[index].owners.join(', '),
+                      allSeapods[index].ownersNames.join(', '),
                     ),
                   ),
                 ],

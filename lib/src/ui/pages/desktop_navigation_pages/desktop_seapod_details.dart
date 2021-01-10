@@ -12,6 +12,24 @@ class DesktopSeapodDetails extends StatefulWidget {
 }
 
 class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
+  SeaPodsProvider seaPodsProvider;
+  var _isInit = true;
+
+  @override
+  void didChangeDependencies() async {
+    if (_isInit) {
+      seaPodsProvider = Provider.of<SeaPodsProvider>(
+        context,
+        listen: false,
+      );
+      await seaPodsProvider.getSeapodOwners();
+      setState(() {});
+      _isInit = false;
+    }
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     var _selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
@@ -52,58 +70,59 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
                 ],
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Container(
-                padding: const EdgeInsets.only(top: 20),
-                width: tabViewWidth > 2000 ? 1800 : 1400,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        buildSeapodInfoContainer(
-                          ConstantTexts.VESSLE_NAME,
-                          _selectedSeapod.seaPodName,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        buildSeapodInfoContainer(
-                          ConstantTexts.CURRENT_OCCUPANT,
-                          _selectedSeapod.owners[0],
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 416,
-                          child: GeneralInfoCard(
-                            isDesktop: true,
+            if (!_isInit)
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Container(
+                  padding: const EdgeInsets.only(top: 20),
+                  width: tabViewWidth > 2000 ? 1800 : 1400,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          buildSeapodInfoContainer(
+                            ConstantTexts.VESSLE_NAME,
+                            _selectedSeapod.seaPodName,
                           ),
-                        ),
-                        Container(
-                          width: 416,
-                          child: LocationInfoCard(),
-                        ),
-                        ...[
-                          for (var owner in _selectedSeapod.owners) ...[
-                            Container(
-                              width: 416,
-                              child: OwnerInfoCard(
-                                ownerName: owner,
-                              ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          buildSeapodInfoContainer(
+                            ConstantTexts.CURRENT_OCCUPANT,
+                            _selectedSeapod.ownersNames[0],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 416,
+                            child: GeneralInfoCard(
+                              isDesktop: true,
                             ),
+                          ),
+                          Container(
+                            width: 416,
+                            child: LocationInfoCard(),
+                          ),
+                          ...[
+                            for (var owner in _selectedSeapod.owners) ...[
+                              Container(
+                                width: 416,
+                                child: OwnerInfoCard(
+                                  owner: owner,
+                                ),
+                              ),
+                            ]
                           ]
-                        ]
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),

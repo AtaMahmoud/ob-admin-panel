@@ -2,6 +2,7 @@ import 'package:geocoder/geocoder.dart';
 import 'package:ob_admin_panel/src/configs/config.dart';
 import 'package:ob_admin_panel/src/helpers/api_base_helper.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
+import 'package:ob_admin_panel/src/models/seapod_owner.dart';
 import 'package:ob_admin_panel/src/singletones/headers_manager.dart';
 
 class SeaPodsRepository {
@@ -17,7 +18,7 @@ class SeaPodsRepository {
     List<SeaPod> allSeapods = [];
     response.data.forEach((e) async {
       var seaPod = SeaPod.fromJson(e);
-    /*   final coordinates =
+      /*   final coordinates =
           Coordinates(seaPod.location.latitude, seaPod.location.longitude);
       var address =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
@@ -27,5 +28,21 @@ class SeaPodsRepository {
     });
 
     return allSeapods;
+  }
+
+  Future<List<SeapodOwner>> getSeapodOwners(
+    String seapodId,
+  ) async {
+    var headers = await _headersManager.getHeadersFromSharedPrefs();
+    final response = await _apiBaseHelper.get(
+      url: Config.allSeaPods + '/$seapodId/owner',
+      headers: headers,
+    );
+    List<SeapodOwner> seapodOwners = [];
+    response.data.forEach((e) {
+      seapodOwners.add(SeapodOwner.fromJson(e));
+    });
+
+    return seapodOwners;
   }
 }

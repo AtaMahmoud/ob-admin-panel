@@ -63,7 +63,7 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
                             ConstantTexts.OWNER + ': ',
                           ),
                           infoWidget(
-                            selectedSeapod.owners.join(', '),
+                            selectedSeapod.ownersNames.join(', '),
                           ),
                           SizedBox(
                             height: 10,
@@ -130,7 +130,7 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
           ConstantTexts.OWNER + ': ',
         ),
         infoWidget(
-          selectedSeapod.owners.join(', '),
+          selectedSeapod.ownersNames.join(', '),
         ),
         MoreButton(),
         divider,

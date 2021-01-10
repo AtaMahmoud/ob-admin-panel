@@ -11,6 +11,8 @@ class SeapodDetailsPage extends StatefulWidget {
 }
 
 class _SeapodDetailsPageState extends State<SeapodDetailsPage> {
+
+  
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(

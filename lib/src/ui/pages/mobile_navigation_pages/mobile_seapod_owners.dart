@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/mobile_left_navigation_drawer.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
+import 'package:provider/provider.dart';
 
-class MobileSeapodOwners extends StatelessWidget {
+class MobileSeapodOwner extends StatefulWidget {
+  @override
+  _MobileSeapodOwnerState createState() => _MobileSeapodOwnerState();
+}
+
+class _MobileSeapodOwnerState extends State<MobileSeapodOwner> {
   @override
   Widget build(BuildContext context) {
+    var selectedOwner =
+        Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(
@@ -35,7 +44,7 @@ class MobileSeapodOwners extends StatelessWidget {
                       bottom: 15,
                     ),
                     child: TabTitle(
-                      'John Doe',
+                      selectedOwner.userName,
                       fontSize: 22,
                     ),
                   ),
@@ -59,23 +68,22 @@ class ProfileInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var selectedOwner =
+        Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return InfoCard(
       title: ConstantTexts.PROFILE,
       children: [
         InfoRow(
           titleText: ConstantTexts.MEMBER_SINCE,
-          infoText: '12/2/2020',
-        ),
-        InfoRow(
-          titleText: ConstantTexts.GENDER,
-          infoText: 'Male',
+          infoText: selectedOwner.checkInDate.toString(),
         ),
         InfoRow(
           titleText: ConstantTexts.NATIONALITY,
-          infoText: 'Egypt',
+          infoText: selectedOwner.country,
         ),
         InfoRow(
           titleText: ConstantTexts.LANGUAGES,
+          //TODO: Missing info
           infoText: 'English',
         ),
         Row(
@@ -83,6 +91,7 @@ class ProfileInfoCard extends StatelessWidget {
           children: [
             Expanded(
               child: InfoText(
+                //TODO: Missing info
                 text: ConstantTexts.HEALTH_CONDITION,
               ),
             ),
@@ -108,6 +117,8 @@ class ContactsInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var selectedOwner =
+        Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return InfoCard(
       title: ConstantTexts.CONTACTS,
       children: [
@@ -122,7 +133,7 @@ class ContactsInfoCard extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 child: InfoText(
-                  text: 'shimaa@oceanbuilders.com',
+                  text: selectedOwner.email,
                   textColor: ColorConstants.MAIN_COLOR,
                 ),
               ),
@@ -131,7 +142,7 @@ class ContactsInfoCard extends StatelessWidget {
         ),
         InfoRow(
           titleText: ConstantTexts.PHONE,
-          infoText: '+244581',
+          infoText: selectedOwner.mobileNumber,
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,21 +153,22 @@ class ContactsInfoCard extends StatelessWidget {
               ),
             ),
             Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InfoText(
-                  text: 'Name',
-                ),
-                InfoText(
-                  text: 'Phone',
-                ),
-                InfoText(
-                  text: 'name@mail.com',
-                  textColor: ColorConstants.MAIN_COLOR,
-                )
-              ],
-            )),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InfoText(
+                    text: 'Name',
+                  ),
+                  InfoText(
+                    text: 'Phone',
+                  ),
+                  InfoText(
+                    text: 'mail.com',
+                    textColor: ColorConstants.MAIN_COLOR,
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ],
@@ -171,9 +183,47 @@ class ConnectedHomesInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var selectedOwner =
+        Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return InfoCard(
       title: ConstantTexts.CONNECTED_HOMES,
-      children: [],
+      children: [
+        ...[
+          for (var seapod in selectedOwner.seapods) ...[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: InfoText(
+                    text: seapod.seapodName,
+                  ),
+                ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Color(0xFFC6D7F4),
+                            borderRadius: BorderRadius.circular(4)),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5,
+                        ),
+                        width: 90,
+                        height: 25,
+                        child: Center(
+                          child: InfoText(
+                            text: seapod.userType,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ]
+        ]
+      ],
     );
   }
 }
@@ -263,20 +313,34 @@ class InfoCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: Text(
-              title,
-              style: TextStyle(
-                color: Color(
-                  ColorConstants.TABLE_VIEW_TEXT_COLOR,
+            child: Container(
+              height: 22,
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Color(
+                    ColorConstants.TABLE_VIEW_TEXT_COLOR,
+                  ),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          ...[
-            for (var child in children) ...[child]
-          ]
+          SizedBox(
+            height: 20,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ...[
+                  for (var child in children) ...[child]
+                ]
+              ],
+            ),
+          ),
         ],
       ),
     );

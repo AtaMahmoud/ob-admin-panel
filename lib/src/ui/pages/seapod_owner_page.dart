@@ -9,10 +9,10 @@ class SeapodOwnersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
-       /*  if (sizingInformation.deviceScreenType == DeviceScreenType.desktop)
+        /*  if (sizingInformation.deviceScreenType == DeviceScreenType.desktop)
           return ;
         else */
-          return MobileSeapodOwners();
+        return MobileSeapodOwner();
       },
     );
   }

@@ -132,10 +132,6 @@ class MobileLeftNavigationMenu extends StatelessWidget {
         },
       ),
       MenuItem(
-        title: ConstantTexts.MAP.toUpperCase(),
-        isTapped: isTapped,
-      ),
-      MenuItem(
         title: ConstantTexts.WEATHER_MARINE,
         isTapped: isTapped,
       ),

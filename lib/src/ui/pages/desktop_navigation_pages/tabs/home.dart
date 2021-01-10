@@ -220,7 +220,7 @@ class _HomeViewState extends State<HomeView>
         seaPod.seaPodName,
       ),
       buildTableCell(
-        seaPod.owners.join(', '),
+        seaPod.ownersNames.join(', '),
       ),
       buildTableCell(
         seaPod.seaPodType,

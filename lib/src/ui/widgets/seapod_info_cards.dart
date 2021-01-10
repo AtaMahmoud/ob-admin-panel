@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/models/seapod_owner.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
 import 'package:provider/provider.dart';
@@ -7,17 +8,22 @@ import 'package:provider/provider.dart';
 class OwnerInfoCard extends StatelessWidget {
   const OwnerInfoCard({
     Key key,
-    @required this.ownerName,
+    @required this.owner,
   }) : super(key: key);
 
-  final String ownerName;
+  final SeapodOwner owner;
 
   @override
   Widget build(BuildContext context) {
-    var selectedSeapod =
-        Provider.of<SeaPodsProvider>(context, listen: false).selectedSeapod;
+    var seapodsProvider = Provider.of<SeaPodsProvider>(context, listen: false);
+    var selectedSeapod = seapodsProvider.selectedSeapod;
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed(SeapodOwnersPage.routeName),
+      onTap: () {
+        seapodsProvider.updateSelectedOwner(owner);
+        Navigator.of(context).pushNamed(
+          SeapodOwnersPage.routeName,
+        );
+      },
       child: Container(
         margin: EdgeInsets.symmetric(
           horizontal: 15,
@@ -60,7 +66,7 @@ class OwnerInfoCard extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  ownerName,
+                  owner.userName,
                   style: TextStyle(
                     color: Color(
                       ColorConstants.MAIN_COLOR,

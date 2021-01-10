@@ -1,5 +1,6 @@
 import 'package:ob_admin_panel/src/models/light_scene.dart';
 import 'package:ob_admin_panel/src/models/permission_set.dart';
+import 'package:ob_admin_panel/src/models/seapod_owner.dart';
 import 'package:ob_admin_panel/src/models/user.dart';
 
 class SeaPod {
@@ -15,7 +16,8 @@ class SeaPod {
   List accessInvitation;
   String id;
   String seaPodName;
-  List<String> owners;
+  List<String> ownersNames;
+  List<SeapodOwner> owners;
   String exteriorFinish;
   String exterioirColor;
   String sparFinish;
@@ -56,6 +58,7 @@ class SeaPod {
     this.accessInvitation,
     this.id,
     this.seaPodName,
+    this.ownersNames,
     this.owners,
     this.exteriorFinish,
     this.exterioirColor,
@@ -130,11 +133,12 @@ class SeaPod {
     seaPodStatus = json['seaPodStatus'];
     seaPodType = json['seaPodType'] ?? "";
     users = [];
-    owners = [];
+    ownersNames = [];
     accessLevel = 'No Access';
     json['users'].forEach((user) {
       var userData = User.fromJson(user);
-      if (userData.type.toLowerCase() == 'owner') owners.add(userData.userName);
+      if (userData.type.toLowerCase() == 'owner')
+        ownersNames.add(userData.userName);
       /*  if (userData.type.toLowerCase() == 'admin')
         accessLevel = userData.permissionSet; */
 

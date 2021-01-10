@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
@@ -13,13 +14,31 @@ class MobileSeapodDetails extends StatefulWidget {
 }
 
 class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
+  SeaPodsProvider seaPodsProvider;
+  var _isInit = true;
+
+  @override
+  void didChangeDependencies() async {
+    if (_isInit) {
+      seaPodsProvider = Provider.of<SeaPodsProvider>(
+        context,
+        listen: false,
+      );
+      await seaPodsProvider.getSeapodOwners();
+      setState(() {});
+      _isInit = false;
+    }
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     var textStyle1 = TextStyle(
       color: Color(ColorConstants.MAIN_COLOR),
     );
 
-    var _selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
+    var _selectedSeapod = seaPodsProvider.selectedSeapod;
 
     return Scaffold(
       backgroundColor: Color(
@@ -77,34 +96,47 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 30),
-                child: Column(
-                  children: [
-                    buildSeapodInfoContainer(
-                      ConstantTexts.VESSLE_NAME,
-                      _selectedSeapod.seaPodName,
-                    ),
-                    buildSeapodInfoContainer(
-                      ConstantTexts.CURRENT_OCCUPANT,
-                      _selectedSeapod.owners[0],
-                    ),
-                  ],
+            if (_isInit)
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 300,
+                  child: SpinKitFadingCircle(
+                    color: Color(ColorConstants.MAIN_COLOR),
+                    size: 50,
+                  ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: GeneralInfoCard(),
-            ),
-            SliverToBoxAdapter(
-              child: LocationInfoCard(),
-            ),
-            ...[
+            if (!_isInit)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 30),
+                  child: Column(
+                    children: [
+                      buildSeapodInfoContainer(
+                        ConstantTexts.VESSLE_NAME,
+                        _selectedSeapod.seaPodName,
+                      ),
+                      buildSeapodInfoContainer(
+                        ConstantTexts.CURRENT_OCCUPANT,
+                        _selectedSeapod.ownersNames[0],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            if (!_isInit)
+              SliverToBoxAdapter(
+                child: GeneralInfoCard(),
+              ),
+            if (!_isInit)
+              SliverToBoxAdapter(
+                child: LocationInfoCard(),
+              ),
+            if (!_isInit) ...[
               for (var owner in _selectedSeapod.owners) ...[
                 SliverToBoxAdapter(
                   child: OwnerInfoCard(
-                    ownerName: owner,
+                    owner: owner,
                   ),
                 ),
               ]

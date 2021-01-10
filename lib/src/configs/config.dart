@@ -5,7 +5,7 @@ class Config {
   static String get autoLogin => '$BASE_URL' + 'admins/me';
   static String get allUsers => '$BASE_URL' + 'users';
   static String get allSeaPods => '$BASE_URL' + 'seapods';
-   static String get logout => '$BASE_URL' + 'admins/logout';
+  static String get logout => '$BASE_URL' + 'admins/logout';
 
   ////////////////////////////////////////////////////////
   static const int CONNECTION_TIME_OUT = 30000;
