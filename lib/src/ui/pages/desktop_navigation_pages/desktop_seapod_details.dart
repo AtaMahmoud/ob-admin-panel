@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/seapod_info_cards.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
@@ -16,8 +17,10 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
     var _selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
     var textStyle1 = TextStyle(
       color: Color(ColorConstants.MAIN_COLOR),
-      fontSize: 10,
+      fontSize: 12,
     );
+    var sizeCalcs = SizeCalcs(context: context);
+    final tabViewWidth = sizeCalcs.calculateTabViewHeight();
 
     return SingleChildScrollView(
       child: Padding(
@@ -30,7 +33,6 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
           children: [
             TabTitle(
               ConstantTexts.ABOUT,
-              fontSize: 22,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -50,15 +52,16 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    flex: 1,
-                    child: Column(
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                padding: const EdgeInsets.only(top: 20),
+                width: tabViewWidth > 2000 ? 1800 : 1400,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
                       children: [
                         buildSeapodInfoContainer(
                           ConstantTexts.VESSLE_NAME,
@@ -73,15 +76,13 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
                         ),
                       ],
                     ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    Column(
                       children: [
                         Container(
                           width: 416,
-                          child: GeneralInfoCard(),
+                          child: GeneralInfoCard(
+                            isDesktop: true,
+                          ),
                         ),
                         Container(
                           width: 416,
@@ -99,8 +100,8 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
                         ]
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

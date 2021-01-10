@@ -35,7 +35,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           width: sizingInformation.deviceScreenType ==
                       DeviceScreenType.desktop ||
                   sizingInformation.deviceScreenType == DeviceScreenType.tablet
-              ? 340
+              ? 342
               : mediaQuery.width * 0.85,
           height: widget.validationText != null ? 150 : 100,
           child: Stack(
@@ -50,7 +50,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                         color: const Color(
                           ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
                         ),
-                        fontSize: 12.0,
+                        fontSize: 14.0,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -59,7 +59,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     height: 12,
                   ),
                   Container(
-                    height: 45,
+                    height: 52,
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -124,7 +124,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                             color: const Color(
                               ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
                             ),
-                            fontSize: 10,
+                            fontSize: 15,
                             fontWeight: FontWeight.w400,
                           ),
                         ),

@@ -167,7 +167,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            CupertinoIcons.arrow_left,
+                            CupertinoIcons.arrowtriangle_left_fill,
                             color: const Color(
                               ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
                             ),

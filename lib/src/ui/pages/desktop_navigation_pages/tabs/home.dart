@@ -11,13 +11,13 @@ class HomeView extends StatefulWidget {
   final int tabIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
-  final int homeIndex;
+  final bool showSeapodDetailsPage;
 
   HomeView({
     @required this.tabIndex,
     @required this.onMapTap,
     @required this.onListTap,
-    @required this.homeIndex,
+    @required this.showSeapodDetailsPage,
   });
 
   @override
@@ -47,10 +47,12 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(widget.tabIndex == 1
-          ? ColorConstants.MAP_BACKGROUND
-          : ColorConstants.TAB_BACKGROUND),
-      child: widget.homeIndex == 1
+      color: Color(
+        widget.tabIndex == 1
+            ? ColorConstants.MAP_BACKGROUND
+            : ColorConstants.TAB_BACKGROUND,
+      ),
+      child: widget.showSeapodDetailsPage
           ? SeapodDetailsPage()
           : Stack(
               children: [
@@ -136,11 +138,12 @@ class _HomeViewState extends State<HomeView>
                               height: 80,
                             ),
                             buildTableHeader(),
-                            if (!_isInit) buildTableContent(),
+                            if (seaPodsProvider.allSeaPods.data != null)
+                              buildTableContent(),
                           ],
                         ),
                       ),
-                      if (!_isInit)
+                      if (seaPodsProvider.allSeaPods.data != null)
                         MapTab(
                           seapods: seaPodsProvider.allSeaPods.data,
                         ),
@@ -161,12 +164,13 @@ class _HomeViewState extends State<HomeView>
       onTap: onTap,
       child: Container(
         decoration: decoration,
-        width: 72,
+        width: 80,
         child: Center(
           child: Text(
             text,
             style: TextStyle(
               color: Colors.white,
+              fontSize: 16,
             ),
           ),
         ),
@@ -235,7 +239,7 @@ class _HomeViewState extends State<HomeView>
 
   Widget buildTableHeader() {
     return Container(
-      height: 40,
+      height: 50,
       padding: EdgeInsets.only(
         left: 20,
         right: 10,
@@ -282,22 +286,13 @@ class _HomeViewState extends State<HomeView>
     String cellName,
   ) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 15,
-          right: 10,
-        ),
-        child: Container(
-          height: 25,
-          child: Text(
-            cellName.toUpperCase(),
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
-          ),
+      child: Text(
+        cellName.toUpperCase(),
+        textAlign: TextAlign.start,
+        style: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+          color: Colors.black,
         ),
       ),
     );
@@ -317,8 +312,8 @@ class _HomeViewState extends State<HomeView>
           cellName,
           textAlign: TextAlign.start,
           style: TextStyle(
-            fontSize: 9,
-            fontWeight: FontWeight.w500,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
             color: Color(
               ColorConstants.TABLE_VIEW_TEXT_COLOR,
             ),
@@ -345,7 +340,7 @@ class _HomeViewState extends State<HomeView>
               seaPodLocation.locationName,
               textAlign: TextAlign.start,
               style: TextStyle(
-                fontSize: 9,
+                fontSize: 13,
                 fontWeight: FontWeight.w500,
                 color: Color(ColorConstants.TABLE_VIEW_TEXT_COLOR),
               ),

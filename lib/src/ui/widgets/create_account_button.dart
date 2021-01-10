@@ -26,7 +26,7 @@ class CreateAccountButton extends StatelessWidget {
             ),
           ),
           Icon(
-            CupertinoIcons.arrow_right,
+            CupertinoIcons.arrowtriangle_right_fill,
             color: const Color(
               ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
             ),

@@ -91,7 +91,7 @@ class ConstantTexts {
 
 class Constants {
   static const String MAP_STYLE_FILE = 'assets/map_style.txt';
-  static const double LEFT_NAVIGATION_WIDTH = 180.0;
+  static const double LEFT_NAVIGATION_WIDTH = 200.0;
   static const int TAB_COUNT = 6;
   static const int TURNS_TO_ROTATE_RIGHT = 1;
   static const int TURNS_TO_ROTATE_LEFT = 3;

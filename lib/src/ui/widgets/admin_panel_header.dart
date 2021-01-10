@@ -33,7 +33,7 @@ class _DesktopHeaderState extends State<DesktopHeader> {
               children: [
                 WebLogo(),
                 Container(
-                  width: 380,
+                  width: 400,
                   margin: EdgeInsets.only(
                     top: 45,
                   ),
@@ -78,7 +78,7 @@ class _DesktopHeaderState extends State<DesktopHeader> {
                       GestureDetector(
                         onTap: widget.showControlOptions,
                         child: Container(
-                          width: 120,
+                          width: 140,
                           height: 30,
                           decoration: BoxDecoration(
                             color:
@@ -91,7 +91,7 @@ class _DesktopHeaderState extends State<DesktopHeader> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w100,
                               ),
                             ),

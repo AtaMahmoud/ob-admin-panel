@@ -6,10 +6,10 @@ import 'package:responsive_builder/responsive_builder.dart';
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
 
-  final int homeIndex;
+  final bool showSeapodDetailsPage;
 
   HomePage({
-    this.homeIndex = 0,
+    this.showSeapodDetailsPage = false,
   });
 
   @override
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
                 homeTabsIndex = 1;
               });
             },
-            homeIndex: widget.homeIndex,
+            showSeapodDetailsPage: widget.showSeapodDetailsPage,
           );
         else
           return MobileHomePage(
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                 homeTabsIndex = 1;
               });
             },
-            homeIndex: widget.homeIndex,
+            showSeapodDetailsPage: widget.showSeapodDetailsPage,
           );
       },
     );

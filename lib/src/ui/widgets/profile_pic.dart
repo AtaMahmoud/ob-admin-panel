@@ -30,7 +30,7 @@ class ProfilePic extends StatelessWidget {
             Text(
               'Welcome ${authenticatedAdmin.firstName}',
               style: TextStyle(
-                fontSize: isDesktop ? 14 : 13,
+                fontSize: isDesktop ? 16 : 13,
                 color: isDesktop ? Colors.black : Colors.white,
                 fontWeight: FontWeight.w700,
               ),

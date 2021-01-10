@@ -18,13 +18,13 @@ class MobileHomePage extends StatefulWidget {
   final int tabIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
-  final int homeIndex;
+  final bool showSeapodDetailsPage;
 
   MobileHomePage({
     @required this.tabIndex,
     @required this.onMapTap,
     @required this.onListTap,
-    @required this.homeIndex,
+    @required this.showSeapodDetailsPage,
   });
   @override
   _MobileHomePageState createState() => _MobileHomePageState();
@@ -57,7 +57,7 @@ class _MobileHomePageState extends State<MobileHomePage>
       fontWeight: FontWeight.w700,
     );
     var allSeapods = seaPodsProvider.allSeaPods;
-    return widget.homeIndex == 1
+    return widget.showSeapodDetailsPage
         ? SeapodDetailsPage()
         : Scaffold(
             drawer: MobileLeftNavigationMenu(

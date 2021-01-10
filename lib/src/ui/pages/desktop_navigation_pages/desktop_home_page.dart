@@ -9,6 +9,7 @@ import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/locati
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/messages.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/weather.dart';
 import 'package:ob_admin_panel/src/ui/pages/login.dart';
+import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
 import 'package:provider/provider.dart';
@@ -18,13 +19,13 @@ class DesktopHomepage extends StatefulWidget {
   final int tabIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
-  final int homeIndex;
+  final bool showSeapodDetailsPage;
 
   DesktopHomepage({
     @required this.tabIndex,
     @required this.onMapTap,
     @required this.onListTap,
-    @required this.homeIndex,
+    @required this.showSeapodDetailsPage,
   });
 
   @override
@@ -58,6 +59,7 @@ class _DesktopHomepageState extends State<DesktopHomepage>
     var sizeCalcs = SizeCalcs(context: context);
     final tabViewHeight = sizeCalcs.calculateTabViewHeight();
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -73,41 +75,38 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                     });
                   },
                 ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      NavigationMenu(
-                        verticalRotation: verticalRotation,
-                        revertVerticalRotation: revertVerticalRotation,
-                        tabController: _tabController,
-                      ),
-                      RotatedBox(
-                        quarterTurns: verticalRotation,
-                        child: Container(
-                          height: tabViewHeight,
-                          width: tabViewWidth,
-                          child: TabBarView(
-                            controller: _tabController,
-                            children: _buildTabViews().map(
-                              (widget) {
+                Row(
+                  children: [
+                    NavigationMenu(
+                      verticalRotation: verticalRotation,
+                      revertVerticalRotation: revertVerticalRotation,
+                      tabController: _tabController,
+                    ),
+                    RotatedBox(
+                      quarterTurns: verticalRotation,
+                      child: Container(
+                        height: tabViewHeight,
+                        width: tabViewWidth,
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: _buildTabViews().map(
+                            (widget) {
+                              return Container(
+                                color: Color(
+                                  ColorConstants.TAB_BACKGROUND,
+                                ),
                                 // Revert the rotation on the tab views.
-                                return Container(
-                                  color: Color(
-                                    ColorConstants.TAB_BACKGROUND,
-                                  ),
-                                  child: RotatedBox(
-                                    quarterTurns:
-                                        Constants.TURNS_TO_ROTATE_LEFT,
-                                    child: widget,
-                                  ),
-                                );
-                              },
-                            ).toList(),
-                          ),
+                                child: RotatedBox(
+                                  quarterTurns: Constants.TURNS_TO_ROTATE_LEFT,
+                                  child: widget,
+                                ),
+                              );
+                            },
+                          ).toList(),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 Container(
                   height: Constants.BOTTOM_APP_PADDING_HEIGHT,
@@ -133,7 +132,7 @@ class _DesktopHomepageState extends State<DesktopHomepage>
         tabIndex: widget.tabIndex,
         onListTap: widget.onListTap,
         onMapTap: widget.onMapTap,
-        homeIndex: widget.homeIndex,
+        showSeapodDetailsPage: widget.showSeapodDetailsPage,
       ),
       WeatherView(),
       DevicesView(),
@@ -244,40 +243,49 @@ class NavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return Container(
       width: Constants.LEFT_NAVIGATION_WIDTH,
-      child: Column(
-        children: [
-          ProfilePic(),
-          SizedBox(
-            height: 18,
-          ),
-          RotatedBox(
-            quarterTurns: verticalRotation,
-            child: _TabBar(
-              tabs: _buildTabs().map(
-                (widget) {
-                  // Revert the rotation on the tabs.
-                  return RotatedBox(
-                    quarterTurns: revertVerticalRotation,
-                    child: widget,
-                  );
-                },
-              ).toList(),
-              tabController: _tabController,
+      height: mediaQuery.size.height -
+          Constants.HEADER_HEIGHT -
+          mediaQuery.padding.bottom -
+          mediaQuery.padding.top -
+          kToolbarHeight,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ProfilePic(),
+            SizedBox(
+              height: 18,
             ),
-          ),
-        ],
+            RotatedBox(
+              quarterTurns: verticalRotation,
+              child: _TabBar(
+                tabs: _buildTabs(context).map(
+                  (widget) {
+                    // Revert the rotation on the tabs.
+                    return RotatedBox(
+                      quarterTurns: revertVerticalRotation,
+                      child: widget,
+                    );
+                  },
+                ).toList(),
+                tabController: _tabController,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  List<Widget> _buildTabs() {
+  List<Widget> _buildTabs(BuildContext context) {
     return [
       _AdminPanelTab(
         title: ConstantTexts.HOME,
         tabIndex: 0,
         tabController: _tabController,
+        onTap: () => Navigator.of(context).pushReplacementNamed(HomePage.routeName),
       ),
       _AdminPanelTab(
         title: ConstantTexts.WEATHER_MARINE,
@@ -334,11 +342,13 @@ class _AdminPanelTab extends StatefulWidget {
     this.title,
     int tabIndex,
     TabController tabController,
+    this.onTap,
   }) : isExpanded = tabController.index == tabIndex;
 
   final String title;
 
   final bool isExpanded;
+  final VoidCallback onTap;
 
   @override
   _AdminPanelTabState createState() => _AdminPanelTabState();
@@ -348,29 +358,32 @@ class _AdminPanelTabState extends State<_AdminPanelTab>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 35,
-      width: 180,
-      padding: EdgeInsets.only(
-        left: 15,
-        top: 10,
-      ),
-      color: widget.isExpanded
-          ? Color(
-              ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
-            )
-          : Colors.white,
-      child: Text(
-        widget.title,
-        textAlign: TextAlign.start,
-        style: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w500,
-          color: widget.isExpanded
-              ? Colors.white
-              : Color(
-                  ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
-                ),
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+        height: 45,
+        width: 200,
+        padding: EdgeInsets.only(
+          left: 15,
+          top: 15,
+        ),
+        color: widget.isExpanded
+            ? Color(
+                ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+              )
+            : Colors.white,
+        child: Text(
+          widget.title,
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: widget.isExpanded
+                ? Colors.white
+                : Color(
+                    ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                  ),
+          ),
         ),
       ),
     );

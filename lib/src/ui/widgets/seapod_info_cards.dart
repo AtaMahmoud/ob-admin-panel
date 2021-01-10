@@ -109,9 +109,7 @@ class OwnerInfoCard extends StatelessWidget {
 class LocationInfoCard extends StatelessWidget {
   const LocationInfoCard({
     Key key,
-  })  :
-        super(key: key);
-
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +117,8 @@ class LocationInfoCard extends StatelessWidget {
       color: Colors.white,
       fontSize: 15.0,
     );
-    var _selectedSeapod = Provider.of<SeaPodsProvider>(context, listen: false).selectedSeapod;
+    var _selectedSeapod =
+        Provider.of<SeaPodsProvider>(context, listen: false).selectedSeapod;
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 15,
@@ -198,8 +197,10 @@ class LocationInfoCard extends StatelessWidget {
 }
 
 class GeneralInfoCard extends StatelessWidget {
+  final bool isDesktop;
   const GeneralInfoCard({
     Key key,
+    this.isDesktop = false,
   }) : super(key: key);
 
   @override
@@ -214,7 +215,7 @@ class GeneralInfoCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 15,
-        vertical: 10,
+        vertical: isDesktop ? 0 : 10,
       ),
       padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       height: 160,

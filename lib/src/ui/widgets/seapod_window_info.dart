@@ -205,7 +205,7 @@ class MoreButton extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) => HomePage(
-              homeIndex: 1,
+              showSeapodDetailsPage: true,
             ),
           ),
         );
