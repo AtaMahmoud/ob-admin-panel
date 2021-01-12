@@ -2,29 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
 import 'package:ob_admin_panel/src/ui/widgets/map_tab.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
 
-class HomeView extends StatefulWidget {
+class SeapodsView extends StatefulWidget {
   final int tabIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
-  final bool showSeapodDetailsPage;
 
-  HomeView({
+  SeapodsView({
     @required this.tabIndex,
     @required this.onMapTap,
     @required this.onListTap,
-    @required this.showSeapodDetailsPage,
   });
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _SeapodsViewState createState() => _SeapodsViewState();
 }
 
-class _HomeViewState extends State<HomeView>
+class _SeapodsViewState extends State<SeapodsView>
     with SingleTickerProviderStateMixin {
   var _isInit = true;
   SeaPodsProvider seaPodsProvider;
@@ -46,112 +43,109 @@ class _HomeViewState extends State<HomeView>
 
   @override
   Widget build(BuildContext context) {
+    var allSeapods = seaPodsProvider.allSeaPods.data;
+
     return Container(
       color: Color(
         widget.tabIndex == 1
             ? ColorConstants.MAP_BACKGROUND
             : ColorConstants.TAB_BACKGROUND,
       ),
-      child: widget.showSeapodDetailsPage
-          ? SeapodDetailsPage()
-          : Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 30,
-                      top: 25,
-                    ),
-                    height: 75,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 30,
+                top: 25,
+              ),
+              height: 75,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TabTitle(
+                    ConstantTexts.SEAPODS,
+                  ),
+                  Container(
+                    height: 30,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TabTitle(
-                          ConstantTexts.SEAPODS,
+                        buildSwitcher(
+                          widget.onMapTap,
+                          ConstantTexts.MAP,
+                          BoxDecoration(
+                            color: Color(
+                              widget.tabIndex == 1
+                                  ? ColorConstants.SWITCHER_COLOR
+                                  : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                            ),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              topLeft: Radius.circular(15),
+                            ),
+                          ),
                         ),
                         Container(
-                          height: 30,
-                          child: Row(
-                            children: [
-                              buildSwitcher(
-                                widget.onMapTap,
-                                ConstantTexts.MAP,
-                                BoxDecoration(
-                                  color: Color(
-                                    widget.tabIndex == 1
-                                        ? ColorConstants.SWITCHER_COLOR
-                                        : ColorConstants
-                                            .LOGIN_REGISTER_TEXT_COLOR,
-                                  ),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(15),
-                                    topLeft: Radius.circular(15),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: 1,
-                                color: Colors.white,
-                              ),
-                              buildSwitcher(
-                                widget.onListTap,
-                                ConstantTexts.LIST,
-                                BoxDecoration(
-                                  color: Color(
-                                    widget.tabIndex == 0
-                                        ? ColorConstants.SWITCHER_COLOR
-                                        : ColorConstants
-                                            .LOGIN_REGISTER_TEXT_COLOR,
-                                  ),
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(15),
-                                    topRight: Radius.circular(15),
-                                  ),
-                                ),
-                              ),
-                            ],
+                          width: 1,
+                          color: Colors.white,
+                        ),
+                        buildSwitcher(
+                          widget.onListTap,
+                          ConstantTexts.LIST,
+                          BoxDecoration(
+                            color: Color(
+                              widget.tabIndex == 0
+                                  ? ColorConstants.SWITCHER_COLOR
+                                  : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                            ),
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-                FractionallySizedBox(
-                  alignment: Alignment.topLeft,
-                  widthFactor: 0.8,
-                  heightFactor: 0.95,
-                  child: IndexedStack(
-                    index: widget.tabIndex,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          right: 30,
-                          bottom: 30,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 80,
-                            ),
-                            buildTableHeader(),
-                            if (seaPodsProvider.allSeaPods.data != null)
-                              buildTableContent(),
-                          ],
-                        ),
-                      ),
-                      if (seaPodsProvider.allSeaPods.data != null)
-                        MapTab(
-                          seapods: seaPodsProvider.allSeaPods.data,
-                        ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
+          ),
+          if (!_isInit)
+            FractionallySizedBox(
+              alignment: Alignment.topLeft,
+              widthFactor: 0.8,
+              heightFactor: 0.95,
+              child: IndexedStack(
+                index: widget.tabIndex,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 30,
+                      bottom: 30,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 80,
+                        ),
+                        buildTableHeader(),
+                        buildTableContent(allSeapods)
+                      ],
+                    ),
+                  ),
+                  MapTab(
+                    seapods: allSeapods,
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 
@@ -187,8 +181,8 @@ class _HomeViewState extends State<HomeView>
     );
   }
 
-  Widget buildTableContent() {
-    var itemCount = seaPodsProvider.allSeaPods.data.length;
+  Widget buildTableContent(List<SeaPod> seapods) {
+    var itemCount = seapods.length;
     return Expanded(
       child: ListView.builder(
         itemCount: itemCount,

@@ -128,7 +128,7 @@ class MobileLeftNavigationMenu extends StatelessWidget {
         title: ConstantTexts.HOME,
         isTapped: isTapped,
         onTap: () {
-          Navigator.of(context).pushNamed(HomePage.routeName);
+          Navigator.of(context).pushReplacementNamed(HomePage.routeName);
         },
       ),
       MenuItem(

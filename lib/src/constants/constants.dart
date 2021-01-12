@@ -14,7 +14,7 @@ class ColorConstants {
   static const SEAPODS_CARD_BACKGROUND = 0xFFF3F4F6;
   static const TEXT_COLOR = 0xFF4A525F;
   static const SEAPOD_CARD_BACKGROUND = 0xFFA9B2C0;
-  static const SWITCHER_COLOR = 0xFF717D90;
+  static const SWITCHER_COLOR = 0xFF717D90; 
   
   
 }

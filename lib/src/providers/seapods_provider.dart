@@ -22,6 +22,7 @@ class SeaPodsProvider with ChangeNotifier {
     try {
       final seapods = await _seaPodsRepository.getAllSeapods();
       _allSeapods = ApiResponse.completed(seapods);
+      notifyListeners();
     } catch (e) {
       _allSeapods = ApiResponse.error(e.toString());
       notifyListeners();

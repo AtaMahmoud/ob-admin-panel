@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod_owner.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
 import 'package:provider/provider.dart';
 
 class OwnerInfoCard extends StatelessWidget {
@@ -20,8 +20,12 @@ class OwnerInfoCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         seapodsProvider.updateSelectedOwner(owner);
-        Navigator.of(context).pushNamed(
-          SeapodOwnersPage.routeName,
+       Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => HomePage(
+              seapodOwnerPage: true,
+            ),
+          ),
         );
       },
       child: Container(

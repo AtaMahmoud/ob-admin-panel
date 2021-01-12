@@ -10,6 +10,8 @@ import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/messag
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/weather.dart';
 import 'package:ob_admin_panel/src/ui/pages/login.dart';
 import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
 import 'package:provider/provider.dart';
@@ -19,13 +21,15 @@ class DesktopHomepage extends StatefulWidget {
   final int tabIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
-  final bool showSeapodDetailsPage;
+  final bool seapodDetailsPage;
+  final bool seapodOwnerScreen;
 
   DesktopHomepage({
     @required this.tabIndex,
     @required this.onMapTap,
     @required this.onListTap,
-    @required this.showSeapodDetailsPage,
+    @required this.seapodDetailsPage,
+    @required this.seapodOwnerScreen,
   });
 
   @override
@@ -128,12 +132,16 @@ class _DesktopHomepageState extends State<DesktopHomepage>
 
   List<Widget> _buildTabViews() {
     return [
-      HomeView(
-        tabIndex: widget.tabIndex,
-        onListTap: widget.onListTap,
-        onMapTap: widget.onMapTap,
-        showSeapodDetailsPage: widget.showSeapodDetailsPage,
-      ),
+      if (widget.seapodDetailsPage)
+        SeapodDetailsPage()
+      else if (widget.seapodOwnerScreen)
+        SeapodOwnersPage()
+      else
+        SeapodsView(
+          tabIndex: widget.tabIndex,
+          onListTap: widget.onListTap,
+          onMapTap: widget.onMapTap,
+        ),
       WeatherView(),
       DevicesView(),
       MessagesView(),
@@ -285,7 +293,8 @@ class NavigationMenu extends StatelessWidget {
         title: ConstantTexts.HOME,
         tabIndex: 0,
         tabController: _tabController,
-        onTap: () => Navigator.of(context).pushReplacementNamed(HomePage.routeName),
+        onTap: () =>
+            Navigator.of(context).pushReplacementNamed(HomePage.routeName),
       ),
       _AdminPanelTab(
         title: ConstantTexts.WEATHER_MARINE,

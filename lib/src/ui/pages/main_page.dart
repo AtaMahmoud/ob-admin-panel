@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/desktop_home_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/mobile_navigation_pages/mobile_home_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
 
-  final bool showSeapodDetailsPage;
+  final bool seapodDetailsPage;
+  final bool seapodOwnerPage;
 
   HomePage({
-    this.showSeapodDetailsPage = false,
+    this.seapodDetailsPage = false,
+    this.seapodOwnerPage = false,
   });
 
   @override
@@ -35,23 +39,29 @@ class _HomePageState extends State<HomePage> {
                 homeTabsIndex = 1;
               });
             },
-            showSeapodDetailsPage: widget.showSeapodDetailsPage,
+            seapodDetailsPage: widget.seapodDetailsPage,
+            seapodOwnerScreen: widget.seapodOwnerPage,
           );
-        else
-          return MobileHomePage(
-            tabIndex: homeTabsIndex,
-            onListTap: () {
-              setState(() {
-                homeTabsIndex = 0;
-              });
-            },
-            onMapTap: () {
-              setState(() {
-                homeTabsIndex = 1;
-              });
-            },
-            showSeapodDetailsPage: widget.showSeapodDetailsPage,
-          );
+        else {
+          if (widget.seapodDetailsPage)
+            return SeapodDetailsPage();
+          else if (widget.seapodOwnerPage)
+            return SeapodOwnersPage();
+          else
+            return MobileHomePage(
+              tabIndex: homeTabsIndex,
+              onListTap: () {
+                setState(() {
+                  homeTabsIndex = 0;
+                });
+              },
+              onMapTap: () {
+                setState(() {
+                  homeTabsIndex = 1;
+                });
+              },
+            );
+        }
       },
     );
   }
