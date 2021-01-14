@@ -38,9 +38,10 @@ class SeapodOwner {
     email = json['email'];
     mobileNumber = json['mobileNumber'];
     emergencyContacts = [];
-    /* if (json['emergencyContacts'].isNotEmpty())
+
+    if (json['emergencyContacts'].isNotEmpty)
       json['emergencyContacts']
-          .forEach((e) => emergencyContacts.add(EmergencyContact.fromJson(e))); */
+          .forEach((e) => emergencyContacts.add(EmergencyContact.fromJson(e)));
   }
 }
 

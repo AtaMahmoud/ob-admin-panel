@@ -38,7 +38,7 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
       fontSize: 12,
     );
     var sizeCalcs = SizeCalcs(context: context);
-    final tabViewWidth = sizeCalcs.calculateTabViewHeight();
+    final tabViewWidth = sizeCalcs.calculateTabViewWidth();
 
     return SingleChildScrollView(
       child: Padding(

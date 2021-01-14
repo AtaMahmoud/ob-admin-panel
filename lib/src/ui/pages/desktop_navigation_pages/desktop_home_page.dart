@@ -9,7 +9,7 @@ import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/locati
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/messages.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/weather.dart';
 import 'package:ob_admin_panel/src/ui/pages/login.dart';
-import 'package:ob_admin_panel/src/ui/pages/main_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
@@ -61,70 +61,73 @@ class _DesktopHomepageState extends State<DesktopHomepage>
     final verticalRotation = Constants.TURNS_TO_ROTATE_RIGHT;
     final revertVerticalRotation = Constants.TURNS_TO_ROTATE_LEFT;
     var sizeCalcs = SizeCalcs(context: context);
-    final tabViewHeight = sizeCalcs.calculateTabViewHeight();
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DesktopHeader(
-                  showControlOptions: () {
-                    setState(() {
-                      _showControlOptions = !_showControlOptions;
-                    });
-                  },
-                ),
-                Row(
-                  children: [
-                    NavigationMenu(
-                      verticalRotation: verticalRotation,
-                      revertVerticalRotation: revertVerticalRotation,
-                      tabController: _tabController,
-                    ),
-                    RotatedBox(
-                      quarterTurns: verticalRotation,
-                      child: Container(
-                        height: tabViewHeight,
-                        width: tabViewWidth,
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: _buildTabViews().map(
-                            (widget) {
-                              return Container(
-                                color: Color(
-                                  ColorConstants.TAB_BACKGROUND,
-                                ),
-                                // Revert the rotation on the tab views.
-                                child: RotatedBox(
-                                  quarterTurns: Constants.TURNS_TO_ROTATE_LEFT,
-                                  child: widget,
-                                ),
-                              );
-                            },
-                          ).toList(),
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  DesktopHeader(
+                    showControlOptions: () {
+                      setState(() {
+                        _showControlOptions = !_showControlOptions;
+                      });
+                    },
+                  ),
+                  Row(
+                    children: [
+                      NavigationMenu(
+                        verticalRotation: verticalRotation,
+                        revertVerticalRotation: revertVerticalRotation,
+                        tabController: _tabController,
+                      ),
+                      RotatedBox(
+                        quarterTurns: verticalRotation,
+                        child: Container(
+                          height: tabViewWidth,
+                          width: Constants.TAB_HEIGHT,
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: _buildTabViews().map(
+                              (widget) {
+                                return Container(
+                                  color: Color(
+                                    ColorConstants.TAB_BACKGROUND,
+                                  ),
+                                  // Revert the rotation on the tab views.
+                                  child: RotatedBox(
+                                    quarterTurns:
+                                        Constants.TURNS_TO_ROTATE_LEFT,
+                                    child: widget,
+                                  ),
+                                );
+                              },
+                            ).toList(),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: Constants.BOTTOM_APP_PADDING_HEIGHT,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-            if (_showControlOptions)
-              Positioned(
-                right: 60,
-                top: Constants.HEADER_HEIGHT - 10,
-                child: DesktopControlOptions(),
+                    ],
+                  ),
+                  Container(
+                    height: Constants.BOTTOM_APP_PADDING_HEIGHT,
+                    color: Colors.white,
+                  ),
+                ],
               ),
-          ],
+              if (_showControlOptions)
+                Positioned(
+                  right: 60,
+                  top: Constants.HEADER_HEIGHT - 10,
+                  child: DesktopControlOptions(),
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -251,38 +254,31 @@ class NavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
     return Container(
       width: Constants.LEFT_NAVIGATION_WIDTH,
-      height: mediaQuery.size.height -
-          Constants.HEADER_HEIGHT -
-          mediaQuery.padding.bottom -
-          mediaQuery.padding.top -
-          kToolbarHeight,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ProfilePic(),
-            SizedBox(
-              height: 18,
+      height: Constants.TAB_HEIGHT,
+      child: Column(
+        children: [
+          ProfilePic(),
+          SizedBox(
+            height: 18,
+          ),
+          RotatedBox(
+            quarterTurns: verticalRotation,
+            child: _TabBar(
+              tabs: _buildTabs(context).map(
+                (widget) {
+                  // Revert the rotation on the tabs.
+                  return RotatedBox(
+                    quarterTurns: revertVerticalRotation,
+                    child: widget,
+                  );
+                },
+              ).toList(),
+              tabController: _tabController,
             ),
-            RotatedBox(
-              quarterTurns: verticalRotation,
-              child: _TabBar(
-                tabs: _buildTabs(context).map(
-                  (widget) {
-                    // Revert the rotation on the tabs.
-                    return RotatedBox(
-                      quarterTurns: revertVerticalRotation,
-                      child: widget,
-                    );
-                  },
-                ).toList(),
-                tabController: _tabController,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

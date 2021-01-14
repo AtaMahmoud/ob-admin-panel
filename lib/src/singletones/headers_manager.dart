@@ -1,6 +1,5 @@
 //import 'package:device_info/device_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 class HeadersManager {
   static final HeadersManager _headersManagerSingleton =

@@ -102,23 +102,26 @@ class ContactsInfoCard extends StatelessWidget {
                 text: ConstantTexts.EMMERGENCY_CONTACT,
               ),
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InfoText(
-                    text: 'Name',
+            selectedOwner.emergencyContacts.isEmpty
+                ? Expanded(child: InfoText(text: 'Not set yet'))
+                : Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InfoText(
+                          text:
+                              '${selectedOwner.emergencyContacts[0].firstName} ${selectedOwner.emergencyContacts[0].lastName}',
+                        ),
+                        InfoText(
+                          text: selectedOwner.emergencyContacts[0].mobileNumber,
+                        ),
+                        InfoText(
+                          text: selectedOwner.emergencyContacts[0].email,
+                          textColor: ColorConstants.MAIN_COLOR,
+                        )
+                      ],
+                    ),
                   ),
-                  InfoText(
-                    text: 'Phone',
-                  ),
-                  InfoText(
-                    text: 'mail.com',
-                    textColor: ColorConstants.MAIN_COLOR,
-                  )
-                ],
-              ),
-            ),
           ],
         ),
       ],

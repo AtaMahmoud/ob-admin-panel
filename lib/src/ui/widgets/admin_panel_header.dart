@@ -24,87 +24,80 @@ class _DesktopHeaderState extends State<DesktopHeader> {
     return Container(
       padding: const EdgeInsets.only(right: 60),
       height: Constants.HEADER_HEIGHT,
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          WebLogo(),
           Container(
-            height: 80,
+            width: 400,
+            margin: EdgeInsets.only(
+              top: 45,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                WebLogo(),
                 Container(
-                  width: 400,
-                  margin: EdgeInsets.only(
-                    top: 45,
+                  height: 30,
+                  width: 250,
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color:
+                          const Color(ColorConstants.TEXT_FIELD_BORDER),
+                    ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 30,
-                        width: 250,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
+                  child: TextField(
+                    textAlign: TextAlign.right,
+                    textAlignVertical: TextAlignVertical.center,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      prefixIcon: SizedBox(
+                        width: 15,
+                        height: 15,
+                        child: Image.asset(
+                          ImagePaths.SEARCH_ICON,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      hintText: ConstantTexts.SEARCH,
+                      hintStyle: TextStyle(
+                        color: const Color(
+                          ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                        ),
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: widget.showControlOptions,
+                  child: Container(
+                    width: 140,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color:
+                          Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${admin.firstName} ${admin.lastName}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
                           color: Colors.white,
-                          border: Border.all(
-                            color:
-                                const Color(ColorConstants.TEXT_FIELD_BORDER),
-                          ),
-                        ),
-                        child: TextField(
-                          textAlign: TextAlign.right,
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: SizedBox(
-                              width: 15,
-                              height: 15,
-                              child: Image.asset(
-                                ImagePaths.SEARCH_ICON,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            hintText: ConstantTexts.SEARCH,
-                            hintStyle: TextStyle(
-                              color: const Color(
-                                ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
-                              ),
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w100,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: widget.showControlOptions,
-                        child: Container(
-                          width: 140,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            color:
-                                Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          child: Center(
-                            child: Text(
-                              '${admin.firstName} ${admin.lastName}',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w100,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                )
+                ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );

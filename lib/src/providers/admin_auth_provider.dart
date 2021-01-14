@@ -50,8 +50,8 @@ class AdminAuthProvider with ChangeNotifier {
       _authenticatedAdmin = ApiResponse.completed(admin);
       notifyListeners();
       return true;
-    }
-    return false;
+    } else
+      return false;
   }
 
   Future<void> logout() async {

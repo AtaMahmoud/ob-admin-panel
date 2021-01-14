@@ -1,4 +1,3 @@
-import 'package:geocoder/geocoder.dart';
 import 'package:ob_admin_panel/src/configs/config.dart';
 import 'package:ob_admin_panel/src/helpers/api_base_helper.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';

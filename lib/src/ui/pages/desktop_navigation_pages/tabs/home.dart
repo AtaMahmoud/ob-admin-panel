@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/map_tab.dart';
@@ -44,6 +45,8 @@ class _SeapodsViewState extends State<SeapodsView>
   @override
   Widget build(BuildContext context) {
     var allSeapods = seaPodsProvider.allSeaPods.data;
+    var sizeCalcs = SizeCalcs(context: context);
+    final tabViewWidth = sizeCalcs.calculateTabViewWidth();
 
     return Container(
       color: Color(
@@ -51,97 +54,94 @@ class _SeapodsViewState extends State<SeapodsView>
             ? ColorConstants.MAP_BACKGROUND
             : ColorConstants.TAB_BACKGROUND,
       ),
-      child: Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Container(
+          Container(
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 30,
+              top: 25,
+            ),
+            height: 75,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TabTitle(
+                  ConstantTexts.SEAPODS,
+                ),
+                Container(
+                  height: 30,
+                  child: Row(
+                    children: [
+                      buildSwitcher(
+                        widget.onMapTap,
+                        ConstantTexts.MAP,
+                        BoxDecoration(
+                          color: Color(
+                            widget.tabIndex == 1
+                                ? ColorConstants.SWITCHER_COLOR
+                                : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15),
+                            topLeft: Radius.circular(15),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 1,
+                        color: Colors.white,
+                      ),
+                      buildSwitcher(
+                        widget.onListTap,
+                        ConstantTexts.LIST,
+                        BoxDecoration(
+                          color: Color(
+                            widget.tabIndex == 0
+                                ? ColorConstants.SWITCHER_COLOR
+                                : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                          ),
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          if (widget.tabIndex == 0)
+            Container(
               padding: const EdgeInsets.only(
                 left: 20,
                 right: 30,
-                top: 25,
+                bottom: 30,
               ),
-              height: 75,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              margin: EdgeInsets.only(right: tabViewWidth * 0.15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TabTitle(
-                    ConstantTexts.SEAPODS,
-                  ),
-                  Container(
-                    height: 30,
-                    child: Row(
-                      children: [
-                        buildSwitcher(
-                          widget.onMapTap,
-                          ConstantTexts.MAP,
-                          BoxDecoration(
-                            color: Color(
-                              widget.tabIndex == 1
-                                  ? ColorConstants.SWITCHER_COLOR
-                                  : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(15),
-                              topLeft: Radius.circular(15),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 1,
-                          color: Colors.white,
-                        ),
-                        buildSwitcher(
-                          widget.onListTap,
-                          ConstantTexts.LIST,
-                          BoxDecoration(
-                            color: Color(
-                              widget.tabIndex == 0
-                                  ? ColorConstants.SWITCHER_COLOR
-                                  : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
-                            ),
-                            borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  buildTableHeader(),
+                  if (!_isInit)
+                    buildTableContent(
+                      allSeapods,
+                    )
                 ],
               ),
             ),
-          ),
-          if (!_isInit)
-            FractionallySizedBox(
-              alignment: Alignment.topLeft,
-              widthFactor: 0.8,
-              heightFactor: 0.95,
-              child: IndexedStack(
-                index: widget.tabIndex,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 30,
-                      bottom: 30,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 80,
-                        ),
-                        buildTableHeader(),
-                        buildTableContent(allSeapods)
-                      ],
-                    ),
-                  ),
-                  MapTab(
-                    seapods: allSeapods,
-                  ),
-                ],
+          if (!_isInit && widget.tabIndex == 1)
+            Container(
+              margin: EdgeInsets.only(right: tabViewWidth * 0.15),
+              height: 600,
+              child: MapTab(
+                seapods: allSeapods,
               ),
             ),
         ],
@@ -183,7 +183,8 @@ class _SeapodsViewState extends State<SeapodsView>
 
   Widget buildTableContent(List<SeaPod> seapods) {
     var itemCount = seapods.length;
-    return Expanded(
+    return Container(
+      height: 500,
       child: ListView.builder(
         itemCount: itemCount,
         itemBuilder: (BuildContext context, int index) {

@@ -97,6 +97,7 @@ class Constants {
   static const int TAB_COUNT = 6;
   static const int TURNS_TO_ROTATE_RIGHT = 1;
   static const int TURNS_TO_ROTATE_LEFT = 3;
-  static const double HEADER_HEIGHT = 100.0;
+  static const double HEADER_HEIGHT = 110.0;
   static const BOTTOM_APP_PADDING_HEIGHT = 50.0;
+  static const TAB_HEIGHT = 810.0;
 }

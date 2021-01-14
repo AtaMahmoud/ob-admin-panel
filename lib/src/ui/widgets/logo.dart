@@ -8,7 +8,7 @@ class WebLogo extends StatelessWidget {
       height: 60,
       width: 130,
       margin: EdgeInsets.only(
-        top: 5,
+        top: 10,
         left: 15,
         bottom: 15,
       ),

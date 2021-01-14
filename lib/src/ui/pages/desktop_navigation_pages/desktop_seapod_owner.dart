@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/mobile_navigation_pages/mobile_seapod_owners.dart';
 import 'package:ob_admin_panel/src/ui/widgets/seapod_owner_info_cards.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
