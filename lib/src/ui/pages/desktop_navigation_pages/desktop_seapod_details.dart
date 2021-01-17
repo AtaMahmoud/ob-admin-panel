@@ -80,8 +80,8 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
-                  padding: const EdgeInsets.only(top: 20),
-                  width: tabViewWidth > 2000 ? 1800 : 1400,
+                  padding: const EdgeInsets.only(top: 20, right: 50),
+                  width: tabViewWidth,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

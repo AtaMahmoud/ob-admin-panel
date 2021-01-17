@@ -7,6 +7,8 @@ import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/device
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/home.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/locations.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/messages.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/seapod_settings.dart';
+import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/users.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/weather.dart';
 import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/login.dart';
@@ -15,6 +17,7 @@ import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
+import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 
 class DesktopHomepage extends StatefulWidget {
   final int seapodsTabIndex;
@@ -36,8 +39,15 @@ class DesktopHomepage extends StatefulWidget {
 }
 
 class _DesktopHomepageState extends State<DesktopHomepage> {
+  ScrollController _controller;
   bool _showControlOptions = false;
   int currentTabIndex = 0;
+
+  void scrollCallBack(DragUpdateDetails dragUpdate) {
+    setState(() {
+      _controller.position.moveTo(dragUpdate.globalPosition.dy * 1.5);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,50 +56,64 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        children: [
+          SafeArea(
+            child: SingleChildScrollView(
+              controller: _controller,
+              child: Stack(
                 children: [
-                  DesktopHeader(
-                    showControlOptions: () {
-                      setState(() {
-                        _showControlOptions = !_showControlOptions;
-                      });
-                    },
-                  ),
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      NavigationMenu(
-                        tabs: _buildTabs(),
+                      DesktopHeader(
+                        showControlOptions: () {
+                          setState(() {
+                            _showControlOptions = !_showControlOptions;
+                          });
+                        },
+                      ),
+                      Row(
+                        children: [
+                          NavigationMenu(
+                            tabs: _buildTabs(),
+                          ),
+                          Container(
+                            height: Constants.TAB_HEIGHT,
+                            width: tabViewWidth,
+                            color: Color(
+                              ColorConstants.TAB_BACKGROUND,
+                            ),
+                            child: _buildTabViews()[currentTabIndex],
+                          ),
+                        ],
                       ),
                       Container(
-                        height: Constants.TAB_HEIGHT,
-                        width: tabViewWidth,
-                        color: Color(
-                          ColorConstants.TAB_BACKGROUND,
-                        ),
-                        child: _buildTabViews()[currentTabIndex],
+                        height: Constants.BOTTOM_APP_PADDING_HEIGHT,
+                        color: Colors.white,
                       ),
                     ],
                   ),
-                  Container(
-                    height: Constants.BOTTOM_APP_PADDING_HEIGHT,
-                    color: Colors.white,
-                  ),
+                  if (_showControlOptions)
+                    Positioned(
+                      right: 60,
+                      top: Constants.HEADER_HEIGHT - 10,
+                      child: DesktopControlOptions(),
+                    ),
                 ],
               ),
-              if (_showControlOptions)
-                Positioned(
-                  right: 60,
-                  top: Constants.HEADER_HEIGHT - 10,
-                  child: DesktopControlOptions(),
-                ),
-            ],
+            ),
           ),
-        ),
+          FlutterWebScroller(
+            scrollCallBack,
+            scrollBarBackgroundColor: Colors.white,
+            scrollBarWidth: 20.0,
+            dragHandleColor: Color(ColorConstants.SCROLL_BAR_COLOR),
+            dragHandleBorderRadius: 3.0,
+            dragHandleHeight: 65.0,
+            dragHandleWidth: 5.0,
+          ),
+        ],
       ),
     );
   }
@@ -100,7 +124,14 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
         title: ConstantTexts.HOME,
         isExpanded: currentTabIndex == 0,
         onTap: () {
-          Navigator.pushReplacementNamed(context, HomePage.routeName);
+          Navigator.pushReplacement(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) => HomePage(),
+              transitionDuration: Duration(seconds: 0),
+              settings: RouteSettings(name: HomePage.routeName),
+            ),
+          );
         },
       ),
       _AdminPanelTab(
@@ -148,6 +179,24 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
           });
         },
       ),
+      _AdminPanelTab(
+        title: ConstantTexts.USERS,
+        isExpanded: currentTabIndex == 6,
+        onTap: () {
+          setState(() {
+            currentTabIndex = 6;
+          });
+        },
+      ),
+      _AdminPanelTab(
+        title: ConstantTexts.SEAPOD_SETTINGS,
+        isExpanded: currentTabIndex == 7,
+        onTap: () {
+          setState(() {
+            currentTabIndex = 7;
+          });
+        },
+      ),
     ];
   }
 
@@ -165,6 +214,8 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
       MessagesView(),
       AccessManagementView(),
       LocationsView(),
+      Users(),
+      SeapodSettings(),
     ];
   }
 }
@@ -208,7 +259,15 @@ class DesktopControlOptions extends StatelessWidget {
                 await Provider.of<AdminAuthProvider>(context, listen: false)
                     .logout();
                 Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        LoginPage(),
+                    transitionDuration: Duration(seconds: 0),
+                    settings: RouteSettings(name: LoginPage.routeName),
+                  ),
+                );
               },
             ),
           ],

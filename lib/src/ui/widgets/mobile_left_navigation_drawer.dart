@@ -78,18 +78,12 @@ class MobileLeftNavigationMenu extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
-                    Container(
-                      height: 1,
-                      color: Colors.white,
+                    GestureDetector(
+                      onTap: () => logout(context),
+                      child: MenuItem(
+                        title: ConstantTexts.LOGOUT,
+                      ),
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    ...[
-                      for (int i = 0; i < 3; i++) ...[
-                        _buildControlOptions(context)[i]
-                      ]
-                    ],
                   ],
                 ),
               ),
@@ -98,25 +92,6 @@ class MobileLeftNavigationMenu extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  List<Widget> _buildControlOptions(
-    BuildContext context,
-  ) {
-    return [
-      MenuItem(
-        title: ConstantTexts.SETTINGS,
-      ),
-      MenuItem(
-        title: ConstantTexts.SWITCH_ACCOUNTS,
-      ),
-      GestureDetector(
-        onTap: () => logout(context),
-        child: MenuItem(
-          title: ConstantTexts.LOGOUT,
-        ),
-      ),
-    ];
   }
 
   List<Widget> _buildNavigationMenues(
@@ -149,6 +124,14 @@ class MobileLeftNavigationMenu extends StatelessWidget {
       ),
       MenuItem(
         title: ConstantTexts.LOCATIONS,
+        isTapped: isTapped,
+      ),
+      MenuItem(
+        title: ConstantTexts.USERS,
+        isTapped: isTapped,
+      ),
+      MenuItem(
+        title: ConstantTexts.SEAPOD_SETTINGS,
         isTapped: isTapped,
       ),
     ];

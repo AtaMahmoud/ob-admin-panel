@@ -20,11 +20,14 @@ class OwnerInfoCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         seapodsProvider.updateSelectedOwner(owner);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => HomePage(
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) => HomePage(
               seapodOwnerPage: true,
             ),
+            transitionDuration: Duration(seconds: 0),
+            settings: RouteSettings(name: HomePage.routeName),
           ),
         );
       },

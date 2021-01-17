@@ -35,7 +35,8 @@ dependencies:
   google_maps_flutter: ^1.0.10
   google_maps_flutter_web: ^0.1.0+8
   dotted_border: ^1.0.7
-  google_maps: ^3.4.5
+  url_strategy: ^0.1.1
+  flutter_web_scrollbar: ^0.0.3
 
 
 

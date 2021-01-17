@@ -202,11 +202,14 @@ class MoreButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => HomePage(
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) => HomePage(
               seapodDetailsPage: true,
             ),
+            transitionDuration: Duration(seconds: 0),
+            settings: RouteSettings(name: HomePage.routeName),
           ),
         );
       },

@@ -60,6 +60,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   ),
                   Container(
                     height: 52,
+                   
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -115,7 +116,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       ),
                       child: TextFormField(
                         onSaved: widget.onSaved,
-                        textAlignVertical: TextAlignVertical.bottom,
+                        textAlignVertical: TextAlignVertical.center,
                         obscureText: widget.isPassword,
                         decoration: InputDecoration(
                           border: InputBorder.none,

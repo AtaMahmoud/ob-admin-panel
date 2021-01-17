@@ -9,9 +9,11 @@ import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
   runApp(MyApp());
 }
 

@@ -147,8 +147,18 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Navigator.of(context).pop();
                                   if (adminProvider.authenticatedAdmin !=
                                       null) {
-                                    Navigator.pushReplacementNamed(
-                                        context, HomePage.routeName);
+                                    Navigator.pushReplacement(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder:
+                                            (context, animation1, animation2) =>
+                                                HomePage(),
+                                        transitionDuration:
+                                            Duration(seconds: 0),
+                                        settings: RouteSettings(
+                                            name: HomePage.routeName),
+                                      ),
+                                    );
                                   }
                                 }
                               },
