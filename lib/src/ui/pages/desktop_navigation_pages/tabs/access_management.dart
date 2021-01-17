@@ -5,8 +5,7 @@ class AccessManagementView extends StatefulWidget {
   _AccessManagementViewState createState() => _AccessManagementViewState();
 }
 
-class _AccessManagementViewState extends State<AccessManagementView>
-    with SingleTickerProviderStateMixin {
+class _AccessManagementViewState extends State<AccessManagementView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

@@ -14,18 +14,24 @@ class DesktopSeapodDetails extends StatefulWidget {
 class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
   SeaPodsProvider seaPodsProvider;
   var _isInit = true;
+  var _isLoading = false;
 
   @override
   void didChangeDependencies() async {
     if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
       seaPodsProvider = Provider.of<SeaPodsProvider>(
         context,
         listen: false,
       );
       await seaPodsProvider.getSeapodOwners();
-      setState(() {});
-      _isInit = false;
+      setState(() {
+        _isLoading = false;
+      });
     }
+    _isInit = false;
 
     super.didChangeDependencies();
   }
@@ -70,7 +76,7 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
                 ],
               ),
             ),
-            if (!_isInit)
+            if (!_isLoading)
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(

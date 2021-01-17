@@ -5,8 +5,7 @@ class MessagesView extends StatefulWidget {
   _MessagesViewState createState() => _MessagesViewState();
 }
 
-class _MessagesViewState extends State<MessagesView>
-    with SingleTickerProviderStateMixin {
+class _MessagesViewState extends State<MessagesView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

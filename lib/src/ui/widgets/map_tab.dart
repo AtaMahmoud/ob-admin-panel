@@ -67,7 +67,7 @@ class _MapTabState extends State<MapTab> {
         return Container(
           padding:
               sizingInformation.deviceScreenType == DeviceScreenType.desktop
-                  ? EdgeInsets.only(top: 80, left: 20)
+                  ? EdgeInsets.only(left: 20)
                   : EdgeInsets.zero,
           child: Stack(
             children: [

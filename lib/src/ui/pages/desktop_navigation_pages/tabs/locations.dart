@@ -5,8 +5,7 @@ class LocationsView extends StatefulWidget {
   _LocationsViewState createState() => _LocationsViewState();
 }
 
-class _LocationsViewState extends State<LocationsView>
-    with SingleTickerProviderStateMixin {
+class _LocationsViewState extends State<LocationsView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

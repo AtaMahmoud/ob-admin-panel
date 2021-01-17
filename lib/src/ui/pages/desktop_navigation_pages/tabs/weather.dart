@@ -5,8 +5,7 @@ class WeatherView extends StatefulWidget {
   _WeatherViewState createState() => _WeatherViewState();
 }
 
-class _WeatherViewState extends State<WeatherView>
-    with SingleTickerProviderStateMixin {
+class _WeatherViewState extends State<WeatherView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

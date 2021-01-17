@@ -8,24 +8,23 @@ import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/home.d
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/locations.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/messages.dart';
 import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/weather.dart';
-import 'package:ob_admin_panel/src/ui/pages/login.dart';
 import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
-import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
-import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/login.dart';
+
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
 class DesktopHomepage extends StatefulWidget {
-  final int tabIndex;
+  final int seapodsTabIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
   final bool seapodDetailsPage;
   final bool seapodOwnerScreen;
 
   DesktopHomepage({
-    @required this.tabIndex,
+    @required this.seapodsTabIndex,
     @required this.onMapTap,
     @required this.onListTap,
     @required this.seapodDetailsPage,
@@ -36,30 +35,12 @@ class DesktopHomepage extends StatefulWidget {
   _DesktopHomepageState createState() => _DesktopHomepageState();
 }
 
-class _DesktopHomepageState extends State<DesktopHomepage>
-    with SingleTickerProviderStateMixin {
-  TabController _tabController;
+class _DesktopHomepageState extends State<DesktopHomepage> {
   bool _showControlOptions = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: Constants.TAB_COUNT, vsync: this)
-      ..addListener(() {
-        setState(() {});
-      });
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  int currentTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    final verticalRotation = Constants.TURNS_TO_ROTATE_RIGHT;
-    final revertVerticalRotation = Constants.TURNS_TO_ROTATE_LEFT;
     var sizeCalcs = SizeCalcs(context: context);
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
 
@@ -71,7 +52,6 @@ class _DesktopHomepageState extends State<DesktopHomepage>
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   DesktopHeader(
                     showControlOptions: () {
@@ -83,34 +63,15 @@ class _DesktopHomepageState extends State<DesktopHomepage>
                   Row(
                     children: [
                       NavigationMenu(
-                        verticalRotation: verticalRotation,
-                        revertVerticalRotation: revertVerticalRotation,
-                        tabController: _tabController,
+                        tabs: _buildTabs(),
                       ),
-                      RotatedBox(
-                        quarterTurns: verticalRotation,
-                        child: Container(
-                          height: tabViewWidth,
-                          width: Constants.TAB_HEIGHT,
-                          child: TabBarView(
-                            controller: _tabController,
-                            children: _buildTabViews().map(
-                              (widget) {
-                                return Container(
-                                  color: Color(
-                                    ColorConstants.TAB_BACKGROUND,
-                                  ),
-                                  // Revert the rotation on the tab views.
-                                  child: RotatedBox(
-                                    quarterTurns:
-                                        Constants.TURNS_TO_ROTATE_LEFT,
-                                    child: widget,
-                                  ),
-                                );
-                              },
-                            ).toList(),
-                          ),
+                      Container(
+                        height: Constants.TAB_HEIGHT,
+                        width: tabViewWidth,
+                        color: Color(
+                          ColorConstants.TAB_BACKGROUND,
                         ),
+                        child: _buildTabViews()[currentTabIndex],
                       ),
                     ],
                   ),
@@ -133,18 +94,72 @@ class _DesktopHomepageState extends State<DesktopHomepage>
     );
   }
 
+  List<Widget> _buildTabs() {
+    return [
+      _AdminPanelTab(
+        title: ConstantTexts.HOME,
+        isExpanded: currentTabIndex == 0,
+        onTap: () {
+          Navigator.pushReplacementNamed(context, HomePage.routeName);
+        },
+      ),
+      _AdminPanelTab(
+        title: ConstantTexts.WEATHER_MARINE,
+        isExpanded: currentTabIndex == 1,
+        onTap: () {
+          setState(() {
+            currentTabIndex = 1;
+          });
+        },
+      ),
+      _AdminPanelTab(
+        title: ConstantTexts.DEVICES,
+        isExpanded: currentTabIndex == 2,
+        onTap: () {
+          setState(() {
+            currentTabIndex = 2;
+          });
+        },
+      ),
+      _AdminPanelTab(
+        title: ConstantTexts.MESSAGES,
+        isExpanded: currentTabIndex == 3,
+        onTap: () {
+          setState(() {
+            currentTabIndex = 3;
+          });
+        },
+      ),
+      _AdminPanelTab(
+        title: ConstantTexts.ACCESS_MANAGEMENT,
+        isExpanded: currentTabIndex == 4,
+        onTap: () {
+          setState(() {
+            currentTabIndex = 4;
+          });
+        },
+      ),
+      _AdminPanelTab(
+        title: ConstantTexts.LOCATIONS,
+        isExpanded: currentTabIndex == 5,
+        onTap: () {
+          setState(() {
+            currentTabIndex = 5;
+          });
+        },
+      ),
+    ];
+  }
+
   List<Widget> _buildTabViews() {
     return [
-      if (widget.seapodDetailsPage)
-        SeapodDetailsPage()
-      else if (widget.seapodOwnerScreen)
-        SeapodOwnersPage()
-      else
-        SeapodsView(
-          tabIndex: widget.tabIndex,
-          onListTap: widget.onListTap,
-          onMapTap: widget.onMapTap,
-        ),
+      HomeView(
+        seapodsTabIndex: widget.seapodsTabIndex,
+        onListTap: widget.onListTap,
+        onMapTap: widget.onMapTap,
+        seapodOwnerScreen: widget.seapodOwnerScreen,
+        seapodDetailsPage: widget.seapodDetailsPage,
+      ),
       WeatherView(),
       DevicesView(),
       MessagesView(),
@@ -164,7 +179,7 @@ class DesktopControlOptions extends StatelessWidget {
     return Center(
       child: SpeechBubble(
         nipHeight: 15,
-        height: 160,
+        height: 128,
         width: 210,
         padding: EdgeInsets.symmetric(
           vertical: 20,
@@ -184,11 +199,6 @@ class DesktopControlOptions extends StatelessWidget {
             buildControlOption(
               ImagePaths.PROFILE_ICON,
               ConstantTexts.PROFILE.toUpperCase(),
-              () {},
-            ),
-            buildControlOption(
-              ImagePaths.SEAPOD_ICON,
-              ConstantTexts.ADD_NEW_SEAPOD,
               () {},
             ),
             buildControlOption(
@@ -239,19 +249,15 @@ class DesktopControlOptions extends StatelessWidget {
   }
 }
 
-class NavigationMenu extends StatelessWidget {
-  const NavigationMenu({
-    Key key,
-    @required this.verticalRotation,
-    @required this.revertVerticalRotation,
-    @required TabController tabController,
-  })  : _tabController = tabController,
-        super(key: key);
+class NavigationMenu extends StatefulWidget {
+  NavigationMenu({@required this.tabs});
+  final List<Widget> tabs;
 
-  final int verticalRotation;
-  final int revertVerticalRotation;
-  final TabController _tabController;
+  @override
+  _NavigationMenuState createState() => _NavigationMenuState();
+}
 
+class _NavigationMenuState extends State<NavigationMenu> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -263,80 +269,8 @@ class NavigationMenu extends StatelessWidget {
           SizedBox(
             height: 18,
           ),
-          RotatedBox(
-            quarterTurns: verticalRotation,
-            child: _TabBar(
-              tabs: _buildTabs(context).map(
-                (widget) {
-                  // Revert the rotation on the tabs.
-                  return RotatedBox(
-                    quarterTurns: revertVerticalRotation,
-                    child: widget,
-                  );
-                },
-              ).toList(),
-              tabController: _tabController,
-            ),
-          ),
+          ...widget.tabs
         ],
-      ),
-    );
-  }
-
-  List<Widget> _buildTabs(BuildContext context) {
-    return [
-      _AdminPanelTab(
-        title: ConstantTexts.HOME,
-        tabIndex: 0,
-        tabController: _tabController,
-        onTap: () =>
-            Navigator.of(context).pushReplacementNamed(HomePage.routeName),
-      ),
-      _AdminPanelTab(
-        title: ConstantTexts.WEATHER_MARINE,
-        tabIndex: 1,
-        tabController: _tabController,
-      ),
-      _AdminPanelTab(
-        title: ConstantTexts.DEVICES,
-        tabIndex: 2,
-        tabController: _tabController,
-      ),
-      _AdminPanelTab(
-        title: ConstantTexts.MESSAGES,
-        tabIndex: 3,
-        tabController: _tabController,
-      ),
-      _AdminPanelTab(
-        title: ConstantTexts.ACCESS_MANAGEMENT,
-        tabIndex: 4,
-        tabController: _tabController,
-      ),
-      _AdminPanelTab(
-        title: ConstantTexts.LOCATIONS,
-        tabIndex: 5,
-        tabController: _tabController,
-      ),
-    ];
-  }
-}
-
-class _TabBar extends StatelessWidget {
-  const _TabBar({Key key, this.tabs, this.tabController}) : super(key: key);
-
-  final List<Widget> tabs;
-  final TabController tabController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Color(ColorConstants.MAIN_COLOR),
-      child: TabBar(
-        isScrollable: true,
-        labelPadding: EdgeInsets.zero,
-        tabs: tabs,
-        controller: tabController,
-        indicatorColor: Colors.transparent,
       ),
     );
   }
@@ -345,10 +279,9 @@ class _TabBar extends StatelessWidget {
 class _AdminPanelTab extends StatefulWidget {
   _AdminPanelTab({
     this.title,
-    int tabIndex,
-    TabController tabController,
+    this.isExpanded,
     this.onTap,
-  }) : isExpanded = tabController.index == tabIndex;
+  });
 
   final String title;
 

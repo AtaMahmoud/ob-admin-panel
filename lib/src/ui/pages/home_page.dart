@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, sizingInformation) {
         if (sizingInformation.deviceScreenType == DeviceScreenType.desktop)
           return DesktopHomepage(
-            tabIndex: homeTabsIndex,
+            seapodsTabIndex: homeTabsIndex,
             onListTap: () {
               setState(() {
                 homeTabsIndex = 0;

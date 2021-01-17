@@ -12,6 +12,8 @@ class SeapodOwnersPage extends StatelessWidget {
       builder: (context, sizingInformation) {
         if (sizingInformation.deviceScreenType == DeviceScreenType.desktop)
           return DesktopSeapodOwner();
+        else if (sizingInformation.deviceScreenType == DeviceScreenType.tablet)
+          return SeapodsOwnerTabletVersion();
         else
           return MobileSeapodOwner();
       },
