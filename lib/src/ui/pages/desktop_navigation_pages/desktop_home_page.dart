@@ -238,6 +238,7 @@ class DesktopControlOptions extends StatelessWidget {
         ),
         color: Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
         nipLocation: NipLocation.TOP_RIGHT,
+        offset: Offset(-25.0, 0.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -258,7 +259,7 @@ class DesktopControlOptions extends StatelessWidget {
               () async {
                 await Provider.of<AdminAuthProvider>(context, listen: false)
                     .logout();
-                Navigator.of(context).pop();
+
                 Navigator.pushReplacement(
                   context,
                   PageRouteBuilder(

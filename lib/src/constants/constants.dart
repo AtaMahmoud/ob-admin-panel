@@ -17,8 +17,6 @@ class ColorConstants {
   static const SWITCHER_COLOR = 0xFF717D90;
   static const ADD_SEAPOD_COLOR = 0xFF9AA4B4;
   static const SCROLL_BAR_COLOR = 0xFFDADCE4;
-  
-  
 }
 
 class ImagePaths {
@@ -34,6 +32,7 @@ class ImagePaths {
   static const SEAPOD_LOCATION_MARKER = 'assets/images/seapod_location.png';
   static const LOCATION_ICON = 'assets/images/location_icon.png';
   static const AVATAR = 'assets/images/avatar.png';
+  static const TABLE_FILTER_ICON = 'assets/images/table_filter_icon.png';
 }
 
 class ConstantTexts {
@@ -92,14 +91,14 @@ class ConstantTexts {
   static const VIEW = 'View';
   static const PHONE = 'Phone';
   static const ABOUT = 'About';
-  
+  static const SHOW_COLUMNS = 'SHOW COLUMNS';
 }
 
 class Constants {
   static const String MAP_STYLE_FILE = 'assets/map_style.txt';
   static const double LEFT_NAVIGATION_WIDTH = 200.0;
   static const int TAB_COUNT = 8;
- 
+
   static const double HEADER_HEIGHT = 110.0;
   static const BOTTOM_APP_PADDING_HEIGHT = 50.0;
   static const TAB_HEIGHT = 810.0;

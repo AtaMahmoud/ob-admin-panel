@@ -60,7 +60,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   ),
                   Container(
                     height: 52,
-                   
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.white,

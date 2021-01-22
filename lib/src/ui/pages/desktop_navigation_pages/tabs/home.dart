@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
+import 'package:ob_admin_panel/src/models/table_column.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/map_tab.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
+import 'package:speech_bubble/speech_bubble.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({
@@ -58,6 +60,15 @@ class _SeapodsViewState extends State<SeapodsView> {
   var _isInit = true;
   var _isLoading = false;
   SeaPodsProvider seaPodsProvider;
+  bool showFilterMenu = false;
+  List<SeapodTableColumn> columns = [
+    SeapodTableColumn(columnName: ConstantTexts.SEAPOD),
+    SeapodTableColumn(columnName: ConstantTexts.OWNER),
+    SeapodTableColumn(columnName: ConstantTexts.TYPE),
+    SeapodTableColumn(columnName: ConstantTexts.LOCATION),
+    SeapodTableColumn(columnName: ConstantTexts.STATUS),
+    SeapodTableColumn(columnName: ConstantTexts.ACCESS_LEVEL),
+  ];
 
   @override
   void didChangeDependencies() async {
@@ -84,7 +95,6 @@ class _SeapodsViewState extends State<SeapodsView> {
     var allSeapods = seaPodsProvider.allSeaPods.data;
     var sizeCalcs = SizeCalcs(context: context);
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
-
     return Container(
       color: Color(
         widget.seapodsTabIndex == 1
@@ -162,16 +172,48 @@ class _SeapodsViewState extends State<SeapodsView> {
                 bottom: 30,
               ),
               margin: EdgeInsets.only(right: tabViewWidth * 0.15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
                 children: [
-                  buildTableHeader(),
-                  !_isLoading
-                      ? buildTableContent(allSeapods)
-                      : Container(
-                          height: 500,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 40,
+                        margin: EdgeInsets.only(right: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () => setState(
+                                () => showFilterMenu = !showFilterMenu,
+                              ),
+                              child: Center(
+                                child: Image.asset(
+                                  ImagePaths.TABLE_FILTER_ICON,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                  buildAddSeapodButton()
+                      ),
+                      buildTableHeader(),
+                      !_isLoading
+                          ? buildTableContent(allSeapods)
+                          : Container(
+                              height: 500,
+                            ),
+                      buildAddSeapodButton()
+                    ],
+                  ),
+                  if (showFilterMenu)
+                    FilterBubble(
+                      columns: columns,
+                      applyFilter: () {
+                        setState(() {});
+                      },
+                    ),
                 ],
               ),
             ),
@@ -272,24 +314,30 @@ class _SeapodsViewState extends State<SeapodsView> {
 
   List<Widget> _seapodDetails(SeaPod seaPod) {
     return [
-      buildTableCell(
-        seaPod.seaPodName,
-      ),
-      buildTableCell(
-        seaPod.ownersNames.join(', '),
-      ),
-      buildTableCell(
-        seaPod.seaPodType,
-      ),
-      buildLocationField(
-        seaPod.location,
-      ),
-      buildTableCell(
-        seaPod.seaPodStatus,
-      ),
-      buildTableCell(
-        seaPod.accessLevel,
-      ),
+      if (columns[0].isChecked)
+        buildTableCell(
+          seaPod.seaPodName,
+        ),
+      if (columns[1].isChecked)
+        buildTableCell(
+          seaPod.ownersNames.join(', '),
+        ),
+      if (columns[2].isChecked)
+        buildTableCell(
+          seaPod.seaPodType,
+        ),
+      if (columns[3].isChecked)
+        buildLocationField(
+          seaPod.location,
+        ),
+      if (columns[4].isChecked)
+        buildTableCell(
+          seaPod.seaPodStatus,
+        ),
+      if (columns[5].isChecked)
+        buildTableCell(
+          seaPod.accessLevel,
+        ),
     ];
   }
 
@@ -316,26 +364,13 @@ class _SeapodsViewState extends State<SeapodsView> {
   }
 
   List<Widget> _tableFieldsList() {
-    return [
-      buildTableField(
-        ConstantTexts.SEAPOD,
-      ),
-      buildTableField(
-        ConstantTexts.OWNER,
-      ),
-      buildTableField(
-        ConstantTexts.TYPE,
-      ),
-      buildTableField(
-        ConstantTexts.LOCATION,
-      ),
-      buildTableField(
-        ConstantTexts.STATUS,
-      ),
-      buildTableField(
-        ConstantTexts.ACCESS_LEVEL,
-      ),
-    ];
+    var selectedColumns =
+        columns.where((element) => element.isChecked).toList();
+    List<Widget> widgets = [];
+    selectedColumns.forEach((element) {
+      widgets.add(buildTableField(element.columnName));
+    });
+    return widgets;
   }
 
   Widget buildTableField(
@@ -422,6 +457,87 @@ class _SeapodsViewState extends State<SeapodsView> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class FilterBubble extends StatefulWidget {
+  const FilterBubble({
+    Key key,
+    @required this.columns,
+    @required this.applyFilter,
+  }) : super(key: key);
+
+  final List<SeapodTableColumn> columns;
+  final Function applyFilter;
+
+  @override
+  _FilterBubbleState createState() => _FilterBubbleState();
+}
+
+class _FilterBubbleState extends State<FilterBubble> {
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: Container(
+        margin: EdgeInsets.only(top: 42),
+        child: SpeechBubble(
+          nipHeight: 15.0,
+          borderRadius: 8.0,
+          nipLocation: NipLocation.TOP_RIGHT,
+          offset: Offset(-25.0, 0.0),
+          width: 222,
+          height: 285,
+          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+          color:
+              Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR).withOpacity(0.85),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                ConstantTexts.SHOW_COLUMNS,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.0,
+                ),
+              ),
+              ...[
+                for (var column in widget.columns) ...[
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: column.isChecked,
+                        hoverColor: Colors.white,
+                        fillColor: MaterialStateProperty.all(Colors.white),
+                        checkColor:
+                            Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+                        activeColor: Colors.white,
+                        overlayColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                        onChanged: (value) {
+                          setState(() {
+                            column.isChecked = value;
+                            widget.applyFilter();
+                          });
+                        },
+                      ),
+                      Text(
+                        column.columnName,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 13.0,
+                        ),
+                      )
+                    ],
+                  )
+                ]
+              ]
+            ],
+          ),
         ),
       ),
     );
