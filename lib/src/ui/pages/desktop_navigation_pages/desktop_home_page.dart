@@ -26,7 +26,7 @@ class DesktopHomepage extends StatefulWidget {
   final bool seapodDetailsPage;
   final bool seapodOwnerScreen;
 
-  DesktopHomepage({
+  const DesktopHomepage({
     @required this.seapodsTabIndex,
     @required this.onMapTap,
     @required this.onListTap,
@@ -51,7 +51,7 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
 
   @override
   Widget build(BuildContext context) {
-    var sizeCalcs = SizeCalcs(context: context);
+    final sizeCalcs = SizeCalcs(context: context);
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
 
     return Scaffold(
@@ -79,25 +79,25 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
                             tabs: _buildTabs(),
                           ),
                           Container(
-                            height: Constants.TAB_HEIGHT,
+                            height: Constants.tabHeight,
                             width: tabViewWidth,
-                            color: Color(
-                              ColorConstants.TAB_BACKGROUND,
+                            color: const Color(
+                              ColorConstants.tabBackground,
                             ),
                             child: _buildTabViews()[currentTabIndex],
                           ),
                         ],
                       ),
                       Container(
-                        height: Constants.BOTTOM_APP_PADDING_HEIGHT,
+                        height: Constants.bottomAppPadding,
                         color: Colors.white,
                       ),
                     ],
                   ),
                   if (_showControlOptions)
-                    Positioned(
+                    const Positioned(
                       right: 60,
-                      top: Constants.HEADER_HEIGHT - 10,
+                      top: Constants.headerHeight - 10,
                       child: DesktopControlOptions(),
                     ),
                 ],
@@ -107,9 +107,7 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
           FlutterWebScroller(
             scrollCallBack,
             scrollBarBackgroundColor: Colors.white,
-            scrollBarWidth: 20.0,
-            dragHandleColor: Color(ColorConstants.SCROLL_BAR_COLOR),
-            dragHandleBorderRadius: 3.0,
+            dragHandleColor: const Color(ColorConstants.scrollBarColor),
             dragHandleHeight: 65.0,
             dragHandleWidth: 5.0,
           ),
@@ -121,21 +119,21 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
   List<Widget> _buildTabs() {
     return [
       _AdminPanelTab(
-        title: ConstantTexts.HOME,
+        title: ConstantTexts.home,
         isExpanded: currentTabIndex == 0,
         onTap: () {
           Navigator.pushReplacement(
             context,
             PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) => HomePage(),
-              transitionDuration: Duration(seconds: 0),
-              settings: RouteSettings(name: HomePage.routeName),
+              pageBuilder: (context, animation1, animation2) => const HomePage(),
+              transitionDuration: const Duration(),
+              settings: const RouteSettings(name: HomePage.routeName),
             ),
           );
         },
       ),
       _AdminPanelTab(
-        title: ConstantTexts.WEATHER_MARINE,
+        title: ConstantTexts.weatherMarine,
         isExpanded: currentTabIndex == 1,
         onTap: () {
           setState(() {
@@ -144,7 +142,7 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
         },
       ),
       _AdminPanelTab(
-        title: ConstantTexts.DEVICES,
+        title: ConstantTexts.devices,
         isExpanded: currentTabIndex == 2,
         onTap: () {
           setState(() {
@@ -153,7 +151,7 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
         },
       ),
       _AdminPanelTab(
-        title: ConstantTexts.MESSAGES,
+        title: ConstantTexts.messages,
         isExpanded: currentTabIndex == 3,
         onTap: () {
           setState(() {
@@ -162,7 +160,7 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
         },
       ),
       _AdminPanelTab(
-        title: ConstantTexts.ACCESS_MANAGEMENT,
+        title: ConstantTexts.acceseManagement,
         isExpanded: currentTabIndex == 4,
         onTap: () {
           setState(() {
@@ -171,7 +169,7 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
         },
       ),
       _AdminPanelTab(
-        title: ConstantTexts.LOCATIONS,
+        title: ConstantTexts.locations,
         isExpanded: currentTabIndex == 5,
         onTap: () {
           setState(() {
@@ -180,7 +178,7 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
         },
       ),
       _AdminPanelTab(
-        title: ConstantTexts.USERS,
+        title: ConstantTexts.users,
         isExpanded: currentTabIndex == 6,
         onTap: () {
           setState(() {
@@ -189,7 +187,7 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
         },
       ),
       _AdminPanelTab(
-        title: ConstantTexts.SEAPOD_SETTINGS,
+        title: ConstantTexts.seapodsSettings,
         isExpanded: currentTabIndex == 7,
         onTap: () {
           setState(() {
@@ -232,30 +230,30 @@ class DesktopControlOptions extends StatelessWidget {
         nipHeight: 15,
         height: 128,
         width: 210,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: 20,
           horizontal: 15,
         ),
-        color: Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+        color: const Color(ColorConstants.loginRegisterTextColor),
         nipLocation: NipLocation.TOP_RIGHT,
-        offset: Offset(-25.0, 0.0),
+        offset: const Offset(-25.0, 0.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildControlOption(
-              ImagePaths.SETTINGS_ICON,
-              ConstantTexts.SETTINGS,
+              ImagePaths.settingsIcon,
+              ConstantTexts.settings,
               () {},
             ),
             buildControlOption(
-              ImagePaths.PROFILE_ICON,
-              ConstantTexts.PROFILE.toUpperCase(),
+              ImagePaths.profileIcon,
+              ConstantTexts.profile.toUpperCase(),
               () {},
             ),
             buildControlOption(
-              ImagePaths.LOGOUT_ICON,
-              ConstantTexts.LOGOUT,
+              ImagePaths.logoutIcon,
+              ConstantTexts.logout,
               () async {
                 await Provider.of<AdminAuthProvider>(context, listen: false)
                     .logout();
@@ -265,8 +263,8 @@ class DesktopControlOptions extends StatelessWidget {
                   PageRouteBuilder(
                     pageBuilder: (context, animation1, animation2) =>
                         LoginPage(),
-                    transitionDuration: Duration(seconds: 0),
-                    settings: RouteSettings(name: LoginPage.routeName),
+                    transitionDuration: const Duration(),
+                    settings: const RouteSettings(name: LoginPage.routeName),
                   ),
                 );
               },
@@ -280,7 +278,7 @@ class DesktopControlOptions extends StatelessWidget {
   Widget buildControlOption(
     String iconPath,
     String controlOption,
-    Function onPressed,
+    void Function() onPressed,
   ) {
     return GestureDetector(
       onTap: onPressed,
@@ -295,10 +293,10 @@ class DesktopControlOptions extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15),
             child: Text(
               controlOption,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
               ),
             ),
@@ -310,7 +308,7 @@ class DesktopControlOptions extends StatelessWidget {
 }
 
 class NavigationMenu extends StatefulWidget {
-  NavigationMenu({@required this.tabs});
+  const NavigationMenu({@required this.tabs});
   final List<Widget> tabs;
 
   @override
@@ -320,13 +318,13 @@ class NavigationMenu extends StatefulWidget {
 class _NavigationMenuState extends State<NavigationMenu> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Constants.LEFT_NAVIGATION_WIDTH,
-      height: Constants.TAB_HEIGHT,
+    return SizedBox(
+      width: Constants.leftNavigationWidth,
+      height: Constants.tabHeight,
       child: Column(
         children: [
           ProfilePic(),
-          SizedBox(
+          const SizedBox(
             height: 18,
           ),
           ...widget.tabs
@@ -337,7 +335,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
 }
 
 class _AdminPanelTab extends StatefulWidget {
-  _AdminPanelTab({
+  const _AdminPanelTab({
     this.title,
     this.isExpanded,
     this.onTap,
@@ -361,15 +359,15 @@ class _AdminPanelTabState extends State<_AdminPanelTab>
       child: Container(
         height: 45,
         width: 200,
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           left: 15,
           top: 15,
         ),
         color: widget.isExpanded
-            ? Color(
-                ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+            ? const Color(
+                ColorConstants.loginRegisterTextColor,
               )
-            : Colors.white,
+            :  Colors.white,
         child: Text(
           widget.title,
           textAlign: TextAlign.start,
@@ -378,8 +376,8 @@ class _AdminPanelTabState extends State<_AdminPanelTab>
             fontWeight: FontWeight.w500,
             color: widget.isExpanded
                 ? Colors.white
-                : Color(
-                    ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                : const Color(
+                    ColorConstants.loginRegisterTextColor,
                   ),
           ),
         ),

@@ -4,9 +4,9 @@ import 'package:ob_admin_panel/src/constants/constants.dart';
 class MenuItem extends StatelessWidget {
   final String title;
   final bool isTapped;
-  final Function onTap;
+  final VoidCallback onTap;
 
-  MenuItem({
+  const MenuItem({
     @required this.title,
     this.isTapped = false,
     this.onTap,
@@ -19,19 +19,19 @@ class MenuItem extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 40,
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           left: 15,
           top: 10,
         ),
         color: isTapped
-            ? Color(
-                ColorConstants.TAPPED_MENU_BACKGROUND,
+            ? const Color(
+                ColorConstants.tappedMenuBackground,
               )
             : null,
         child: Text(
           title,
           textAlign: TextAlign.start,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
             color: Colors.white,

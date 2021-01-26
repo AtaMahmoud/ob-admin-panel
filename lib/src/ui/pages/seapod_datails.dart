@@ -11,16 +11,15 @@ class SeapodDetailsPage extends StatefulWidget {
 }
 
 class _SeapodDetailsPageState extends State<SeapodDetailsPage> {
-
-  
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
-        if (sizingInformation.deviceScreenType == DeviceScreenType.desktop)
+        if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
           return DesktopSeapodDetails();
-        else
+        } else {
           return MobileSeapodDetails();
+        }
       },
     );
   }

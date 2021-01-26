@@ -12,14 +12,14 @@ import 'package:provider/provider.dart';
 
 class MobileLeftNavigationMenu extends StatelessWidget {
   final int tappedMenuIndex;
-  MobileLeftNavigationMenu({
+ const MobileLeftNavigationMenu({
     @required this.tappedMenuIndex,
   });
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
-    return Container(
+    final mediaQuery = MediaQuery.of(context).size;
+    return SizedBox(
       width: mediaQuery.width * 0.56,
       child: Drawer(
         child: BackdropFilter(
@@ -33,7 +33,7 @@ class MobileLeftNavigationMenu extends StatelessWidget {
                 height: mediaQuery.height -
                     MediaQuery.of(context).padding.bottom -
                     MediaQuery.of(context).padding.top,
-                color: Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+                color: const Color(ColorConstants.loginRegisterTextColor),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -46,7 +46,7 @@ class MobileLeftNavigationMenu extends StatelessWidget {
                               BuildContext context,
                             ) =>
                                 IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.menu,
                                 color: Colors.white,
                                 size: 35.0,
@@ -66,22 +66,22 @@ class MobileLeftNavigationMenu extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     ...[
-                      for (int i = 0; i < Constants.TAB_COUNT; i++) ...[
+                      for (int i = 0; i < Constants.tabCount; i++) ...[
                         _buildNavigationMenues(
                             tappedMenuIndex == i, context)[i],
                       ]
                     ],
-                    SizedBox(
+                   const SizedBox(
                       height: 15,
                     ),
                     GestureDetector(
                       onTap: () => logout(context),
-                      child: MenuItem(
-                        title: ConstantTexts.LOGOUT,
+                      child: const MenuItem(
+                        title: ConstantTexts.logout,
                       ),
                     ),
                   ],
@@ -100,49 +100,48 @@ class MobileLeftNavigationMenu extends StatelessWidget {
   ) {
     return [
       MenuItem(
-        title: ConstantTexts.HOME,
+        title: ConstantTexts.home,
         isTapped: isTapped,
         onTap: () {
           Navigator.of(context).pushReplacementNamed(HomePage.routeName);
         },
       ),
       MenuItem(
-        title: ConstantTexts.WEATHER_MARINE,
+        title: ConstantTexts.weatherMarine,
         isTapped: isTapped,
       ),
       MenuItem(
-        title: ConstantTexts.DEVICES,
+        title: ConstantTexts.devices,
         isTapped: isTapped,
       ),
       MenuItem(
-        title: ConstantTexts.MESSAGES,
+        title: ConstantTexts.messages,
         isTapped: isTapped,
       ),
       MenuItem(
-        title: ConstantTexts.ACCESS_MANAGEMENT,
+        title: ConstantTexts.acceseManagement,
         isTapped: isTapped,
       ),
       MenuItem(
-        title: ConstantTexts.LOCATIONS,
+        title: ConstantTexts.locations,
         isTapped: isTapped,
       ),
       MenuItem(
-        title: ConstantTexts.USERS,
+        title: ConstantTexts.users,
         isTapped: isTapped,
       ),
       MenuItem(
-        title: ConstantTexts.SEAPOD_SETTINGS,
+        title: ConstantTexts.seapodsSettings,
         isTapped: isTapped,
       ),
     ];
   }
 
-  void logout(BuildContext context) async {
+  Future<void> logout(BuildContext context) async {
     showDialog(
       context: context,
-      builder: (context) => SpinKitFadingCircle(
-        color: Color(ColorConstants.MAIN_COLOR),
-        size: 50,
+      builder: (context) => const SpinKitFadingCircle(
+        color: Color(ColorConstants.mainColor),
       ),
     );
     await Provider.of<AdminAuthProvider>(context, listen: false).logout();

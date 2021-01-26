@@ -15,8 +15,8 @@ class SeaPodInfoWindow extends StatefulWidget {
 class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
   @override
   Widget build(BuildContext context) {
-    var selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
-    var divider = Divider(
+    final selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
+    const divider = Divider(
       color: Colors.white,
       thickness: 1,
       height: 35,
@@ -25,7 +25,7 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
       builder: (context, sizingInformation) {
         return Container(
           margin: sizingInformation.deviceScreenType == DeviceScreenType.desktop
-              ? EdgeInsets.only(top: 30, left: 20)
+              ? const EdgeInsets.only(top: 30, left: 20)
               : EdgeInsets.zero,
           child: SpeechBubble(
             nipHeight: 20,
@@ -37,11 +37,11 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
                 sizingInformation.deviceScreenType == DeviceScreenType.desktop
                     ? 430
                     : 250,
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 15,
               horizontal: 15,
             ),
-            color: Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR)
+            color: const Color(ColorConstants.loginRegisterTextColor)
                 .withOpacity(0.85),
             nipLocation: NipLocation.RIGHT,
             borderRadius: 8.0,
@@ -54,21 +54,21 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           titleWidget(
-                            ConstantTexts.NAME + ': ',
+                            '${ConstantTexts.name}: ',
                           ),
                           infoWidget(
                             selectedSeapod.seaPodName,
                           ),
                           titleWidget(
-                            ConstantTexts.OWNER + ': ',
+                            '${ConstantTexts.owner}: ',
                           ),
                           infoWidget(
                             selectedSeapod.ownersNames.join(', '),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
-                          MoreButton(),
+                          const MoreButton(),
                         ],
                       ),
                       divider2(),
@@ -76,19 +76,19 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           titleWidget(
-                            ConstantTexts.LOCATION + ': ',
+                            '${ConstantTexts.location}: ',
                           ),
                           infoWidget(
                             selectedSeapod.location.locationName,
                           ),
                           titleWidget(
-                            ConstantTexts.LATITUDE,
+                            ConstantTexts.latitude,
                           ),
                           infoWidget(
                             selectedSeapod.location.latitude.toStringAsFixed(4),
                           ),
                           titleWidget(
-                            ConstantTexts.LONGITUDE,
+                            ConstantTexts.logitude,
                           ),
                           infoWidget(
                             selectedSeapod.location.longitude
@@ -98,7 +98,7 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
                       ),
                       divider2(),
                       infoWidget(
-                          '${ConstantTexts.STATUS}: ${selectedSeapod.seaPodStatus}')
+                          '${ConstantTexts.status}: ${selectedSeapod.seaPodStatus}')
                     ],
                   )
                 : mobileVersion(selectedSeapod, divider),
@@ -121,39 +121,39 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         titleWidget(
-          ConstantTexts.NAME + ': ',
+          '${ConstantTexts.name}: ',
         ),
         infoWidget(
           selectedSeapod.seaPodName,
         ),
         titleWidget(
-          ConstantTexts.OWNER + ': ',
+          '${ConstantTexts.owner}: ',
         ),
         infoWidget(
           selectedSeapod.ownersNames.join(', '),
         ),
-        MoreButton(),
+        const MoreButton(),
         divider,
         titleWidget(
-          ConstantTexts.LOCATION + ': ',
+          '${ConstantTexts.location}: ',
         ),
         infoWidget(
           selectedSeapod.location.locationName,
         ),
         titleWidget(
-          ConstantTexts.LATITUDE,
+          ConstantTexts.latitude,
         ),
         infoWidget(
           selectedSeapod.location.latitude.toStringAsFixed(4),
         ),
         titleWidget(
-          ConstantTexts.LONGITUDE,
+          ConstantTexts.logitude,
         ),
         infoWidget(
           selectedSeapod.location.longitude.toStringAsFixed(4),
         ),
         divider,
-        infoWidget('${ConstantTexts.STATUS}: ${selectedSeapod.seaPodStatus}')
+        infoWidget('${ConstantTexts.status}: ${selectedSeapod.seaPodStatus}')
       ],
     );
   }
@@ -167,7 +167,7 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
       ),
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 14,
         ),
@@ -184,7 +184,7 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
       ),
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 16,
         ),
@@ -205,24 +205,24 @@ class MoreButton extends StatelessWidget {
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) => HomePage(
+            pageBuilder: (context, animation1, animation2) => const HomePage(
               seapodDetailsPage: true,
             ),
-            transitionDuration: Duration(seconds: 0),
-            settings: RouteSettings(name: HomePage.routeName),
+            transitionDuration: const Duration(),
+            settings: const RouteSettings(name: HomePage.routeName),
           ),
         );
       },
       child: Container(
         height: 30,
         width: 100,
-        margin: EdgeInsets.only(bottom: 8),
+        margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.white,
           ),
         ),
-        child: Center(
+        child: const Center(
           child: Text(
             'More',
             style: TextStyle(

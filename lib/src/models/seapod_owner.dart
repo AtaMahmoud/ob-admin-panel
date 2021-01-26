@@ -26,22 +26,27 @@ class SeapodOwner {
   });
 
   SeapodOwner.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    userName = json['userName'];
-    checkInDate = json['checkInDate'];
-    profilePicUrl = json['profilePicUrl'];
+    id = json['_id'] as String;
+    userName = json['userName'] as String;
+    checkInDate = json['checkInDate'] as int;
+    profilePicUrl = json['profilePicUrl'] as String;
     seapods = [];
-    json['seaPods'].forEach((e) => seapods.add(Seapod.fromJson(e)));
-    country = json['country'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    email = json['email'];
-    mobileNumber = json['mobileNumber'];
+    json['seaPods'].forEach(
+        (e) => seapods.add(Seapod.fromJson(e as Map<String, dynamic>)));
+    country = json['country'] as String;
+    firstName = json['firstName'] as String;
+    lastName = json['lastName'] as String;
+    email = json['email'] as String;
+    mobileNumber = json['mobileNumber'] as String;
     emergencyContacts = [];
-
-    if (json['emergencyContacts'].isNotEmpty)
-      json['emergencyContacts']
-          .forEach((e) => emergencyContacts.add(EmergencyContact.fromJson(e)));
+    final emergContacts = json['emergencyContacts'] as Map<String, dynamic>;
+    if (emergContacts.isNotEmpty) {
+      json['emergencyContacts'].forEach(
+        (e) => emergencyContacts.add(
+          EmergencyContact.fromJson(e as Map<String, dynamic>),
+        ),
+      );
+    }
   }
 }
 
@@ -55,8 +60,8 @@ class Seapod {
   });
 
   Seapod.fromJson(Map<String, dynamic> json) {
-    seapodName = json['seapodName'];
-    userType = json['userType'];
+    seapodName = json['seapodName'] as String;
+    userType = json['userType'] as String;
   }
 }
 
@@ -76,10 +81,10 @@ class EmergencyContact {
   });
 
   EmergencyContact.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    email = json['email'];
-    mobileNumber = json['mobileNumber'];
+    id = json['_id'] as String;
+    firstName = json['firstName'] as String;
+    lastName = json['lastName'] as String;
+    email = json['email'] as String;
+    mobileNumber = json['mobileNumber'] as String;
   }
 }

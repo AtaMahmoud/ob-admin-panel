@@ -11,7 +11,7 @@ class HeadersManager {
   Future<Map<String, String>> getBasicHeaders(
     String email,
   ) async {
-    Map<String, String> deviceData = {};
+    final Map<String, String> deviceData = {};
     deviceData['content-type'] = 'application/json';
     deviceData['notificationToken'] =
         'fluMksedKxY:APA91bFMdxZD7Ouwh0aiVWuDcLrzPfNMkU6WbH_zljlCm_57samv/g3hLcsrcM9MkA45568IUWCnXI-7cBEMrl6NLtfqlauc8Wssa-xN5vXXFS2hb7mka0y1RJ698...';
@@ -38,22 +38,22 @@ class HeadersManager {
   }
 
   Future<Map<String, String>> initializeBasicHeaders(String email) async {
-    var headers = await getBasicHeaders(email);
+    final headers = await getBasicHeaders(email);
     await _saveHeadersToSharedPrefs(headers);
 
     return headers;
   }
 
   Future<Map<String, String>> getHeadersFromSharedPrefs() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    Map<String, String> resultMap = {};
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final Map<String, String> resultMap = {};
     if (sharedPreferences.containsKey('content-type')) {
       resultMap['content-type'] = sharedPreferences.getString('content-type');
       resultMap['notificationToken'] =
           sharedPreferences.getString('notificationToken');
       resultMap['hardwareId'] = sharedPreferences.getString('hardwareId');
       resultMap['Access-Control-Allow-Origin'] =
-          sharedPreferences.get('Access-Control-Allow-Origin');
+          sharedPreferences.get('Access-Control-Allow-Origin') as String;
       resultMap['model'] = sharedPreferences.getString('model');
       resultMap['x-auth-token'] = sharedPreferences.getString('x-auth-token');
     }
@@ -62,14 +62,14 @@ class HeadersManager {
 
   Future<void> _saveHeadersToSharedPrefs(
       Map<String, dynamic> deviceData) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    for (var key in deviceData.keys) {
-      sharedPreferences.setString(key, deviceData[key]);
+    final sharedPreferences = await SharedPreferences.getInstance();
+    for (final key in deviceData.keys) {
+      sharedPreferences.setString(key, deviceData[key] as String);
     }
   }
 
   Future<void> saveAdminTokenToSharedPrefs(String token) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString('x-auth-token', token);
   }
 

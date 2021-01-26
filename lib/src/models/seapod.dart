@@ -45,7 +45,7 @@ class SeaPod {
   String accessLevel;
   num v;
 
-  SeaPod(
+  SeaPod({
     this.powerUtilities,
     this.soundSystem,
     this.masterBedroomFloorFinishing,
@@ -86,59 +86,62 @@ class SeaPod {
     this.qrCodeImageUrl,
     this.accessLevel,
     this.v,
-  );
+  });
 
   SeaPod.fromJson(Map<String, dynamic> json) {
     /*  List powerUtilities;
   List soundSystem; */
     masterBedroomFloorFinishing = [];
     json['masterBedroomFloorFinishing'].forEach((e) {
-      masterBedroomFloorFinishing.add(e);
+      masterBedroomFloorFinishing.add(e as String);
     });
-    hasWeatherStation = json['hasWeatherStation'];
+    hasWeatherStation = json['hasWeatherStation'] as bool;
 
-    hasCleanWaterLevelIndicator = json['hasCleanWaterLevelIndicator'];
+    hasCleanWaterLevelIndicator = json['hasCleanWaterLevelIndicator'] as bool;
     permissionSets = [];
     json['permissionSets'].forEach((e) {
-      permissionSets.add(PermissionSet.fromJson(e));
+      permissionSets.add(PermissionSet.fromJson(e as Map<String, dynamic>));
     });
     lightScenes = [];
     json['lightScenes'].forEach((e) {
-      lightScenes.add(LightScene.fromJson(e));
+      lightScenes.add(LightScene.fromJson(e as Map<String, dynamic>));
     });
-    seaPodOrientation = json['seaPodOrientation'];
+    seaPodOrientation = json['seaPodOrientation'] as num;
     /*  List accessRequests;
    List accessInvitation; */
-    id = json['_id'];
+    id = json['_id'] as String;
 
-    seaPodName = json['SeaPodName'];
-    exteriorFinish = json['exteriorFinish'];
-    exterioirColor = json['exterioirColor'];
+    seaPodName = json['SeaPodName'] as String;
+    exteriorFinish = json['exteriorFinish'] as String;
+    exterioirColor = json['exterioirColor'] as String;
 
-    sparFinish = json['sparFinish'];
-    sparDesign = json['sparDesign'];
-    deckEnclosure = json['deckEnclosure'];
-    bedAndLivingRoomEnclousure = json['bedAndLivingRoomEnclousure'];
-    power = json['power'];
-    underWaterRoomFinishing = json['underWaterRoomFinishing'];
-    underWaterWindows = json['underWaterWindows'];
-    masterBedroomInteriorWallColor = json['masterBedroomInteriorWallColor'];
-    livingRoomloorFinishing = json['livingRoomloorFinishing'];
-    livingRoomInteriorWallColor = json['livingRoomInteriorWallColor'];
-    kitchenfloorFinishing = json['kitchenfloorFinishing'];
-    kitchenInteriorWallColor = json['kitchenInteriorWallColor'];
-    entryStairs = json['entryStairs'];
-    interiorBedroomWallColor = json['interiorBedroomWallColor'];
-    deckFloorFinishMaterial = json['deckFloorFinishMaterial'];
-    seaPodStatus = json['seaPodStatus'];
-    seaPodType = json['seaPodType'] ?? "";
+    sparFinish = json['sparFinish'] as String;
+    sparDesign = json['sparDesign'] as String;
+    deckEnclosure = json['deckEnclosure'] as String;
+    bedAndLivingRoomEnclousure = json['bedAndLivingRoomEnclousure'] as String;
+    power = json['power'] as String;
+    underWaterRoomFinishing = json['underWaterRoomFinishing'] as String;
+    underWaterWindows = json['underWaterWindows'] as String;
+    masterBedroomInteriorWallColor =
+        json['masterBedroomInteriorWallColor'] as String;
+    livingRoomloorFinishing = json['livingRoomloorFinishing'] as String;
+    livingRoomInteriorWallColor = json['livingRoomInteriorWallColor'] as String;
+    kitchenfloorFinishing = json['kitchenfloorFinishing'] as String;
+    kitchenInteriorWallColor = json['kitchenInteriorWallColor'] as String;
+    entryStairs = json['entryStairs'] as String;
+    interiorBedroomWallColor = json['interiorBedroomWallColor'] as String;
+    deckFloorFinishMaterial = json['deckFloorFinishMaterial'] as String;
+    seaPodStatus = json['seaPodStatus'] as String;
+    seaPodType = json['seaPodType'] as String ?? "";
     users = [];
     ownersNames = [];
     accessLevel = 'No Access';
     json['users'].forEach((user) {
-      var userData = User.fromJson(user);
-      if (userData.type.toLowerCase() == 'owner')
+      final userData = User.fromJson(user as Map<String, dynamic>);
+      if (userData.type.toLowerCase() == 'owner') {
         ownersNames.add(userData.userName);
+      }
+
       /*  if (userData.type.toLowerCase() == 'admin')
         accessLevel = userData.permissionSet; */
 
@@ -147,12 +150,13 @@ class SeaPod {
 
     actionsHistory = [];
     json['actionsHistory'].forEach((actionHistory) {
-      actionsHistory.add(ActionHistory.fromJson(actionHistory));
+      actionsHistory
+          .add(ActionHistory.fromJson(actionHistory as Map<String, dynamic>));
     });
-    location = Location.fromJson(json['location']);
-    vessleCode = json['vessleCode'];
-    qrCodeImageUrl = json['qrCodeImageUrl'];
-    v = json['__v'];
+    location = Location.fromJson(json['location'] as Map<String, dynamic>);
+    vessleCode = json['vessleCode'] as String;
+    qrCodeImageUrl = json['qrCodeImageUrl'] as String;
+    v = json['__v'] as num;
   }
 }
 
@@ -173,12 +177,12 @@ class ActionHistory {
     this.userType,
   );
   ActionHistory.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    action = json['action'];
-    actionResult = json['actionResult'];
-    userId = json['userId'];
-    userName = json['userName'];
-    userType = json['userType'];
+    id = json['_id'] as String;
+    action = json['action'] as String;
+    actionResult = json['actionResult'] as String;
+    userId = json['userId'] as String;
+    userName = json['userName'] as String;
+    userType = json['userType'] as String;
   }
 }
 
@@ -194,8 +198,9 @@ class Location {
   );
 
   Location.fromJson(Map<String, dynamic> json) {
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+    latitude = json['latitude'] as double;
+    longitude = json['longitude'] as double;
+    //TODO: add dynamic country name
     locationName = 'Panama';
   }
 }

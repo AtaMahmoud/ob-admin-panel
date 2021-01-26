@@ -14,19 +14,19 @@ class Admin {
   });
 
   Admin.fromJson(Map<String, dynamic> json) {
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    email = json['email'];
-    mobileNumber = json['mobileNumber'];
-    country = json['country'];
+    firstName = json['firstName'] as String;
+    lastName = json['lastName'] as String ;
+    email = json['email'] as String ;
+    mobileNumber = json['mobileNumber'] as String ;
+    country = json['country'] as String ;
   }
   Map<String, String> toJson() {
-    final Map<String, String> data = Map<String, String>();
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['email'] = this.email;
-    data['mobileNumber'] = this.mobileNumber;
-    data['country'] = this.country;
+    final data = <String, String>{};
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['email'] = email;
+    data['mobileNumber'] = mobileNumber;
+    data['country'] = country;
 
     return data;
   }

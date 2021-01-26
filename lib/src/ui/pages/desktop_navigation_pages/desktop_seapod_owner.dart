@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class DesktopSeapodOwner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var selectedOwner =
+    final selectedOwner =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return SingleChildScrollView(
       child: Padding(
@@ -24,18 +24,18 @@ class DesktopSeapodOwner extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
-                  children: [
-                    Container(
+                  children: const [
+                    SizedBox(
+                      width: 376,
                       child: ProfileInfoCard(),
-                      width: 376,
                     ),
-                    Container(
+                    SizedBox(
+                      width: 376,
                       child: ContactsInfoCard(),
-                      width: 376,
                     ),
-                    Container(
-                      child: ConnectedHomesInfoCard(),
+                    SizedBox(
                       width: 376,
+                      child: ConnectedHomesInfoCard(),
                     )
                   ],
                 ),

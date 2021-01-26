@@ -12,7 +12,7 @@ class AdminAuthProvider with ChangeNotifier {
     _authenticatedAdmin = ApiResponse<Admin>();
   }
 
-  Admin get authenticatedAdmin => _authenticatedAdmin.data ?? null;
+  Admin get authenticatedAdmin => _authenticatedAdmin.data;
 
   Future<void> register(Admin adminData, String password) async {
     _authenticatedAdmin = ApiResponse.loading('Create account');
@@ -50,8 +50,9 @@ class AdminAuthProvider with ChangeNotifier {
       _authenticatedAdmin = ApiResponse.completed(admin);
       notifyListeners();
       return true;
-    } else
+    } else {
       return false;
+    }
   }
 
   Future<void> logout() async {

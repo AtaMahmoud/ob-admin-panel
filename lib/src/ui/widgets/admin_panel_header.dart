@@ -5,9 +5,9 @@ import 'package:ob_admin_panel/src/ui/widgets/logo.dart';
 import 'package:provider/provider.dart';
 
 class DesktopHeader extends StatefulWidget {
-  final Function showControlOptions;
+  final void Function() showControlOptions;
 
-  DesktopHeader({
+  const DesktopHeader({
     @required this.showControlOptions,
   });
 
@@ -18,12 +18,12 @@ class DesktopHeader extends StatefulWidget {
 class _DesktopHeaderState extends State<DesktopHeader> {
   @override
   Widget build(BuildContext context) {
-    var admin = Provider.of<AdminAuthProvider>(
+    final admin = Provider.of<AdminAuthProvider>(
       context,
     ).authenticatedAdmin;
     return Container(
       padding: const EdgeInsets.only(right: 60),
-      height: Constants.HEADER_HEIGHT,
+      height: Constants.headerHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +31,7 @@ class _DesktopHeaderState extends State<DesktopHeader> {
           WebLogo(),
           Container(
             width: 400,
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               top: 45,
             ),
             child: Row(
@@ -40,12 +40,11 @@ class _DesktopHeaderState extends State<DesktopHeader> {
                 Container(
                   height: 30,
                   width: 250,
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                      color:
-                          const Color(ColorConstants.TEXT_FIELD_BORDER),
+                      color: const Color(ColorConstants.textFieldBorder),
                     ),
                   ),
                   child: TextField(
@@ -57,14 +56,14 @@ class _DesktopHeaderState extends State<DesktopHeader> {
                         width: 15,
                         height: 15,
                         child: Image.asset(
-                          ImagePaths.SEARCH_ICON,
+                          ImagePaths.searchIcon,
                           fit: BoxFit.contain,
                         ),
                       ),
-                      hintText: ConstantTexts.SEARCH,
-                      hintStyle: TextStyle(
-                        color: const Color(
-                          ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                      hintText: ConstantTexts.search,
+                      hintStyle: const TextStyle(
+                        color: Color(
+                          ColorConstants.loginRegisterTextColor,
                         ),
                         fontSize: 13.0,
                         fontWeight: FontWeight.w400,
@@ -79,14 +78,14 @@ class _DesktopHeaderState extends State<DesktopHeader> {
                     height: 30,
                     decoration: BoxDecoration(
                       color:
-                          Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+                          const Color(ColorConstants.loginRegisterTextColor),
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Center(
                       child: Text(
                         '${admin.firstName} ${admin.lastName}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w100,
@@ -107,7 +106,7 @@ class _DesktopHeaderState extends State<DesktopHeader> {
 class MobileHeader extends StatelessWidget {
   final bool showLogo;
 
-  MobileHeader({
+  const MobileHeader({
     this.showLogo = true,
   });
 
@@ -125,9 +124,9 @@ class MobileHeader extends StatelessWidget {
                   BuildContext context,
                 ) =>
                     IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.menu,
-                    color: Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+                    color: Color(ColorConstants.loginRegisterTextColor),
                     size: 35.0,
                   ),
                   onPressed: () {
@@ -136,7 +135,7 @@ class MobileHeader extends StatelessWidget {
                 ),
               ),
               Image.asset(
-                ImagePaths.SEARCH_ICON,
+                ImagePaths.searchIcon,
                 fit: BoxFit.contain,
                 width: 30,
                 height: 30,

@@ -1,13 +1,13 @@
-import 'package:dio/dio.dart';
-import 'package:ob_admin_panel/src/configs/config.dart';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
+import 'package:ob_admin_panel/src/configs/config.dart';
 import 'app_exception.dart';
 
 class ApiBaseHelper {
-  Dio _dio = Dio(BaseOptions(
-      connectTimeout: Config.CONNECTION_TIME_OUT,
-      receiveTimeout: Config.READ_TIME_OUT));
+  final _dio = Dio(BaseOptions(
+      connectTimeout: Config.connectionTimeOut,
+      receiveTimeout: Config.readTimeOut));
 
   ApiBaseHelper() {
     _dio.interceptors.add(LogInterceptor(requestBody: true));
@@ -30,7 +30,7 @@ class ApiBaseHelper {
     } on SocketException {
       throw FetchDataException("No Internet connection");
     } on DioError catch (error) {
-      String exceptionText = _handleError(error);
+      final exceptionText = _handleError(error);
       throw FetchDataException(exceptionText);
     }
 
@@ -54,7 +54,7 @@ class ApiBaseHelper {
     } on SocketException {
       throw FetchDataException("No Internet connection");
     } on DioError catch (error) {
-      String exceptionText = _handleError(error);
+      final exceptionText = _handleError(error);
       throw FetchDataException(exceptionText);
     }
 
@@ -79,7 +79,7 @@ class ApiBaseHelper {
     } on SocketException {
       throw FetchDataException("No Internet connection");
     } on DioError catch (error) {
-      String exceptionText = _handleError(error);
+      final exceptionText = _handleError(error);
       throw FetchDataException(exceptionText);
     }
 
@@ -88,7 +88,7 @@ class ApiBaseHelper {
 
   Response _returnResponse(Response response) {
     if (response.statusCode != 200) {
-      throw BadRequestException(response.data['message']);
+      throw BadRequestException(response.data['message'] as String);
     }
     return response;
   }

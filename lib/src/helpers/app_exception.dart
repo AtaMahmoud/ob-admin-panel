@@ -7,13 +7,14 @@ class AppException implements Exception {
     this._prefix,
   ]);
 
+  @override
   String toString() {
     return "$_prefix$_message";
   }
 }
 
 class FetchDataException extends AppException {
-  FetchDataException([String message, int statusCode])
+  FetchDataException([String message])
       : super(
           message,
           "Error During Communication: ",

@@ -15,27 +15,27 @@ class MobileSeapodOwner extends StatefulWidget {
 class _MobileSeapodOwnerState extends State<MobileSeapodOwner> {
   @override
   Widget build(BuildContext context) {
-    var selectedOwner =
+    final selectedOwner =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(
-          ColorConstants.TAB_BACKGROUND,
+        backgroundColor: const Color(
+          ColorConstants.tabBackground,
         ),
-        drawer: MobileLeftNavigationMenu(
+        drawer: const MobileLeftNavigationMenu(
           tappedMenuIndex: 0,
         ),
-        drawerScrimColor: Color(ColorConstants.DRAWER_SCRIM_COLOR),
+        drawerScrimColor: const Color(ColorConstants.drawerScrimColor),
         body: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MobileHeader(
+                  const MobileHeader(
                     showLogo: false,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Padding(
@@ -49,9 +49,9 @@ class _MobileSeapodOwnerState extends State<MobileSeapodOwner> {
                       fontSize: 22,
                     ),
                   ),
-                  ProfileInfoCard(),
-                  ContactsInfoCard(),
-                  ConnectedHomesInfoCard(),
+                  const ProfileInfoCard(),
+                  const ContactsInfoCard(),
+                  const ConnectedHomesInfoCard(),
                 ],
               ),
             )
@@ -71,27 +71,27 @@ class SeapodsOwnerTabletVersion extends StatefulWidget {
 class _SeapodsOwnerTabletVersionState extends State<SeapodsOwnerTabletVersion> {
   @override
   Widget build(BuildContext context) {
-    var selectedOwner =
+    final selectedOwner =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(
-          ColorConstants.TAB_BACKGROUND,
+        backgroundColor: const Color(
+          ColorConstants.tabBackground,
         ),
-        drawer: MobileLeftNavigationMenu(
+        drawer: const MobileLeftNavigationMenu(
           tappedMenuIndex: 0,
         ),
-        drawerScrimColor: Color(ColorConstants.DRAWER_SCRIM_COLOR),
+        drawerScrimColor: const Color(ColorConstants.drawerScrimColor),
         body: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MobileHeader(
+                  const MobileHeader(
                     showLogo: false,
                   ),
-                  SizedBox(
+                 const SizedBox(
                     height: 15,
                   ),
                   Padding(
@@ -106,7 +106,7 @@ class _SeapodsOwnerTabletVersionState extends State<SeapodsOwnerTabletVersion> {
                     ),
                   ),
                   Row(
-                    children: [
+                    children: const[
                       Expanded(
                         child: ProfileInfoCard(),
                       ),

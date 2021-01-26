@@ -14,12 +14,13 @@ class LightScene {
   });
 
   LightScene.fromJson(Map<String, dynamic> json) {
-    isDefault = json['isDefault'];
-    id = json['_id'];
-    source = json['source'];
-    sceneName = json['sceneName'];
+    isDefault = json['isDefault'] as bool;
+    id = json['_id'] as String;
+    source = json['source'] as String;
+    sceneName = json['sceneName'] as String;
     rooms = [];
-    json['rooms'].forEach((e) => rooms.add(Room.fromJson(e)));
+    json['rooms']
+        .forEach((e) => rooms.add(Room.fromJson(e as Map<String, dynamic>)));
   }
 }
 
@@ -36,9 +37,10 @@ class Room {
 
   Room.fromJson(Map<String, dynamic> json) {
     modes = [];
-    json['moodes'].forEach((e) => modes.add(Mode.fromJson(e)));
-    id = json['_id'];
-    label = json['label'];
+    json['moodes']
+        .forEach((e) => modes.add(Mode.fromJson(e as Map<String, dynamic>)));
+    id = json['_id'] as String;
+    label = json['label'] as String;
   }
 }
 
@@ -58,10 +60,10 @@ class Mode {
   });
 
   Mode.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    intensity = json['intensity'];
-    id = json['_id'];
-    lightName = json['lightName'];
-    lightColor = json['lightColor'];
+    status = json['status'] as bool;
+    intensity = json['intensity'] as num;
+    id = json['_id'] as String;
+    lightName = json['lightName'] as String;
+    lightColor = json['lightColor'] as String;
   }
 }

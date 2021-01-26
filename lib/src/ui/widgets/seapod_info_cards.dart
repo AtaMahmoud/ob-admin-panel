@@ -15,34 +15,35 @@ class OwnerInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var seapodsProvider = Provider.of<SeaPodsProvider>(context, listen: false);
-    var selectedSeapod = seapodsProvider.selectedSeapod;
+    final seapodsProvider =
+        Provider.of<SeaPodsProvider>(context, listen: false);
+    final selectedSeapod = seapodsProvider.selectedSeapod;
     return GestureDetector(
       onTap: () {
         seapodsProvider.updateSelectedOwner(owner);
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) => HomePage(
+            pageBuilder: (context, animation1, animation2) => const HomePage(
               seapodOwnerPage: true,
             ),
-            transitionDuration: Duration(seconds: 0),
-            settings: RouteSettings(name: HomePage.routeName),
+            transitionDuration: const Duration(),
+            settings: const RouteSettings(name: HomePage.routeName),
           ),
         );
       },
       child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 10,
         ),
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         height: 160,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Color(
+            color: const Color(
               0xFF9BACC2,
             ),
           ),
@@ -51,59 +52,59 @@ class OwnerInfoCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             //TODO: Add dynamic profile pic
-            CircleAvatar(
+            const CircleAvatar(
               radius: 60,
               backgroundImage: AssetImage(
-                ImagePaths.AVATAR,
+                ImagePaths.defaultAvatar,
               ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  ConstantTexts.OWNER.toUpperCase() + '(S)',
-                  style: TextStyle(
+                  '${ConstantTexts.owner.toUpperCase()}(S)',
+                  style: const TextStyle(
                     color: Color(
-                      ColorConstants.TEXT_COLOR,
+                      ColorConstants.textColor,
                     ),
                     fontSize: 15.0,
                   ),
                 ),
-                Divider(
+                const Divider(
                   height: 8,
                 ),
                 Text(
                   owner.userName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(
-                      ColorConstants.MAIN_COLOR,
+                      ColorConstants.mainColor,
                     ),
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Divider(
+                const Divider(
                   height: 35,
                 ),
                 Row(
                   children: [
                     Text(
-                      ConstantTexts.TYPE.toUpperCase(),
-                      style: TextStyle(
+                      ConstantTexts.type.toUpperCase(),
+                      style: const TextStyle(
                         color: Color(
-                          ColorConstants.TEXT_COLOR,
+                          ColorConstants.textColor,
                         ),
                         fontSize: 15.0,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     Text(
                       selectedSeapod.seaPodType.toUpperCase(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(
-                          ColorConstants.TEXT_COLOR,
+                          ColorConstants.textColor,
                         ),
                         fontSize: 15.0,
                       ),
@@ -126,23 +127,23 @@ class LocationInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textStyle = TextStyle(
+    const textStyle = TextStyle(
       color: Colors.white,
       fontSize: 15.0,
     );
-    var _selectedSeapod =
+    final _selectedSeapod =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedSeapod;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 15,
         vertical: 10,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       height: 160,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Color(
-          ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+        color: const Color(
+          ColorConstants.loginRegisterTextColor,
         ),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -153,14 +154,16 @@ class LocationInfoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Image.asset(
-                ImagePaths.LOCATION_ICON,
+                ImagePaths.locationIcon,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(ConstantTexts.LOCATION.toUpperCase() + ':',
-                      style: textStyle),
                   Text(
+                    '${ConstantTexts.location.toUpperCase()}:',
+                    style: textStyle,
+                  ),
+                  const Text(
                     //TODO: Add dynamic location
                     'Panama Colon',
                     style: TextStyle(
@@ -180,7 +183,10 @@ class LocationInfoCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(ConstantTexts.LATITUDE, style: textStyle),
+                    const Text(
+                      ConstantTexts.latitude,
+                      style: textStyle,
+                    ),
                     Text(
                       _selectedSeapod.location.latitude.toStringAsFixed(6),
                       style: textStyle,
@@ -190,8 +196,8 @@ class LocationInfoCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      ConstantTexts.LONGITUDE,
+                    const Text(
+                      ConstantTexts.logitude,
                       style: textStyle,
                     ),
                     Text(
@@ -218,11 +224,11 @@ class GeneralInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textStyle = TextStyle(
+    const textStyle = TextStyle(
       color: Colors.white,
       fontSize: 15,
     );
-    var _selectedSeapod =
+    final _selectedSeapod =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedSeapod;
 
     return Container(
@@ -230,11 +236,11 @@ class GeneralInfoCard extends StatelessWidget {
         horizontal: 15,
         vertical: isDesktop ? 0 : 10,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       height: 160,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Color(ColorConstants.SEAPOD_CARD_BACKGROUND),
+        color: const Color(ColorConstants.seapodCardBackground),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -243,33 +249,33 @@ class GeneralInfoCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                ConstantTexts.MODEL,
+              const Text(
+                ConstantTexts.model,
                 style: textStyle,
               ),
-              Text(
+              const Text(
                 'SP - 12345',
                 style: textStyle,
               ),
-              Divider(
+              const Divider(
                 height: 5,
               ),
-              Text(
-                ConstantTexts.HOME_CODE,
+              const Text(
+                ConstantTexts.homeCode,
                 style: textStyle,
               ),
               Text(
                 _selectedSeapod.vessleCode,
                 style: textStyle,
               ),
-              Divider(
+              const Divider(
                 height: 10,
               ),
-              Text(
-                ConstantTexts.YEAR,
+              const Text(
+                ConstantTexts.year,
                 style: textStyle,
               ),
-              Text(
+              const Text(
                 '06/06/2020',
                 style: textStyle,
               ),

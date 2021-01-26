@@ -14,12 +14,12 @@ class CreateAccountButton extends StatelessWidget {
       onTap: () => Navigator.of(context).pushNamed(RegisterPage.routeName),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: const [
           Text(
-            ConstantTexts.CREATE_ACCOUNT,
+            ConstantTexts.createAccount,
             style: TextStyle(
-              color: const Color(
-                ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+              color: Color(
+                ColorConstants.loginRegisterTextColor,
               ),
               fontSize: 12.0,
               fontWeight: FontWeight.w400,
@@ -27,8 +27,8 @@ class CreateAccountButton extends StatelessWidget {
           ),
           Icon(
             CupertinoIcons.arrowtriangle_right_fill,
-            color: const Color(
-              ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+            color: Color(
+              ColorConstants.loginRegisterTextColor,
             ),
             size: 15,
           )

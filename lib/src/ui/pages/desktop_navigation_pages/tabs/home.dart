@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
 class HomeView extends StatelessWidget {
-  HomeView({
+  const HomeView({
     @required this.seapodDetailsPage,
     @required this.seapodOwnerScreen,
     @required this.onListTap,
@@ -28,16 +28,17 @@ class HomeView extends StatelessWidget {
   final bool seapodOwnerScreen;
   @override
   Widget build(BuildContext context) {
-    if (seapodDetailsPage)
+    if (seapodDetailsPage) {
       return SeapodDetailsPage();
-    else if (seapodOwnerScreen)
+    } else if (seapodOwnerScreen) {
       return SeapodOwnersPage();
-    else
+    } else {
       return SeapodsView(
         onListTap: onListTap,
         onMapTap: onMapTap,
         seapodsTabIndex: seapodsTabIndex,
       );
+    }
   }
 }
 
@@ -46,7 +47,7 @@ class SeapodsView extends StatefulWidget {
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
 
-  SeapodsView({
+  const SeapodsView({
     @required this.seapodsTabIndex,
     @required this.onMapTap,
     @required this.onListTap,
@@ -62,16 +63,16 @@ class _SeapodsViewState extends State<SeapodsView> {
   SeaPodsProvider seaPodsProvider;
   bool showFilterMenu = false;
   List<SeapodTableColumn> columns = [
-    SeapodTableColumn(columnName: ConstantTexts.SEAPOD),
-    SeapodTableColumn(columnName: ConstantTexts.OWNER),
-    SeapodTableColumn(columnName: ConstantTexts.TYPE),
-    SeapodTableColumn(columnName: ConstantTexts.LOCATION),
-    SeapodTableColumn(columnName: ConstantTexts.STATUS),
-    SeapodTableColumn(columnName: ConstantTexts.ACCESS_LEVEL),
+    SeapodTableColumn(columnName: ConstantTexts.seapod),
+    SeapodTableColumn(columnName: ConstantTexts.owner),
+    SeapodTableColumn(columnName: ConstantTexts.type),
+    SeapodTableColumn(columnName: ConstantTexts.location),
+    SeapodTableColumn(columnName: ConstantTexts.status),
+    SeapodTableColumn(columnName: ConstantTexts.accessLevel),
   ];
 
   @override
-  void didChangeDependencies() async {
+  Future<void> didChangeDependencies() async {
     if (_isInit) {
       setState(() {
         _isLoading = true;
@@ -92,14 +93,14 @@ class _SeapodsViewState extends State<SeapodsView> {
 
   @override
   Widget build(BuildContext context) {
-    var allSeapods = seaPodsProvider.allSeaPods.data;
-    var sizeCalcs = SizeCalcs(context: context);
+    final allSeapods = seaPodsProvider.allSeaPods.data;
+    final sizeCalcs = SizeCalcs(context: context);
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
     return Container(
       color: Color(
         widget.seapodsTabIndex == 1
-            ? ColorConstants.MAP_BACKGROUND
-            : ColorConstants.TAB_BACKGROUND,
+            ? ColorConstants.mabBackground
+            : ColorConstants.tabBackground,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,23 +115,23 @@ class _SeapodsViewState extends State<SeapodsView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TabTitle(
-                  ConstantTexts.SEAPODS,
+                const TabTitle(
+                  ConstantTexts.seapods,
                 ),
-                Container(
+                SizedBox(
                   height: 30,
                   child: Row(
                     children: [
                       buildSwitcher(
                         widget.onMapTap,
-                        ConstantTexts.MAP,
+                        ConstantTexts.map,
                         BoxDecoration(
                           color: Color(
                             widget.seapodsTabIndex == 1
-                                ? ColorConstants.SWITCHER_COLOR
-                                : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                                ? ColorConstants.switcherColor
+                                : ColorConstants.loginRegisterTextColor,
                           ),
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(15),
                             topLeft: Radius.circular(15),
                           ),
@@ -142,14 +143,14 @@ class _SeapodsViewState extends State<SeapodsView> {
                       ),
                       buildSwitcher(
                         widget.onListTap,
-                        ConstantTexts.LIST,
+                        ConstantTexts.list,
                         BoxDecoration(
                           color: Color(
                             widget.seapodsTabIndex == 0
-                                ? ColorConstants.SWITCHER_COLOR
-                                : ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                                ? ColorConstants.switcherColor
+                                : ColorConstants.loginRegisterTextColor,
                           ),
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomRight: Radius.circular(15),
                             topRight: Radius.circular(15),
                           ),
@@ -161,7 +162,7 @@ class _SeapodsViewState extends State<SeapodsView> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           if (widget.seapodsTabIndex == 0)
@@ -179,7 +180,7 @@ class _SeapodsViewState extends State<SeapodsView> {
                     children: [
                       Container(
                         height: 40,
-                        margin: EdgeInsets.only(right: 30),
+                        margin: const EdgeInsets.only(right: 30),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -189,7 +190,7 @@ class _SeapodsViewState extends State<SeapodsView> {
                               ),
                               child: Center(
                                 child: Image.asset(
-                                  ImagePaths.TABLE_FILTER_ICON,
+                                  ImagePaths.tableFilterIcon,
                                   height: 20,
                                   width: 20,
                                 ),
@@ -199,11 +200,11 @@ class _SeapodsViewState extends State<SeapodsView> {
                         ),
                       ),
                       buildTableHeader(),
-                      !_isLoading
-                          ? buildTableContent(allSeapods)
-                          : Container(
-                              height: 500,
-                            ),
+                      if (!_isLoading) buildTableContent(allSeapods),
+                      if (_isLoading)
+                        Container(
+                          height: 500,
+                        ),
                       buildAddSeapodButton()
                     ],
                   ),
@@ -232,20 +233,19 @@ class _SeapodsViewState extends State<SeapodsView> {
 
   Widget buildAddSeapodButton() {
     return DottedBorder(
-      color: Color(ColorConstants.ADD_SEAPOD_COLOR),
-      strokeWidth: 1,
-      dashPattern: [8],
+      color: const Color(ColorConstants.addSeapodColor),
+      dashPattern: const [8],
       borderType: BorderType.RRect,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
         ),
         height: 54,
-        child: Center(
+        child: const Center(
           child: Icon(
             CupertinoIcons.add,
             size: 40,
-            color: Color(ColorConstants.ADD_SEAPOD_COLOR),
+            color: Color(ColorConstants.addSeapodColor),
           ),
         ),
       ),
@@ -253,7 +253,7 @@ class _SeapodsViewState extends State<SeapodsView> {
   }
 
   GestureDetector buildSwitcher(
-    Function onTap,
+    void Function() onTap,
     String text,
     BoxDecoration decoration,
   ) {
@@ -265,7 +265,7 @@ class _SeapodsViewState extends State<SeapodsView> {
         child: Center(
           child: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
             ),
@@ -279,20 +279,20 @@ class _SeapodsViewState extends State<SeapodsView> {
     return Container(
       height: 1,
       color: const Color(
-        ColorConstants.TABLE_VIEW_DIVIDER_COLOR,
+        ColorConstants.tableViewDividerColor,
       ),
     );
   }
 
   Widget buildTableContent(List<SeaPod> seapods) {
-    var itemCount = seapods.length;
-    return Container(
+    final itemCount = seapods.length;
+    return SizedBox(
       height: 500,
       child: ListView.builder(
         itemCount: itemCount,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 20,
               right: 10,
             ),
@@ -344,17 +344,17 @@ class _SeapodsViewState extends State<SeapodsView> {
   Widget buildTableHeader() {
     return Container(
       height: 50,
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 20,
         right: 10,
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(8.0),
           topRight: Radius.circular(8.0),
         ),
-        color: const Color(
-          ColorConstants.SEAPOD_TABLE_HEADER_BACKGROUND,
+        color: Color(
+          ColorConstants.seapodTableHeaderBackground,
         ),
       ),
       child: Row(
@@ -364,12 +364,12 @@ class _SeapodsViewState extends State<SeapodsView> {
   }
 
   List<Widget> _tableFieldsList() {
-    var selectedColumns =
+    final selectedColumns =
         columns.where((element) => element.isChecked).toList();
-    List<Widget> widgets = [];
-    selectedColumns.forEach((element) {
+    final List<Widget> widgets = [];
+    for (final element in selectedColumns) {
       widgets.add(buildTableField(element.columnName));
-    });
+    }
     return widgets;
   }
 
@@ -380,7 +380,7 @@ class _SeapodsViewState extends State<SeapodsView> {
       child: Text(
         cellName.toUpperCase(),
         textAlign: TextAlign.start,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w600,
           color: Colors.black,
@@ -402,11 +402,11 @@ class _SeapodsViewState extends State<SeapodsView> {
         child: Text(
           cellName,
           textAlign: TextAlign.start,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w600,
             color: Color(
-              ColorConstants.TABLE_VIEW_TEXT_COLOR,
+              ColorConstants.tableViewTextColor,
             ),
           ),
         ),
@@ -430,30 +430,30 @@ class _SeapodsViewState extends State<SeapodsView> {
             Text(
               seaPodLocation.locationName,
               textAlign: TextAlign.start,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
-                color: Color(ColorConstants.TABLE_VIEW_TEXT_COLOR),
+                color: Color(ColorConstants.tableViewTextColor),
               ),
             ),
             Text(
-              ConstantTexts.LATITUDE +
+              ConstantTexts.latitude +
                   seaPodLocation.latitude.toStringAsFixed(4),
               textAlign: TextAlign.start,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 9,
                 fontWeight: FontWeight.w500,
-                color: Color(ColorConstants.TABLE_VIEW_TEXT_COLOR),
+                color: Color(ColorConstants.tableViewTextColor),
               ),
             ),
             Text(
-              ConstantTexts.LONGITUDE +
+              ConstantTexts.logitude +
                   seaPodLocation.longitude.toStringAsFixed(4),
               textAlign: TextAlign.start,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 9,
                 fontWeight: FontWeight.w500,
-                color: Color(ColorConstants.TABLE_VIEW_TEXT_COLOR),
+                color: Color(ColorConstants.tableViewTextColor),
               ),
             ),
           ],
@@ -483,23 +483,23 @@ class _FilterBubbleState extends State<FilterBubble> {
     return Align(
       alignment: Alignment.topRight,
       child: Container(
-        margin: EdgeInsets.only(top: 42),
+        margin: const EdgeInsets.only(top: 42),
         child: SpeechBubble(
           nipHeight: 15.0,
           borderRadius: 8.0,
           nipLocation: NipLocation.TOP_RIGHT,
-          offset: Offset(-25.0, 0.0),
+          offset: const Offset(-25.0, 0.0),
           width: 222,
           height: 285,
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-          color:
-              Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR).withOpacity(0.85),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+          color: const Color(ColorConstants.loginRegisterTextColor)
+              .withOpacity(0.85),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                ConstantTexts.SHOW_COLUMNS,
+              const Text(
+                ConstantTexts.showColumns,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14.0,
@@ -514,7 +514,7 @@ class _FilterBubbleState extends State<FilterBubble> {
                         hoverColor: Colors.white,
                         fillColor: MaterialStateProperty.all(Colors.white),
                         checkColor:
-                            Color(ColorConstants.LOGIN_REGISTER_TEXT_COLOR),
+                            const Color(ColorConstants.loginRegisterTextColor),
                         activeColor: Colors.white,
                         overlayColor:
                             MaterialStateProperty.all(Colors.transparent),
@@ -527,7 +527,7 @@ class _FilterBubbleState extends State<FilterBubble> {
                       ),
                       Text(
                         column.columnName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 13.0,
                         ),

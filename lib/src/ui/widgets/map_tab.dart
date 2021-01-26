@@ -13,7 +13,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 class MapTab extends StatefulWidget {
   final List<SeaPod> seapods;
 
-  MapTab({
+  const MapTab({
     @required this.seapods,
   });
 
@@ -22,7 +22,7 @@ class MapTab extends StatefulWidget {
 }
 
 class _MapTabState extends State<MapTab> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
   BitmapDescriptor pinLocationIcon;
   final Map<String, Marker> _markers = {};
   String _mapStyle;
@@ -30,7 +30,7 @@ class _MapTabState extends State<MapTab> {
   var _isInit = true;
 
   @override
-  void didChangeDependencies() async {
+  Future<void> didChangeDependencies() async {
     if (_isInit) {
       await setCustomMapPin();
       await setCustomMapStyle();
@@ -42,45 +42,44 @@ class _MapTabState extends State<MapTab> {
   }
 
   Future<void> setCustomMapStyle() async {
-    _mapStyle = await rootBundle.loadString(Constants.MAP_STYLE_FILE);
+    _mapStyle = await rootBundle.loadString(Constants.mapStyleFile);
   }
 
   Future<void> setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(size: Size(30, 30)),
-      ImagePaths.SEAPOD_LOCATION_MARKER,
+      const ImageConfiguration(size: Size(30, 30)),
+      ImagePaths.seapodLocationMarker,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    LatLng pinPosition = LatLng(
+    final pinPosition = LatLng(
       widget.seapods[0].location.latitude,
       widget.seapods[0].location.longitude,
     );
 
-    CameraPosition initialLocation =
+    final initialLocation =
         CameraPosition(zoom: 10, bearing: 30, target: pinPosition);
-    var seapodsProvider = Provider.of<SeaPodsProvider>(context, listen: false);
+    final seapodsProvider = Provider.of<SeaPodsProvider>(context, listen: false);
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return Container(
           padding:
               sizingInformation.deviceScreenType == DeviceScreenType.desktop
-                  ? EdgeInsets.only(left: 20)
+                  ? const EdgeInsets.only(left: 20)
                   : EdgeInsets.zero,
           child: Stack(
             children: [
               if (!_isInit)
                 GoogleMap(
                   rotateGesturesEnabled: false,
-                  minMaxZoomPreference: MinMaxZoomPreference(1.2, 20.0),
+                  minMaxZoomPreference: const MinMaxZoomPreference(1.2, 20.0),
                   onTap: (_) {
                     setState(() {
                       _showInfoWindow = false;
                     });
                   },
-                  mapType: MapType.normal,
                   initialCameraPosition: initialLocation,
                   mapToolbarEnabled: false,
                   compassEnabled: false,
@@ -91,7 +90,7 @@ class _MapTabState extends State<MapTab> {
                     setState(
                       () {
                         _markers.clear();
-                        for (var seapod in widget.seapods) {
+                        for (final seapod in widget.seapods) {
                           final marker = Marker(
                               icon: pinLocationIcon,
                               markerId: MarkerId(seapod.seaPodName),
@@ -116,7 +115,7 @@ class _MapTabState extends State<MapTab> {
                       ? Alignment.topLeft
                       : Alignment.centerRight,
                   child: Container(
-                    margin: EdgeInsets.only(right: 30),
+                    margin: const EdgeInsets.only(right: 30),
                     child: SeaPodInfoWindow(),
                   ),
                 )

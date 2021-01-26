@@ -24,84 +24,89 @@ class _RegisterPageState extends State<RegisterPage> {
   final Admin _admin = Admin();
   String _password;
   String _confirmPassword;
-  var _firstNameValidationText;
-  var _lastNameValidationText;
-  var _emailValidationText;
-  var _passwordValidationText;
-  var _confirmPasswordValidationText;
-  var _mobileValidationText;
-  var _countryValidationText;
+  String _firstNameValidationText;
+  String _lastNameValidationText;
+  String _emailValidationText;
+  String _passwordValidationText;
+  String _confirmPasswordValidationText;
+  String _mobileValidationText;
+  String _countryValidationText;
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
-    var adminProvider = Provider.of<AdminAuthProvider>(context);
+    final mediaQuery = MediaQuery.of(context).size;
+    final adminProvider = Provider.of<AdminAuthProvider>(context);
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return Scaffold(
-          backgroundColor: Color(ColorConstants.LOGIN_CONTAINER_BACKGROUND),
+          backgroundColor:
+              const Color(ColorConstants.loginContainerBackground),
           body: SafeArea(
             child: ListView(
               children: [
                 Column(
                   children: [
-                    sizingInformation.deviceScreenType ==
-                            DeviceScreenType.desktop
-                        ? Column(
+                    if (sizingInformation.deviceScreenType ==
+                        DeviceScreenType.desktop)
+                      Column(
+                        children: [
+                          Row(
                             children: [
-                              Row(
-                                children: [
-                                  WebLogo(),
-                                ],
-                              ),
-                              SizedBox(
-                                height: mediaQuery.height * 0.08,
-                              ),
-                            ],
-                          )
-                        : Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 30,
-                                  bottom: 15,
-                                ),
-                                child: MobileLogo(),
-                              ),
-                              SizedBox(
-                                height: mediaQuery.height * 0.1,
-                              ),
+                              WebLogo(),
                             ],
                           ),
-                    Container(
+                          SizedBox(
+                            height: mediaQuery.height * 0.08,
+                          ),
+                        ],
+                      ),
+                    if (sizingInformation.deviceScreenType ==
+                            DeviceScreenType.mobile ||
+                        sizingInformation.deviceScreenType ==
+                            DeviceScreenType.tablet)
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 30,
+                              bottom: 15,
+                            ),
+                            child: MobileLogo(),
+                          ),
+                          SizedBox(
+                            height: mediaQuery.height * 0.1,
+                          ),
+                        ],
+                      ),
+                    SizedBox(
                       width: 342,
                       child: Form(
                         key: _formKey,
                         child: Column(
                           children: [
                             CustomTextFormField(
-                              label: ConstantTexts.FIRST_NAME,
+                              label: ConstantTexts.firstName,
                               validationText: _firstNameValidationText,
                               onSaved: (String value) {
                                 _admin.firstName = value;
                               },
                             ),
                             CustomTextFormField(
-                              label: ConstantTexts.LAST_NAME,
+                              label: ConstantTexts.lastName,
                               validationText: _lastNameValidationText,
                               onSaved: (String value) {
                                 _admin.lastName = value;
                               },
                             ),
                             CustomTextFormField(
-                              label: ConstantTexts.EMAIL.toUpperCase(),
+                              label: ConstantTexts.email.toUpperCase(),
                               validationText: _emailValidationText,
                               onSaved: (String value) {
                                 _admin.email = value;
                               },
                             ),
                             CustomTextFormField(
-                              label: ConstantTexts.PASSWORD,
+                              label: ConstantTexts.password,
                               validationText: _passwordValidationText,
                               isPassword: true,
                               onSaved: (String value) {
@@ -109,7 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               },
                             ),
                             CustomTextFormField(
-                              label: ConstantTexts.CONFIRM_PASSWORD,
+                              label: ConstantTexts.confirmPassword,
                               validationText: _confirmPasswordValidationText,
                               isPassword: true,
                               onSaved: (String value) {
@@ -117,14 +122,14 @@ class _RegisterPageState extends State<RegisterPage> {
                               },
                             ),
                             CustomTextFormField(
-                              label: ConstantTexts.MOBILE_NUMBER,
+                              label: ConstantTexts.mobileNumber,
                               validationText: _mobileValidationText,
                               onSaved: (String value) {
                                 _admin.mobileNumber = value;
                               },
                             ),
                             CustomTextFormField(
-                              label: ConstantTexts.COUNTRY,
+                              label: ConstantTexts.country,
                               validationText: _countryValidationText,
                               onSaved: (String value) {
                                 _admin.country = value;
@@ -136,9 +141,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                 if (validateRegisterationForm()) {
                                   showDialog(
                                     context: context,
-                                    builder: (context) => SpinKitFadingCircle(
-                                      color: Color(ColorConstants.MAIN_COLOR),
-                                      size: 50,
+                                    builder: (context) =>
+                                        const SpinKitFadingCircle(
+                                      color: Color(ColorConstants.mainColor),
                                     ),
                                   );
 
@@ -152,11 +157,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                       PageRouteBuilder(
                                         pageBuilder:
                                             (context, animation1, animation2) =>
-                                                HomePage(),
-                                        transitionDuration:
-                                            Duration(seconds: 0),
-                                        settings: RouteSettings(
-                                            name: HomePage.routeName),
+                                               const HomePage(),
+                                        transitionDuration: const Duration(),
+                                        settings: const RouteSettings(
+                                          name: HomePage.routeName,
+                                        ),
                                       ),
                                     );
                                   }
@@ -164,7 +169,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               },
                               child: SubmitButton(),
                             ),
-                            SizedBox(
+                           const SizedBox(
                               height: 20,
                             ),
                           ],
@@ -175,19 +180,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       onTap: () => Navigator.of(context).pop(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: const [
                           Icon(
                             CupertinoIcons.arrowtriangle_left_fill,
-                            color: const Color(
-                              ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                            color: Color(
+                              ColorConstants.loginRegisterTextColor,
                             ),
                             size: 15,
                           ),
                           Text(
-                            ConstantTexts.LOGIN,
+                            ConstantTexts.login,
                             style: TextStyle(
-                              color: const Color(
-                                ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                              color: Color(
+                                ColorConstants.loginRegisterTextColor,
                               ),
                               fontSize: 12.0,
                               fontWeight: FontWeight.w400,
@@ -196,7 +201,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                   const SizedBox(
                       height: 20,
                     ),
                   ],
@@ -281,14 +286,14 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   bool validatePassword() {
-    var regExp = RegExp(
+    final regExp = RegExp(
       r'^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$',
     );
     return regExp.hasMatch(_password);
   }
 
   bool validateEmail() {
-    var regExp = RegExp(
+    final regExp = RegExp(
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
     );
     return regExp.hasMatch(_admin.email);

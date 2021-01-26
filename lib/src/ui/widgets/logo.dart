@@ -7,13 +7,13 @@ class WebLogo extends StatelessWidget {
     return Container(
       height: 60,
       width: 130,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: 10,
         left: 15,
         bottom: 15,
       ),
       child: Image.asset(
-        ImagePaths.OB_FULL_LOGO,
+        ImagePaths.obFullLogo,
         fit: BoxFit.fill,
       ),
     );
@@ -24,7 +24,7 @@ class MobileLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      ImagePaths.OB_LOGO,
+      ImagePaths.obLogo,
       fit: BoxFit.contain,
       height: 40,
       width: 70,

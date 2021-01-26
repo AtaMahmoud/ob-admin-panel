@@ -5,18 +5,27 @@ import 'package:ob_admin_panel/src/repositories/seapods_repository.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 
 class SeaPodsProvider with ChangeNotifier {
-  SeaPodsRepository _seaPodsRepository = SeaPodsRepository();
+  final _seaPodsRepository = SeaPodsRepository();
   ApiResponse<List<SeaPod>> _allSeapods;
   SeapodOwner selectedOwner;
+  SeaPod _selectedSeapod;
 
   SeaPodsProvider() {
     _allSeapods = ApiResponse<List<SeaPod>>();
   }
 
-  SeaPod _selectedSeapod;
-
   ApiResponse<List<SeaPod>> get allSeaPods => _allSeapods;
   SeaPod get selectedSeapod => _selectedSeapod;
+
+  // ignore: use_setters_to_change_properties
+  void updateSelectedSeapod(SeaPod seaPod) {
+    _selectedSeapod = seaPod;
+  }
+
+  // ignore: use_setters_to_change_properties
+  void updateSelectedOwner(SeapodOwner owner) {
+    selectedOwner = owner;
+  }
 
   Future<void> getAllSeapods() async {
     try {
@@ -29,17 +38,8 @@ class SeaPodsProvider with ChangeNotifier {
     }
   }
 
-  void updateSelectedSeapod(SeaPod seaPod) {
-    _selectedSeapod = seaPod;
-  }
-
-  void updateSelectedOwner(SeapodOwner owner) {
-    selectedOwner = owner;
-  }
-
   Future<void> getSeapodOwners() async {
     _selectedSeapod.owners =
         await _seaPodsRepository.getSeapodOwners(_selectedSeapod.id);
-   
   }
 }

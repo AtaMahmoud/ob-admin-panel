@@ -5,22 +5,20 @@ class TabTitle extends StatelessWidget {
   final String title;
   final double fontSize;
 
-  TabTitle(
+  const TabTitle(
     this.title, {
     this.fontSize = 25.0,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: fontSize,
-          fontWeight: FontWeight.w700,
-          color: Color(
-            ColorConstants.TABS_TITLE_COLOR,
-          ),
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: fontSize,
+        fontWeight: FontWeight.w700,
+        color: const Color(
+          ColorConstants.tabsTitleColor,
         ),
       ),
     );

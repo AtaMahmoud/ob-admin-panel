@@ -21,12 +21,12 @@ class MyApp extends StatelessWidget {
   ThemeData _adminPanelTheme() {
     return ThemeData(
       fontFamily: 'Montserrat',
-      primaryColor: Color(
-        ColorConstants.MAIN_COLOR,
+      primaryColor: const Color(
+        ColorConstants.mainColor,
       ),
-      buttonTheme: ButtonThemeData(
+      buttonTheme: const ButtonThemeData(
         buttonColor: Color(
-          ColorConstants.MAIN_COLOR,
+          ColorConstants.mainColor,
         ),
       ),
     );
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AdminAuthProvider _adminProvider = AdminAuthProvider();
+    final _adminProvider = AdminAuthProvider();
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -52,19 +52,19 @@ class MyApp extends StatelessWidget {
             future: _adminProvider.autoLogin(),
             builder: (ctx, authResultSnapShot) {
               if (authResultSnapShot.connectionState == ConnectionState.done) {
-                if (_adminProvider.authenticatedAdmin != null)
-                  return HomePage();
-                else
+                if (_adminProvider.authenticatedAdmin != null) {
+                  return const HomePage();
+                } else {
                   return LoginPage();
+                }
               }
-
               return SplashScreen();
             },
           ),
           routes: {
             LoginPage.routeName: (BuildContext context) => LoginPage(),
             RegisterPage.routeName: (BuildContext context) => RegisterPage(),
-            HomePage.routeName: (BuildContext context) => HomePage(),
+            HomePage.routeName: (BuildContext context) => const HomePage(),
             SeapodDetailsPage.routeName: (BuildContext context) =>
                 SeapodDetailsPage(),
             SeapodOwnersPage.routeName: (BuildContext context) =>

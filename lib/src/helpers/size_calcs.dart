@@ -3,7 +3,7 @@ import 'package:ob_admin_panel/src/constants/constants.dart';
 
 class SizeCalcs {
   BuildContext context;
-  final _mediaQuery;
+  final Size _mediaQuery;
 
   SizeCalcs({
     @required this.context,
@@ -13,6 +13,6 @@ class SizeCalcs {
     return _mediaQuery.width -
         MediaQuery.of(context).padding.left -
         MediaQuery.of(context).padding.right -
-        Constants.LEFT_NAVIGATION_WIDTH;
+        Constants.leftNavigationWidth;
   }
 }

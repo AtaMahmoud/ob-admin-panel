@@ -11,38 +11,38 @@ class ProfileInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var selectedOwner =
+    final selectedOwner =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return InfoCard(
-      title: ConstantTexts.PROFILE,
+      title: ConstantTexts.profile,
       children: [
         InfoRow(
-          titleText: ConstantTexts.MEMBER_SINCE,
+          titleText: ConstantTexts.memberSince,
           infoText: formatDate(selectedOwner.checkInDate),
         ),
         InfoRow(
-          titleText: ConstantTexts.NATIONALITY,
+          titleText: ConstantTexts.nationality,
           infoText: selectedOwner.country,
         ),
-        InfoRow(
-          titleText: ConstantTexts.LANGUAGES,
+        const InfoRow(
+          titleText: ConstantTexts.languages,
           //TODO: Missing info
           infoText: 'English',
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            const Expanded(
               child: InfoText(
                 //TODO: Missing info
-                text: ConstantTexts.HEALTH_CONDITION,
+                text: ConstantTexts.healthCondition,
               ),
             ),
             Expanded(
               child: GestureDetector(
-                child: InfoText(
-                  text: ConstantTexts.VIEW,
-                  textColor: ColorConstants.MAIN_COLOR,
+                child: const InfoText(
+                  text: ConstantTexts.view,
+                  textColor: ColorConstants.mainColor,
                 ),
               ),
             ),
@@ -55,7 +55,7 @@ class ProfileInfoCard extends StatelessWidget {
   String formatDate(
     int checkInDate,
   ) {
-    var date = DateTime.fromMillisecondsSinceEpoch(checkInDate);
+    final date = DateTime.fromMillisecondsSinceEpoch(checkInDate);
     return DateFormat.yMMMd().format(date);
   }
 }
@@ -67,61 +67,64 @@ class ContactsInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var selectedOwner =
+    final selectedOwner =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return InfoCard(
-      title: ConstantTexts.CONTACTS,
+      title: ConstantTexts.contacts,
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            const Expanded(
               child: InfoText(
-                text: ConstantTexts.EMAIL,
+                text: ConstantTexts.email,
               ),
             ),
             Expanded(
               child: GestureDetector(
                 child: InfoText(
                   text: selectedOwner.email,
-                  textColor: ColorConstants.MAIN_COLOR,
+                  textColor: ColorConstants.mainColor,
                 ),
               ),
             ),
           ],
         ),
         InfoRow(
-          titleText: ConstantTexts.PHONE,
+          titleText: ConstantTexts.phone,
           infoText: selectedOwner.mobileNumber,
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            const Expanded(
               child: InfoText(
-                text: ConstantTexts.EMMERGENCY_CONTACT,
+                text: ConstantTexts.emmergencyContact,
               ),
             ),
-            selectedOwner.emergencyContacts.isEmpty
-                ? Expanded(child: InfoText(text: 'Not set yet'))
-                : Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InfoText(
-                          text:
-                              '${selectedOwner.emergencyContacts[0].firstName} ${selectedOwner.emergencyContacts[0].lastName}',
-                        ),
-                        InfoText(
-                          text: selectedOwner.emergencyContacts[0].mobileNumber,
-                        ),
-                        InfoText(
-                          text: selectedOwner.emergencyContacts[0].email,
-                          textColor: ColorConstants.MAIN_COLOR,
-                        )
-                      ],
+            if (selectedOwner.emergencyContacts.isEmpty)
+              const Expanded(
+                child: InfoText(text: 'Not set yet'),
+              ),
+            if (selectedOwner.emergencyContacts.isNotEmpty)
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InfoText(
+                      text:
+                          '${selectedOwner.emergencyContacts[0].firstName} ${selectedOwner.emergencyContacts[0].lastName}',
                     ),
-                  ),
+                    InfoText(
+                      text: selectedOwner.emergencyContacts[0].mobileNumber,
+                    ),
+                    InfoText(
+                      text: selectedOwner.emergencyContacts[0].email,
+                      textColor: ColorConstants.mainColor,
+                    )
+                  ],
+                ),
+              ),
           ],
         ),
       ],
@@ -136,10 +139,10 @@ class ConnectedHomesInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var selectedOwner =
+    final selectedOwner =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
     return InfoCard(
-      title: ConstantTexts.CONNECTED_HOMES,
+      title: ConstantTexts.connectedHomes,
       children: [
         ...[
           for (var seapod in selectedOwner.seapods) ...[
@@ -156,9 +159,9 @@ class ConnectedHomesInfoCard extends StatelessWidget {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                            color: Color(0xFFC6D7F4),
+                            color: const Color(0xFFC6D7F4),
                             borderRadius: BorderRadius.circular(4)),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 5,
                         ),
                         width: 90,
@@ -212,11 +215,11 @@ class InfoText extends StatelessWidget {
   const InfoText({
     Key key,
     @required this.text,
-    this.textColor = ColorConstants.TABLE_VIEW_TEXT_COLOR,
+    this.textColor = ColorConstants.tableViewTextColor,
   }) : super(key: key);
 
   final String text;
-  final textColor;
+  final int textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -245,17 +248,17 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 15,
         vertical: 10,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       height: 250,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: Color(
+          color: const Color(
             0xFF9BACC2,
           ),
         ),
@@ -266,13 +269,13 @@ class InfoCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: Container(
+            child:  SizedBox(
               height: 22,
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(
-                    ColorConstants.TABLE_VIEW_TEXT_COLOR,
+                    ColorConstants.tableViewTextColor,
                   ),
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -280,7 +283,7 @@ class InfoCard extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+         const SizedBox(
             height: 20,
           ),
           Expanded(

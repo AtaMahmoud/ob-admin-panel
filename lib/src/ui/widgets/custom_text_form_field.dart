@@ -6,13 +6,13 @@ import 'package:speech_bubble/speech_bubble.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final String label;
-  final Function onSaved;
+  final void Function(String) onSaved;
   final bool isPassword;
   final bool isEmail;
   final bool isPhone;
   final String validationText;
 
-  CustomTextFormField({
+  const CustomTextFormField({
     this.label,
     this.onSaved,
     this.isPassword = false,
@@ -28,10 +28,10 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
+    final mediaQuery = MediaQuery.of(context).size;
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
-        return Container(
+        return SizedBox(
           width: sizingInformation.deviceScreenType ==
                       DeviceScreenType.desktop ||
                   sizingInformation.deviceScreenType == DeviceScreenType.tablet
@@ -46,37 +46,37 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       widget.label,
-                      style: TextStyle(
-                        color: const Color(
-                          ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                      style: const TextStyle(
+                        color: Color(
+                          ColorConstants.loginRegisterTextColor,
                         ),
                         fontSize: 14.0,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   Container(
                     height: 52,
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: const Color(ColorConstants.TEXT_FIELD_BORDER),
+                        color: const Color(ColorConstants.textFieldBorder),
                       ),
                     ),
                     child: Container(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         left: 8,
                       ),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         border: Border(
                           left: BorderSide(
-                            color: const Color(
-                              ColorConstants.TEXT_FIELD_BORDER,
+                            color: Color(
+                              ColorConstants.textFieldBorder,
                             ),
                           ),
                         ),
@@ -120,9 +120,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: widget.label,
-                          hintStyle: TextStyle(
-                            color: const Color(
-                              ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                          hintStyle: const TextStyle(
+                            color: Color(
+                              ColorConstants.loginRegisterTextColor,
                             ),
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
@@ -133,24 +133,25 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   ),
                 ],
               ),
-              if (widget.validationText != null)
+              if (widget.validationText.isNotEmpty)
                 Positioned(
-                  top: 70,
+                  top: 75,
                   left: 10,
                   child: SpeechBubble(
                     nipHeight: 15,
                     height: 60,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 20,
                       horizontal: 15,
                     ),
-                    color: Color(
-                      ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                    color: const Color(
+                      ColorConstants.loginRegisterTextColor,
                     ),
                     nipLocation: NipLocation.TOP_LEFT,
+                    offset: const Offset(25.0, 0.0),
                     child: Text(
                       widget.validationText,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                     ),

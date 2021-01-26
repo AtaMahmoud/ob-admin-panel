@@ -23,90 +23,95 @@ class _LoginPageState extends State<LoginPage> {
   String _password;
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
-    var _adminProvider = Provider.of<AdminAuthProvider>(context);
+    final mediaQuery = MediaQuery.of(context).size;
+    final _adminProvider = Provider.of<AdminAuthProvider>(context);
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return Scaffold(
-          backgroundColor: Color(ColorConstants.LOGIN_CONTAINER_BACKGROUND),
+          backgroundColor: const Color(ColorConstants.loginContainerBackground),
           body: SafeArea(
             child: ListView(
               shrinkWrap: true,
               children: [
                 Column(
                   children: [
-                    sizingInformation.deviceScreenType ==
-                            DeviceScreenType.desktop
-                        ? Column(
+                    if (sizingInformation.deviceScreenType ==
+                        DeviceScreenType.desktop)
+                      Column(
+                        children: [
+                          Row(
                             children: [
-                              Row(
-                                children: [
-                                  WebLogo(),
-                                ],
-                              ),
-                              SizedBox(
-                                height: mediaQuery.height * 0.15,
-                              ),
-                            ],
-                          )
-                        : Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: 30,
-                                  bottom: 15,
-                                ),
-                                child: MobileLogo(),
-                              ),
-                              SizedBox(
-                                height: mediaQuery.height * 0.1,
-                              ),
+                              WebLogo(),
                             ],
                           ),
-                    Container(
+                          SizedBox(
+                            height: mediaQuery.height * 0.15,
+                          ),
+                        ],
+                      ),
+                    if (sizingInformation.deviceScreenType ==
+                            DeviceScreenType.mobile ||
+                        sizingInformation.deviceScreenType ==
+                            DeviceScreenType.tablet)
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 30,
+                              bottom: 15,
+                            ),
+                            child: MobileLogo(),
+                          ),
+                          SizedBox(
+                            height: mediaQuery.height * 0.1,
+                          ),
+                        ],
+                      ),
+                    SizedBox(
                       width: 342,
                       child: Form(
                         key: _formKey,
                         child: Column(
                           children: [
                             CustomTextFormField(
-                              label: ConstantTexts.EMAIL.toUpperCase(),
+                              label: ConstantTexts.email.toUpperCase(),
                               onSaved: (String value) {
                                 _email = value;
                               },
                             ),
                             CustomTextFormField(
-                              label: ConstantTexts.PASSWORD,
+                              label: ConstantTexts.password,
                               isPassword: true,
                               onSaved: (String value) {
                                 _password = value;
                               },
                             ),
-                            Text(
-                              ConstantTexts.FORGOT_PASSWORD,
+                            const Text(
+                              ConstantTexts.forgotPassword,
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w400,
-                                color: const Color(
-                                  ColorConstants.MAIN_COLOR,
+                                color: Color(
+                                  ColorConstants.mainColor,
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 27,
                             ),
                             GestureDetector(
                               onTap: () async {
                                 _formKey.currentState.save();
-                                if (_email.isNotEmpty && _password.isNotEmpty)
+                                if (_email.isNotEmpty && _password.isNotEmpty) {
                                   await loginProcess(context, _adminProvider);
+                                }
                               },
                               child: SubmitButton(),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 27,
                             ),
-                            CreateAccountButton()
+                            const CreateAccountButton()
                           ],
                         ),
                       ),
@@ -125,9 +130,8 @@ class _LoginPageState extends State<LoginPage> {
       BuildContext context, AdminAuthProvider _adminProvider) async {
     showDialog(
       context: context,
-      builder: (context) => SpinKitFadingCircle(
-        color: Color(ColorConstants.MAIN_COLOR),
-        size: 50,
+      builder: (context) => const SpinKitFadingCircle(
+        color: Color(ColorConstants.mainColor),
       ),
     );
     await _adminProvider.login(_email, _password);
@@ -136,9 +140,9 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) => HomePage(),
-          transitionDuration: Duration(seconds: 0),
-          settings: RouteSettings(name: HomePage.routeName),
+          pageBuilder: (context, animation1, animation2) => const HomePage(),
+          transitionDuration: const Duration(),
+          settings: const RouteSettings(name: HomePage.routeName),
         ),
       );
     } else {
@@ -150,29 +154,29 @@ class _LoginPageState extends State<LoginPage> {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(
+        title: const Text(
           'Failure',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color(ColorConstants.MAIN_COLOR),
+            color: Color(ColorConstants.mainColor),
           ),
         ),
-        content: Text(
+        content: const Text(
           'Invalid Email or Password',
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: Color(ColorConstants.MAIN_COLOR),
+            color: Color(ColorConstants.mainColor),
           ),
         ),
         actions: [
           FlatButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(
+            child: const Text(
               'Ok',
               style: TextStyle(
-                color: Color(ColorConstants.MAIN_COLOR),
+                color: Color(ColorConstants.mainColor),
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),

@@ -5,7 +5,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var _mediaQuery = MediaQuery.of(context).size;
+    final _mediaQuery = MediaQuery.of(context).size;
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return Scaffold(
@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
                   color: Colors.white,
                 )
               : Image.asset(
-                  ImagePaths.SPLASH,
+                  ImagePaths.splash,
                   fit: BoxFit.fill,
                   height: _mediaQuery.height,
                   width: _mediaQuery.width,

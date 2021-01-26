@@ -5,18 +5,18 @@ import 'package:ob_admin_panel/src/models/seapod_owner.dart';
 import 'package:ob_admin_panel/src/singletones/headers_manager.dart';
 
 class SeaPodsRepository {
-  ApiBaseHelper _apiBaseHelper = ApiBaseHelper();
-  HeadersManager _headersManager = HeadersManager.getInstance();
+  final _apiBaseHelper = ApiBaseHelper();
+  final _headersManager = HeadersManager.getInstance();
 
   Future<List<SeaPod>> getAllSeapods() async {
-    var headers = await _headersManager.getHeadersFromSharedPrefs();
+    final headers = await _headersManager.getHeadersFromSharedPrefs();
     final response = await _apiBaseHelper.get(
       url: Config.allSeaPods,
       headers: headers,
     );
-    List<SeaPod> allSeapods = [];
+    final List<SeaPod> allSeapods = [];
     response.data.forEach((e) async {
-      var seaPod = SeaPod.fromJson(e);
+      final seaPod = SeaPod.fromJson(e as Map<String, dynamic>);
       /*   final coordinates =
           Coordinates(seaPod.location.latitude, seaPod.location.longitude);
       var address =
@@ -32,14 +32,14 @@ class SeaPodsRepository {
   Future<List<SeapodOwner>> getSeapodOwners(
     String seapodId,
   ) async {
-    var headers = await _headersManager.getHeadersFromSharedPrefs();
+    final headers = await _headersManager.getHeadersFromSharedPrefs();
     final response = await _apiBaseHelper.get(
-      url: Config.allSeaPods + '/$seapodId/owner',
+      url: '${Config.allSeaPods}${'/$seapodId/owner'}',
       headers: headers,
     );
-    List<SeapodOwner> seapodOwners = [];
+    final List<SeapodOwner> seapodOwners = [];
     response.data.forEach((e) {
-      seapodOwners.add(SeapodOwner.fromJson(e));
+      seapodOwners.add(SeapodOwner.fromJson(e as Map<String, dynamic>));
     });
 
     return seapodOwners;

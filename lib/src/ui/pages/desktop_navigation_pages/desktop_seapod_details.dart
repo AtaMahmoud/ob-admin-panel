@@ -17,7 +17,7 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
   var _isLoading = false;
 
   @override
-  void didChangeDependencies() async {
+  Future<void> didChangeDependencies() async {
     if (_isInit) {
       setState(() {
         _isLoading = true;
@@ -38,12 +38,13 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
 
   @override
   Widget build(BuildContext context) {
-    var _selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
-    var textStyle1 = TextStyle(
-      color: Color(ColorConstants.MAIN_COLOR),
+    final _selectedSeapod =
+        Provider.of<SeaPodsProvider>(context).selectedSeapod;
+    const textStyle1 = TextStyle(
+      color: Color(ColorConstants.mainColor),
       fontSize: 12,
     );
-    var sizeCalcs = SizeCalcs(context: context);
+    final sizeCalcs = SizeCalcs(context: context);
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
 
     return SingleChildScrollView(
@@ -55,22 +56,22 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TabTitle(
-              ConstantTexts.ABOUT,
+            const TabTitle(
+              ConstantTexts.about,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: Row(
-                children: [
+                children: const [
                   Text(
-                    ConstantTexts.OWNERSHIP,
+                    ConstantTexts.ownership,
                     style: textStyle1,
                   ),
                   SizedBox(
                     width: 20,
                   ),
                   Text(
-                    ConstantTexts.DEVICES,
+                    ConstantTexts.devices,
                     style: textStyle1,
                   ),
                 ],
@@ -89,33 +90,33 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
                       Column(
                         children: [
                           buildSeapodInfoContainer(
-                            ConstantTexts.VESSLE_NAME,
+                            ConstantTexts.vessleName,
                             _selectedSeapod.seaPodName,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           buildSeapodInfoContainer(
-                            ConstantTexts.CURRENT_OCCUPANT,
+                            ConstantTexts.currentOccupant,
                             _selectedSeapod.ownersNames[0],
                           ),
                         ],
                       ),
                       Column(
                         children: [
-                          Container(
+                          const SizedBox(
                             width: 416,
                             child: GeneralInfoCard(
                               isDesktop: true,
                             ),
                           ),
-                          Container(
+                          const SizedBox(
                             width: 416,
                             child: LocationInfoCard(),
                           ),
                           ...[
                             for (var owner in _selectedSeapod.owners) ...[
-                              Container(
+                              SizedBox(
                                 width: 416,
                                 child: OwnerInfoCard(
                                   owner: owner,
@@ -135,19 +136,19 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
     );
   }
 
-  buildSeapodInfoContainer(
+  Widget buildSeapodInfoContainer(
     String infoTitle,
     String info,
   ) {
-    return Container(
+    return SizedBox(
       width: 500,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             infoTitle,
-            style: TextStyle(
-              color: Color(ColorConstants.TEXT_COLOR),
+            style: const TextStyle(
+              color: Color(ColorConstants.textColor),
               fontWeight: FontWeight.w600,
               fontSize: 12,
             ),
@@ -155,7 +156,7 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
           Container(
             height: 40,
             alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 10),
+            margin: const EdgeInsets.only(left: 10),
             width: 350,
             padding: const EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
@@ -164,20 +165,20 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
             ),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   left: BorderSide(
-                    color: const Color(
-                      ColorConstants.TEXT_FIELD_BORDER,
+                    color: Color(
+                      ColorConstants.textFieldBorder,
                     ),
                   ),
                 ),
               ),
               child: Text(
                 info,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(
-                    ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                    ColorConstants.loginRegisterTextColor,
                   ),
                   fontSize: 15,
                 ),

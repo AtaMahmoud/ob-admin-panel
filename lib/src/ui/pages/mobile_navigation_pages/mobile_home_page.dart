@@ -16,7 +16,7 @@ class MobileHomePage extends StatefulWidget {
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
 
-  MobileHomePage({
+  const MobileHomePage({
     @required this.tabIndex,
     @required this.onMapTap,
     @required this.onListTap,
@@ -30,7 +30,7 @@ class _MobileHomePageState extends State<MobileHomePage>
   var _isInit = true;
   SeaPodsProvider seaPodsProvider;
   @override
-  void didChangeDependencies() async {
+  Future<void> didChangeDependencies() async {
     if (_isInit) {
       seaPodsProvider = Provider.of<SeaPodsProvider>(
         context,
@@ -46,21 +46,21 @@ class _MobileHomePageState extends State<MobileHomePage>
 
   @override
   Widget build(BuildContext context) {
-    var _textStyle = TextStyle(
+    const _textStyle = TextStyle(
       color: Color(0xFF043D8D),
       fontSize: 18,
       fontWeight: FontWeight.w700,
     );
-    var allSeapods = seaPodsProvider.allSeaPods;
+    final allSeapods = seaPodsProvider.allSeaPods;
     return Scaffold(
-      drawer: MobileLeftNavigationMenu(
+      drawer: const MobileLeftNavigationMenu(
         tappedMenuIndex: 0,
       ),
-      drawerScrimColor: Color(ColorConstants.DRAWER_SCRIM_COLOR),
+      drawerScrimColor: const Color(ColorConstants.drawerScrimColor),
       body: SafeArea(
         child: Column(
           children: [
-            MobileHeader(),
+            const MobileHeader(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
               child: Row(
@@ -68,29 +68,29 @@ class _MobileHomePageState extends State<MobileHomePage>
                 children: [
                   TabTitle(
                     widget.tabIndex == 0
-                        ? ConstantTexts.SEAPODS
-                        : ConstantTexts.MAP,
+                        ? ConstantTexts.seapods
+                        : ConstantTexts.map,
                   ),
-                  Container(
+                  SizedBox(
                     width: 100,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
                           onTap: widget.onListTap,
-                          child: Text(
-                            ConstantTexts.LIST,
+                          child: const Text(
+                            ConstantTexts.list,
                             style: _textStyle,
                           ),
                         ),
-                        Text(
+                        const Text(
                           '|',
                           style: _textStyle,
                         ),
                         GestureDetector(
                           onTap: widget.onMapTap,
-                          child: Text(
-                            ConstantTexts.MAP,
+                          child: const Text(
+                            ConstantTexts.map,
                             style: _textStyle,
                           ),
                         ),
@@ -100,15 +100,14 @@ class _MobileHomePageState extends State<MobileHomePage>
                 ],
               ),
             ),
-            if (allSeapods.status == Status.LOADING || allSeapods.data == null)
-              Container(
+            if (allSeapods.status == Status.loading || allSeapods.data == null)
+              const SizedBox(
                 height: 300,
                 child: SpinKitFadingCircle(
-                  color: Color(ColorConstants.MAIN_COLOR),
-                  size: 50,
+                  color: Color(ColorConstants.mainColor),
                 ),
               ),
-            if (allSeapods.status == Status.COMPLETED &&
+            if (allSeapods.status == Status.completed &&
                 allSeapods.data != null)
               Expanded(
                 child: IndexedStack(
@@ -140,9 +139,9 @@ class SeapodsView extends StatelessWidget {
   ) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         color: Color(
-          ColorConstants.TABLE_VIEW_TEXT_COLOR,
+          ColorConstants.tableViewTextColor,
         ),
       ),
     );
@@ -150,20 +149,20 @@ class SeapodsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _mediaQuery = MediaQuery.of(context).size;
+    final _mediaQuery = MediaQuery.of(context).size;
     return ListView.builder(
       itemCount: allSeapods.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15.0),
           height: 230,
-          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           decoration: BoxDecoration(
             color: index % 2 == 0
                 ? Colors.white
-                : Color(ColorConstants.SEAPODS_CARD_BACKGROUND),
+                : const Color(ColorConstants.seapodsCardBackground),
             border: Border.all(
-              color: Color(ColorConstants.TABLE_VIEW_TEXT_COLOR),
+              color: const Color(ColorConstants.tableViewTextColor),
             ),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -174,9 +173,9 @@ class SeapodsView extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: _mediaQuery.width * 0.35,
-                    child: buildSeapodCardText(ConstantTexts.NAME),
+                    child: buildSeapodCardText(ConstantTexts.name),
                   ),
                   Expanded(
                     child: buildSeapodCardText(
@@ -188,9 +187,9 @@ class SeapodsView extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: _mediaQuery.width * 0.35,
-                    child: buildSeapodCardText(ConstantTexts.OWNER),
+                    child: buildSeapodCardText(ConstantTexts.owner),
                   ),
                   Expanded(
                     child: buildSeapodCardText(
@@ -202,9 +201,9 @@ class SeapodsView extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: _mediaQuery.width * 0.35,
-                    child: buildSeapodCardText(ConstantTexts.TYPE),
+                    child: buildSeapodCardText(ConstantTexts.type),
                   ),
                   buildSeapodCardText(allSeapods[index].seaPodType),
                 ],
@@ -212,21 +211,21 @@ class SeapodsView extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: _mediaQuery.width * 0.35,
-                    child: buildSeapodCardText(ConstantTexts.LOCATION),
+                    child: buildSeapodCardText(ConstantTexts.location),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       buildSeapodCardText(
                           allSeapods[index].location.locationName),
-                      buildSeapodCardText(ConstantTexts.LATITUDE +
+                      buildSeapodCardText(ConstantTexts.latitude +
                           allSeapods[index]
                               .location
                               .latitude
                               .toStringAsFixed(4)),
-                      buildSeapodCardText(ConstantTexts.LONGITUDE +
+                      buildSeapodCardText(ConstantTexts.logitude +
                           allSeapods[index]
                               .location
                               .longitude
@@ -237,18 +236,18 @@ class SeapodsView extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: _mediaQuery.width * 0.35,
-                    child: buildSeapodCardText(ConstantTexts.STATUS),
+                    child: buildSeapodCardText(ConstantTexts.status),
                   ),
                   buildSeapodCardText(allSeapods[index].seaPodStatus),
                 ],
               ),
               Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: _mediaQuery.width * 0.35,
-                    child: buildSeapodCardText(ConstantTexts.ACCESS_LEVEL),
+                    child: buildSeapodCardText(ConstantTexts.accessLevel),
                   ),
                   buildSeapodCardText(allSeapods[index].accessLevel),
                 ],

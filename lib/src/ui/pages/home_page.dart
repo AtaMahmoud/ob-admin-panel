@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
   final bool seapodDetailsPage;
   final bool seapodOwnerPage;
 
-  HomePage({
+  const HomePage({
     this.seapodDetailsPage = false,
     this.seapodOwnerPage = false,
   });
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
-        if (sizingInformation.deviceScreenType == DeviceScreenType.desktop)
+        if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
           return DesktopHomepage(
             seapodsTabIndex: homeTabsIndex,
             onListTap: () {
@@ -43,12 +43,12 @@ class _HomePageState extends State<HomePage> {
             seapodDetailsPage: widget.seapodDetailsPage,
             seapodOwnerScreen: widget.seapodOwnerPage,
           );
-        else {
-          if (widget.seapodDetailsPage)
+        } else {
+          if (widget.seapodDetailsPage) {
             return SeapodDetailsPage();
-          else if (widget.seapodOwnerPage)
+          } else if (widget.seapodOwnerPage) {
             return SeapodOwnersPage();
-          else
+          } else {
             return MobileHomePage(
               tabIndex: homeTabsIndex,
               onListTap: () {
@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage> {
                 });
               },
             );
+          }
         }
       },
     );

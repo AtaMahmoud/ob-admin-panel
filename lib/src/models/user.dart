@@ -12,7 +12,7 @@ class User {
   String type;
   PermissionSet permissionSet;
 
-  User(
+  User({
     this.isDisabled,
     this.lighting,
     this.accessPeriod,
@@ -23,19 +23,20 @@ class User {
     this.notificationToken,
     this.type,
     this.permissionSet,
-  );
+  });
   User.fromJson(Map<String, dynamic> json) {
-    isDisabled = json['isDisabled'];
-    lighting = Lighting.fromJson(json['lighting']);
-    accessPeriod = json['accessPeriod'];
-    checkInDate = json['checkInDate'];
-    id = json['_id'];
-    userName = json['userName'];
-    profilePicUrl = json['profilePicUrl'];
-    notificationToken = json['notificationToken'];
-    type = json['type'];
-    permissionSet = PermissionSet.fromJson(json['permissionSet']);
-     }
+    isDisabled = json['isDisabled'] as bool;
+    lighting = Lighting.fromJson(json['lighting'] as Map<String, dynamic>);
+    accessPeriod = json['accessPeriod'] as num;
+    checkInDate = json['checkInDate'] as num;
+    id = json['_id'] as String;
+    userName = json['userName'] as String;
+    profilePicUrl = json['profilePicUrl'] as String;
+    notificationToken = json['notificationToken'] as String;
+    type = json['type'] as String;
+    permissionSet =
+        PermissionSet.fromJson(json['permissionSet'] as Map<String, dynamic>);
+  }
 }
 
 class Lighting {
@@ -45,18 +46,18 @@ class Lighting {
   String id;
   String selectedScene;
 
-  Lighting(
+  Lighting({
     this.status,
     this.intensity,
     this.lightScenes,
     this.id,
     this.selectedScene,
-  );
+  });
 
   Lighting.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    intensity = json['intensity'];
-    id = json['_id'];
-    selectedScene = json['selectedScene'];
+    status = json['status'] as bool;
+    intensity = json['intensity'] as num;
+    id = json['_id'] as String;
+    selectedScene = json['selectedScene'] as String;
   }
 }

@@ -18,7 +18,7 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
   var _isInit = true;
 
   @override
-  void didChangeDependencies() async {
+  Future<void> didChangeDependencies() async {
     if (_isInit) {
       seaPodsProvider = Provider.of<SeaPodsProvider>(
         context,
@@ -34,20 +34,20 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
 
   @override
   Widget build(BuildContext context) {
-    var textStyle1 = TextStyle(
-      color: Color(ColorConstants.MAIN_COLOR),
+    const textStyle1 = TextStyle(
+      color: Color(ColorConstants.mainColor),
     );
 
-    var _selectedSeapod = seaPodsProvider.selectedSeapod;
+    final _selectedSeapod = seaPodsProvider.selectedSeapod;
 
     return Scaffold(
-      backgroundColor: Color(
-        ColorConstants.TAB_BACKGROUND,
+      backgroundColor: const Color(
+        ColorConstants.tabBackground,
       ),
-      drawer: MobileLeftNavigationMenu(
+      drawer: const  MobileLeftNavigationMenu(
         tappedMenuIndex: 0,
       ),
-      drawerScrimColor: Color(ColorConstants.DRAWER_SCRIM_COLOR),
+      drawerScrimColor: const Color(ColorConstants.drawerScrimColor),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -57,36 +57,36 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MobileHeader(
+                    const MobileHeader(
                       showLogo: false,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
+                    const Padding(
+                      padding:  EdgeInsets.only(
                         top: 20,
                         left: 20,
                         bottom: 15,
                       ),
                       child: TabTitle(
-                        ConstantTexts.GENERAL_INFO,
+                        ConstantTexts.generalInfo,
                         fontSize: 22,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 20, bottom: 20),
                       child: Row(
-                        children: [
+                        children: const [
                           Text(
-                            ConstantTexts.OWNERSHIP,
+                            ConstantTexts.ownership,
                             style: textStyle1,
                           ),
                           SizedBox(
                             width: 20,
                           ),
                           Text(
-                            ConstantTexts.DEVICES,
+                            ConstantTexts.devices,
                             style: textStyle1,
                           ),
                         ],
@@ -97,12 +97,11 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
               ),
             ),
             if (_isInit)
-              SliverToBoxAdapter(
-                child: Container(
+              const SliverToBoxAdapter(
+                child: SizedBox(
                   height: 300,
                   child: SpinKitFadingCircle(
-                    color: Color(ColorConstants.MAIN_COLOR),
-                    size: 50,
+                    color: Color(ColorConstants.mainColor),
                   ),
                 ),
               ),
@@ -113,11 +112,11 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
                   child: Column(
                     children: [
                       buildSeapodInfoContainer(
-                        ConstantTexts.VESSLE_NAME,
+                        ConstantTexts.vessleName,
                         _selectedSeapod.seaPodName,
                       ),
                       buildSeapodInfoContainer(
-                        ConstantTexts.CURRENT_OCCUPANT,
+                        ConstantTexts.currentOccupant,
                         _selectedSeapod.ownersNames[0],
                       ),
                     ],
@@ -125,11 +124,11 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
                 ),
               ),
             if (!_isInit)
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: GeneralInfoCard(),
               ),
             if (!_isInit)
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: LocationInfoCard(),
               ),
             if (!_isInit) ...[
@@ -166,8 +165,8 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
             padding: const EdgeInsets.only(left: 3),
             child: Text(
               infoTitle,
-              style: TextStyle(
-                color: Color(ColorConstants.TEXT_COLOR),
+              style: const TextStyle(
+                color: Color(ColorConstants.textColor),
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
               ),
@@ -184,9 +183,9 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
             ),
             child: Text(
               info,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(
-                  ColorConstants.LOGIN_REGISTER_TEXT_COLOR,
+                  ColorConstants.loginRegisterTextColor,
                 ),
                 fontSize: 15,
               ),
