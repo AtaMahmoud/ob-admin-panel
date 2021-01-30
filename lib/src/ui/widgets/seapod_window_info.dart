@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_details/seapod_datails_page.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:speech_bubble/speech_bubble.dart';
@@ -205,11 +205,10 @@ class MoreButton extends StatelessWidget {
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) => const HomePage(
-              seapodDetailsPage: true,
-            ),
+            pageBuilder: (context, animation1, animation2) =>
+                SeapodDetailsPage(),
             transitionDuration: const Duration(),
-            settings: const RouteSettings(name: HomePage.routeName),
+            settings: const RouteSettings(name: SeapodDetailsPage.routeName),
           ),
         );
       },

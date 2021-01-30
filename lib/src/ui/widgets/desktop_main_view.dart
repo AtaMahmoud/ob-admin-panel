@@ -1,47 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/access_management.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/devices.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/home.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/locations.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/messages.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/seapod_settings.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/users.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/tabs/weather.dart';
-import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
-import 'package:ob_admin_panel/src/ui/pages/login.dart';
-
+import 'package:ob_admin_panel/src/ui/pages/access_management/access_management_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/devices_page/devices_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/locations_page/locations_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/login_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/messages_page/messages_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_settings_page/seapod_settings.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapods_page/seapods_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/users_page/users_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/weather_page/weather_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
-import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 
-class DesktopHomepage extends StatefulWidget {
-  final int seapodsTabIndex;
-  final VoidCallback onMapTap;
-  final VoidCallback onListTap;
-  final bool seapodDetailsPage;
-  final bool seapodOwnerScreen;
+class DesktopMainView extends StatefulWidget {
+  final Widget view;
+  final int viewIndex;
 
-  const DesktopHomepage({
-    @required this.seapodsTabIndex,
-    @required this.onMapTap,
-    @required this.onListTap,
-    @required this.seapodDetailsPage,
-    @required this.seapodOwnerScreen,
+  const DesktopMainView({
+    @required this.view,
+    @required this.viewIndex,
   });
 
   @override
   _DesktopHomepageState createState() => _DesktopHomepageState();
 }
 
-class _DesktopHomepageState extends State<DesktopHomepage> {
+class _DesktopHomepageState extends State<DesktopMainView> {
   ScrollController _controller;
   bool _showControlOptions = false;
-  int currentTabIndex = 0;
 
   void scrollCallBack(DragUpdateDetails dragUpdate) {
     setState(() {
@@ -84,7 +75,7 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
                             color: const Color(
                               ColorConstants.tabBackground,
                             ),
-                            child: _buildTabViews()[currentTabIndex],
+                            child: widget.view,
                           ),
                         ],
                       ),
@@ -120,100 +111,117 @@ class _DesktopHomepageState extends State<DesktopHomepage> {
     return [
       _AdminPanelTab(
         title: ConstantTexts.home,
-        isExpanded: currentTabIndex == 0,
+        isExpanded: widget.viewIndex == Constants.homeIndex,
         onTap: () {
           Navigator.pushReplacement(
             context,
             PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) => const HomePage(),
+              pageBuilder: (context, _, __) => SeapodsPage(),
               transitionDuration: const Duration(),
-              settings: const RouteSettings(name: HomePage.routeName),
+              settings: const RouteSettings(name: SeapodsPage.routeName),
             ),
           );
         },
       ),
       _AdminPanelTab(
         title: ConstantTexts.weatherMarine,
-        isExpanded: currentTabIndex == 1,
+        isExpanded: widget.viewIndex == Constants.weatherViewIndex,
         onTap: () {
-          setState(() {
-            currentTabIndex = 1;
-          });
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) => WeatherPage(),
+              transitionDuration: const Duration(),
+              settings: const RouteSettings(name: WeatherPage.routeName),
+            ),
+          );
         },
       ),
       _AdminPanelTab(
         title: ConstantTexts.devices,
-        isExpanded: currentTabIndex == 2,
+        isExpanded: widget.viewIndex == Constants.devicesViewIndex,
         onTap: () {
-          setState(() {
-            currentTabIndex = 2;
-          });
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) => DevicesPage(),
+              transitionDuration: const Duration(),
+              settings: const RouteSettings(name: DevicesPage.routeName),
+            ),
+          );
         },
       ),
       _AdminPanelTab(
         title: ConstantTexts.messages,
-        isExpanded: currentTabIndex == 3,
+        isExpanded: widget.viewIndex == Constants.messagesViewIndex,
         onTap: () {
-          setState(() {
-            currentTabIndex = 3;
-          });
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) => MessagesPage(),
+              transitionDuration: const Duration(),
+              settings: const RouteSettings(name: MessagesPage.routeName),
+            ),
+          );
         },
       ),
       _AdminPanelTab(
         title: ConstantTexts.acceseManagement,
-        isExpanded: currentTabIndex == 4,
+        isExpanded: widget.viewIndex == Constants.accessManagementIndex,
         onTap: () {
-          setState(() {
-            currentTabIndex = 4;
-          });
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) => AccessManagementPage(),
+              transitionDuration: const Duration(),
+              settings:
+                  const RouteSettings(name: AccessManagementPage.routeName),
+            ),
+          );
         },
       ),
       _AdminPanelTab(
         title: ConstantTexts.locations,
-        isExpanded: currentTabIndex == 5,
+        isExpanded: widget.viewIndex == Constants.locationsViewIndex,
         onTap: () {
-          setState(() {
-            currentTabIndex = 5;
-          });
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) => LocationsPage(),
+              transitionDuration: const Duration(),
+              settings: const RouteSettings(name: LocationsPage.routeName),
+            ),
+          );
         },
       ),
       _AdminPanelTab(
         title: ConstantTexts.users,
-        isExpanded: currentTabIndex == 6,
+        isExpanded: widget.viewIndex == Constants.usersViewIndex,
         onTap: () {
-          setState(() {
-            currentTabIndex = 6;
-          });
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) => UsersPage(),
+              transitionDuration: const Duration(),
+              settings: const RouteSettings(name: UsersPage.routeName),
+            ),
+          );
         },
       ),
       _AdminPanelTab(
         title: ConstantTexts.seapodsSettings,
-        isExpanded: currentTabIndex == 7,
+        isExpanded: widget.viewIndex == Constants.seapodSettingsViewIndex,
         onTap: () {
-          setState(() {
-            currentTabIndex = 7;
-          });
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, _, __) => SeapodSettingsPage(),
+              transitionDuration: const Duration(),
+              settings: const RouteSettings(name: SeapodSettingsPage.routeName),
+            ),
+          );
         },
       ),
-    ];
-  }
-
-  List<Widget> _buildTabViews() {
-    return [
-      HomeView(
-        seapodsTabIndex: widget.seapodsTabIndex,
-        onListTap: widget.onListTap,
-        onMapTap: widget.onMapTap,
-        seapodOwnerScreen: widget.seapodOwnerScreen,
-        seapodDetailsPage: widget.seapodDetailsPage,
-      ),
-      WeatherView(),
-      DevicesView(),
-      MessagesView(),
-      AccessManagementView(),
-      LocationsView(),
-      Users(),
-      SeapodSettings(),
     ];
   }
 }
@@ -367,7 +375,7 @@ class _AdminPanelTabState extends State<_AdminPanelTab>
             ? const Color(
                 ColorConstants.loginRegisterTextColor,
               )
-            :  Colors.white,
+            : Colors.white,
         child: Text(
           widget.title,
           textAlign: TextAlign.start,

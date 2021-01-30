@@ -45,7 +45,7 @@ class _MobileSeapodDetailsState extends State<MobileSeapodDetails> {
         ColorConstants.tabBackground,
       ),
       drawer: const  MobileLeftNavigationMenu(
-        tappedMenuIndex: 0,
+        tappedMenuIndex: Constants.homeIndex,
       ),
       drawerScrimColor: const Color(ColorConstants.drawerScrimColor),
       body: SafeArea(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/ui/pages/desktop_navigation_pages/desktop_seapod_details.dart';
-import 'package:ob_admin_panel/src/ui/pages/mobile_navigation_pages/seapod_datails_mobile.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_details/desktop_version.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_details/mobile_version.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class SeapodDetailsPage extends StatefulWidget {
-  static const routeName = '/seapod';
+  static const routeName = '/seapod-info';
 
   @override
   _SeapodDetailsPageState createState() => _SeapodDetailsPageState();

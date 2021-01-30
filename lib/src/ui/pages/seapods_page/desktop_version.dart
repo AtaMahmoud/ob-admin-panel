@@ -6,58 +6,28 @@ import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/models/table_column.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/seapod_datails.dart';
-import 'package:ob_admin_panel/src/ui/pages/seapod_owner_page.dart';
+import 'package:ob_admin_panel/src/ui/widgets/desktop_main_view.dart';
 import 'package:ob_admin_panel/src/ui/widgets/map_tab.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({
-    @required this.seapodDetailsPage,
-    @required this.seapodOwnerScreen,
-    @required this.onListTap,
-    @required this.onMapTap,
-    @required this.seapodsTabIndex,
-  });
-  final int seapodsTabIndex;
-  final VoidCallback onMapTap;
-  final VoidCallback onListTap;
-  final bool seapodDetailsPage;
-  final bool seapodOwnerScreen;
-  @override
-  Widget build(BuildContext context) {
-    if (seapodDetailsPage) {
-      return SeapodDetailsPage();
-    } else if (seapodOwnerScreen) {
-      return SeapodOwnersPage();
-    } else {
-      return SeapodsView(
-        onListTap: onListTap,
-        onMapTap: onMapTap,
-        seapodsTabIndex: seapodsTabIndex,
-      );
-    }
-  }
-}
-
-class SeapodsView extends StatefulWidget {
-  final int seapodsTabIndex;
+class DesktopSeapodsPage extends StatefulWidget {
+  final int seapodsViewIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
 
-  const SeapodsView({
-    @required this.seapodsTabIndex,
+  const DesktopSeapodsPage({
+    @required this.seapodsViewIndex,
     @required this.onMapTap,
     @required this.onListTap,
   });
 
   @override
-  _SeapodsViewState createState() => _SeapodsViewState();
+  _DesktopSeapodsPageState createState() => _DesktopSeapodsPageState();
 }
 
-class _SeapodsViewState extends State<SeapodsView> {
+class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
   var _isInit = true;
   var _isLoading = false;
   SeaPodsProvider seaPodsProvider;
@@ -96,137 +66,140 @@ class _SeapodsViewState extends State<SeapodsView> {
     final allSeapods = seaPodsProvider.allSeaPods.data;
     final sizeCalcs = SizeCalcs(context: context);
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
-    return Container(
-      color: Color(
-        widget.seapodsTabIndex == 1
-            ? ColorConstants.mabBackground
-            : ColorConstants.tabBackground,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 30,
-              top: 25,
-            ),
-            height: 75,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const TabTitle(
-                  ConstantTexts.seapods,
-                ),
-                SizedBox(
-                  height: 30,
-                  child: Row(
-                    children: [
-                      buildSwitcher(
-                        widget.onMapTap,
-                        ConstantTexts.map,
-                        BoxDecoration(
-                          color: Color(
-                            widget.seapodsTabIndex == 1
-                                ? ColorConstants.switcherColor
-                                : ColorConstants.loginRegisterTextColor,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(15),
-                            topLeft: Radius.circular(15),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 1,
-                        color: Colors.white,
-                      ),
-                      buildSwitcher(
-                        widget.onListTap,
-                        ConstantTexts.list,
-                        BoxDecoration(
-                          color: Color(
-                            widget.seapodsTabIndex == 0
-                                ? ColorConstants.switcherColor
-                                : ColorConstants.loginRegisterTextColor,
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(15),
-                            topRight: Radius.circular(15),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          if (widget.seapodsTabIndex == 0)
+    return DesktopMainView(
+      viewIndex: Constants.homeIndex,
+      view: Container(
+        color: Color(
+          widget.seapodsViewIndex == 1
+              ? ColorConstants.mabBackground
+              : ColorConstants.tabBackground,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Container(
               padding: const EdgeInsets.only(
                 left: 20,
                 right: 30,
-                bottom: 30,
+                top: 25,
               ),
-              margin: EdgeInsets.only(right: tabViewWidth * 0.15),
-              child: Stack(
+              height: 75,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 40,
-                        margin: const EdgeInsets.only(right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: () => setState(
-                                () => showFilterMenu = !showFilterMenu,
-                              ),
-                              child: Center(
-                                child: Image.asset(
-                                  ImagePaths.tableFilterIcon,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      buildTableHeader(),
-                      if (!_isLoading) buildTableContent(allSeapods),
-                      if (_isLoading)
-                        Container(
-                          height: 500,
-                        ),
-                      buildAddSeapodButton()
-                    ],
+                  const TabTitle(
+                    ConstantTexts.seapods,
                   ),
-                  if (showFilterMenu)
-                    FilterBubble(
-                      columns: columns,
-                      applyFilter: () {
-                        setState(() {});
-                      },
+                  SizedBox(
+                    height: 30,
+                    child: Row(
+                      children: [
+                        buildSwitcher(
+                          widget.onMapTap,
+                          ConstantTexts.map,
+                          BoxDecoration(
+                            color: Color(
+                              widget.seapodsViewIndex == 1
+                                  ? ColorConstants.switcherColor
+                                  : ColorConstants.loginRegisterTextColor,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              topLeft: Radius.circular(15),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 1,
+                          color: Colors.white,
+                        ),
+                        buildSwitcher(
+                          widget.onListTap,
+                          ConstantTexts.list,
+                          BoxDecoration(
+                            color: Color(
+                              widget.seapodsViewIndex == 0
+                                  ? ColorConstants.switcherColor
+                                  : ColorConstants.loginRegisterTextColor,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              bottomRight: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
                 ],
               ),
             ),
-          if (!_isLoading && widget.seapodsTabIndex == 1)
-            Container(
-              margin: EdgeInsets.only(right: tabViewWidth * 0.15),
-              height: 650,
-              child: MapTab(
-                seapods: allSeapods,
-              ),
+            const SizedBox(
+              height: 20,
             ),
-        ],
+            if (widget.seapodsViewIndex == 0)
+              Container(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 30,
+                  bottom: 30,
+                ),
+                margin: EdgeInsets.only(right: tabViewWidth * 0.15),
+                child: Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 40,
+                          margin: const EdgeInsets.only(right: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () => setState(
+                                  () => showFilterMenu = !showFilterMenu,
+                                ),
+                                child: Center(
+                                  child: Image.asset(
+                                    ImagePaths.tableFilterIcon,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        buildTableHeader(),
+                        if (!_isLoading) buildTableContent(allSeapods),
+                        if (_isLoading)
+                          Container(
+                            height: 500,
+                          ),
+                        buildAddSeapodButton()
+                      ],
+                    ),
+                    if (showFilterMenu)
+                      FilterBubble(
+                        columns: columns,
+                        applyFilter: () {
+                          setState(() {});
+                        },
+                      ),
+                  ],
+                ),
+              ),
+            if (!_isLoading && widget.seapodsViewIndex == 1)
+              Container(
+                margin: EdgeInsets.only(right: tabViewWidth * 0.15),
+                height: 650,
+                child: MapTab(
+                  seapods: allSeapods,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

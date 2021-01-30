@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/admin.dart';
 import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapods_page/seapods_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/custom_text_form_field.dart';
 import 'package:ob_admin_panel/src/ui/widgets/logo.dart';
 import 'package:ob_admin_panel/src/ui/widgets/submit_button.dart';
@@ -39,8 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return Scaffold(
-          backgroundColor:
-              const Color(ColorConstants.loginContainerBackground),
+          backgroundColor: const Color(ColorConstants.loginContainerBackground),
           body: SafeArea(
             child: ListView(
               children: [
@@ -90,6 +89,11 @@ class _RegisterPageState extends State<RegisterPage> {
                               onSaved: (String value) {
                                 _admin.firstName = value;
                               },
+                              onTap: () {
+                                setState(() {
+                                  _firstNameValidationText = null;
+                                });
+                              },
                             ),
                             CustomTextFormField(
                               label: ConstantTexts.lastName,
@@ -97,12 +101,22 @@ class _RegisterPageState extends State<RegisterPage> {
                               onSaved: (String value) {
                                 _admin.lastName = value;
                               },
+                              onTap: () {
+                                setState(() {
+                                  _lastNameValidationText = null;
+                                });
+                              },
                             ),
                             CustomTextFormField(
                               label: ConstantTexts.email.toUpperCase(),
                               validationText: _emailValidationText,
                               onSaved: (String value) {
                                 _admin.email = value;
+                              },
+                              onTap: () {
+                                setState(() {
+                                  _emailValidationText = null;
+                                });
                               },
                             ),
                             CustomTextFormField(
@@ -112,6 +126,11 @@ class _RegisterPageState extends State<RegisterPage> {
                               onSaved: (String value) {
                                 _password = value;
                               },
+                              onTap: () {
+                                setState(() {
+                                  _passwordValidationText = null;
+                                });
+                              },
                             ),
                             CustomTextFormField(
                               label: ConstantTexts.confirmPassword,
@@ -120,6 +139,11 @@ class _RegisterPageState extends State<RegisterPage> {
                               onSaved: (String value) {
                                 _confirmPassword = value;
                               },
+                              onTap: () {
+                                setState(() {
+                                  _confirmPasswordValidationText = null;
+                                });
+                              },
                             ),
                             CustomTextFormField(
                               label: ConstantTexts.mobileNumber,
@@ -127,12 +151,22 @@ class _RegisterPageState extends State<RegisterPage> {
                               onSaved: (String value) {
                                 _admin.mobileNumber = value;
                               },
+                              onTap: () {
+                                setState(() {
+                                  _mobileValidationText = null;
+                                });
+                              },
                             ),
                             CustomTextFormField(
                               label: ConstantTexts.country,
                               validationText: _countryValidationText,
                               onSaved: (String value) {
                                 _admin.country = value;
+                              },
+                              onTap: () {
+                                setState(() {
+                                  _countryValidationText = null;
+                                });
                               },
                             ),
                             GestureDetector(
@@ -157,10 +191,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                       PageRouteBuilder(
                                         pageBuilder:
                                             (context, animation1, animation2) =>
-                                               const HomePage(),
+                                                SeapodsPage(),
                                         transitionDuration: const Duration(),
                                         settings: const RouteSettings(
-                                          name: HomePage.routeName,
+                                          name: SeapodsPage.routeName,
                                         ),
                                       ),
                                     );
@@ -169,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               },
                               child: SubmitButton(),
                             ),
-                           const SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                           ],
@@ -201,7 +235,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ],
                       ),
                     ),
-                   const SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],

@@ -11,21 +11,21 @@ import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
-class MobileHomePage extends StatefulWidget {
-  final int tabIndex;
+class MobileSeapodsPage extends StatefulWidget {
+  final int seapodsViewIndex;
   final VoidCallback onMapTap;
   final VoidCallback onListTap;
 
-  const MobileHomePage({
-    @required this.tabIndex,
+  const MobileSeapodsPage({
+    @required this.seapodsViewIndex,
     @required this.onMapTap,
     @required this.onListTap,
   });
   @override
-  _MobileHomePageState createState() => _MobileHomePageState();
+  _MobileSeapodsPageState createState() => _MobileSeapodsPageState();
 }
 
-class _MobileHomePageState extends State<MobileHomePage>
+class _MobileSeapodsPageState extends State<MobileSeapodsPage>
     with SingleTickerProviderStateMixin {
   var _isInit = true;
   SeaPodsProvider seaPodsProvider;
@@ -54,7 +54,7 @@ class _MobileHomePageState extends State<MobileHomePage>
     final allSeapods = seaPodsProvider.allSeaPods;
     return Scaffold(
       drawer: const MobileLeftNavigationMenu(
-        tappedMenuIndex: 0,
+        tappedMenuIndex: Constants.homeIndex,
       ),
       drawerScrimColor: const Color(ColorConstants.drawerScrimColor),
       body: SafeArea(
@@ -66,10 +66,8 @@ class _MobileHomePageState extends State<MobileHomePage>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TabTitle(
-                    widget.tabIndex == 0
-                        ? ConstantTexts.seapods
-                        : ConstantTexts.map,
+                  const TabTitle(
+                    ConstantTexts.seapods,
                   ),
                   SizedBox(
                     width: 100,
@@ -77,9 +75,9 @@ class _MobileHomePageState extends State<MobileHomePage>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: widget.onListTap,
+                          onTap: widget.onMapTap,
                           child: const Text(
-                            ConstantTexts.list,
+                            ConstantTexts.map,
                             style: _textStyle,
                           ),
                         ),
@@ -88,9 +86,9 @@ class _MobileHomePageState extends State<MobileHomePage>
                           style: _textStyle,
                         ),
                         GestureDetector(
-                          onTap: widget.onMapTap,
+                          onTap: widget.onListTap,
                           child: const Text(
-                            ConstantTexts.map,
+                            ConstantTexts.list,
                             style: _textStyle,
                           ),
                         ),
@@ -111,7 +109,7 @@ class _MobileHomePageState extends State<MobileHomePage>
                 allSeapods.data != null)
               Expanded(
                 child: IndexedStack(
-                  index: widget.tabIndex,
+                  index: widget.seapodsViewIndex,
                   children: [
                     SeapodsView(allSeapods: allSeapods.data),
                     MapTab(

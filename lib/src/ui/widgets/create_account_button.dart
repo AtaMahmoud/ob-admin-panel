@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 
-import 'package:ob_admin_panel/src/ui/pages/register.dart';
+import 'package:ob_admin_panel/src/ui/pages/register_page.dart';
 
 class CreateAccountButton extends StatelessWidget {
   const CreateAccountButton({

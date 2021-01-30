@@ -4,15 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
-import 'package:ob_admin_panel/src/ui/pages/login.dart';
+import 'package:ob_admin_panel/src/ui/pages/access_management/access_management_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/devices_page/devices_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/locations_page/locations_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/login_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/messages_page/messages_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_settings_page/seapod_settings.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapods_page/seapods_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/users_page/users_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/weather_page/weather_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/mobile_menu_item.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
 import 'package:provider/provider.dart';
 
 class MobileLeftNavigationMenu extends StatelessWidget {
   final int tappedMenuIndex;
- const MobileLeftNavigationMenu({
+  const MobileLeftNavigationMenu({
     @required this.tappedMenuIndex,
   });
 
@@ -70,12 +77,12 @@ class MobileLeftNavigationMenu extends StatelessWidget {
                       height: 20,
                     ),
                     ...[
-                      for (int i = 0; i < Constants.tabCount; i++) ...[
+                      for (int i = 0; i < Constants.menusCount; i++) ...[
                         _buildNavigationMenues(
                             tappedMenuIndex == i, context)[i],
                       ]
                     ],
-                   const SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     GestureDetector(
@@ -103,36 +110,57 @@ class MobileLeftNavigationMenu extends StatelessWidget {
         title: ConstantTexts.home,
         isTapped: isTapped,
         onTap: () {
-          Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+          Navigator.of(context).pushReplacementNamed(SeapodsPage.routeName);
         },
       ),
       MenuItem(
         title: ConstantTexts.weatherMarine,
         isTapped: isTapped,
+        onTap: () {
+          Navigator.of(context).pushNamed(WeatherPage.routeName);
+        },
       ),
       MenuItem(
         title: ConstantTexts.devices,
         isTapped: isTapped,
+        onTap: () {
+          Navigator.of(context).pushNamed(DevicesPage.routeName);
+        },
       ),
       MenuItem(
         title: ConstantTexts.messages,
         isTapped: isTapped,
+        onTap: () {
+          Navigator.of(context).pushNamed(MessagesPage.routeName);
+        },
       ),
       MenuItem(
         title: ConstantTexts.acceseManagement,
         isTapped: isTapped,
+        onTap: () {
+          Navigator.of(context).pushNamed(AccessManagementPage.routeName);
+        },
       ),
       MenuItem(
         title: ConstantTexts.locations,
         isTapped: isTapped,
+        onTap: () {
+          Navigator.of(context).pushNamed(LocationsPage.routeName);
+        },
       ),
       MenuItem(
         title: ConstantTexts.users,
         isTapped: isTapped,
+        onTap: () {
+          Navigator.of(context).pushNamed(UsersPage.routeName);
+        },
       ),
       MenuItem(
         title: ConstantTexts.seapodsSettings,
         isTapped: isTapped,
+        onTap: () {
+          Navigator.of(context).pushNamed(SeapodSettingsPage.routeName);
+        },
       ),
     ];
   }

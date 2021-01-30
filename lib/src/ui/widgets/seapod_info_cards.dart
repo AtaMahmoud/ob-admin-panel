@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod_owner.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
-import 'package:ob_admin_panel/src/ui/pages/home_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_owner_details/seapod_owner_page.dart';
 import 'package:provider/provider.dart';
 
 class OwnerInfoCard extends StatelessWidget {
@@ -24,11 +24,10 @@ class OwnerInfoCard extends StatelessWidget {
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) => const HomePage(
-              seapodOwnerPage: true,
-            ),
+            pageBuilder: (context, animation1, animation2) =>
+                SeapodOwnersPage(),
             transitionDuration: const Duration(),
-            settings: const RouteSettings(name: HomePage.routeName),
+            settings: const RouteSettings(name: SeapodOwnersPage.routeName),
           ),
         );
       },

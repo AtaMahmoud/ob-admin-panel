@@ -11,6 +11,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool isEmail;
   final bool isPhone;
   final String validationText;
+  final VoidCallback onTap;
 
   const CustomTextFormField({
     this.label,
@@ -19,6 +20,7 @@ class CustomTextFormField extends StatefulWidget {
     this.isEmail = false,
     this.isPhone = false,
     this.validationText,
+    this.onTap,
   });
 
   @override
@@ -115,6 +117,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       ),
                       child: TextFormField(
                         onSaved: widget.onSaved,
+                        onTap: widget.onTap,
                         textAlignVertical: TextAlignVertical.center,
                         obscureText: widget.isPassword,
                         decoration: InputDecoration(
@@ -133,7 +136,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   ),
                 ],
               ),
-              if (widget.validationText.isNotEmpty)
+              if (widget.validationText != null)
                 Positioned(
                   top: 75,
                   left: 10,
