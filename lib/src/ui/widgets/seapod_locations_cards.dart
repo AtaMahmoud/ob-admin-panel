@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod_location.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class SeapodLocationsCards extends StatefulWidget {
   @override
@@ -59,47 +60,61 @@ class _SeapodLocationsCardsState extends State<SeapodLocationsCards> {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 6,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemCount: seapodLocations.length,
-      itemBuilder: (context, index) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Color(
-              index == 1
-                  ? ColorConstants.loginRegisterTextColor
-                  : ColorConstants.tappedMenuBackground,
-            ),
-            borderRadius: BorderRadius.circular(6.0),
+    return ResponsiveBuilder(
+      builder: (context, sizingInfo) {
+        return Padding(
+          padding: const EdgeInsets.only(
+            right: 20,
           ),
-          padding: const EdgeInsets.only(top: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                seapodLocations[index].iconPath,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: 100,
-                child: Text(
-                  seapodLocations[index].locationName,
-                  textAlign: TextAlign.center,
-                  softWrap: true,
-                  maxLines: 2,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount:
+                  sizingInfo.deviceScreenType == DeviceScreenType.desktop
+                      ? 6
+                      : sizingInfo.deviceScreenType == DeviceScreenType.tablet
+                          ? 4
+                          : 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+            itemCount: seapodLocations.length,
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: Color(
+                    index == 1
+                        ? ColorConstants.loginRegisterTextColor
+                        : ColorConstants.tappedMenuBackground,
                   ),
+                  borderRadius: BorderRadius.circular(6.0),
                 ),
-              )
-            ],
+                padding: const EdgeInsets.only(top: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      seapodLocations[index].iconPath,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: 100,
+                      child: Text(
+                        seapodLocations[index].locationName,
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                        maxLines: 2,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
         );
       },

@@ -51,7 +51,7 @@ class DesktopSeapodOwner extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20, right: 20),
                   child: Row(
                     children: const [
                       SizedBox(

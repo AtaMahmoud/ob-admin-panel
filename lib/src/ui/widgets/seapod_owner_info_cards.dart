@@ -26,6 +26,7 @@ class ProfileInfoCard extends StatelessWidget {
         ),
         const InfoRow(
           titleText: ConstantTexts.languages,
+
           /// TODO: Missing info
           infoText: 'English',
         ),
@@ -146,41 +147,51 @@ class ConnectedHomesInfoCard extends StatelessWidget {
     return InfoCard(
       title: ConstantTexts.connectedHomes,
       children: [
-        ...[
-          for (var seapod in selectedOwner.seapods) ...[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: InfoText(
-                    text: seapod.seapodName,
-                  ),
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: const Color(0xFFC6D7F4),
-                            borderRadius: BorderRadius.circular(4)),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 5,
-                        ),
-                        width: 90,
-                        height: 25,
-                        child: Center(
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              ...[
+                for (var seapod in selectedOwner.seapods) ...[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
                           child: InfoText(
-                            text: seapod.userType,
+                            text: seapod.seapodName,
                           ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFC6D7F4),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 5,
+                                ),
+                                width: 90,
+                                height: 25,
+                                child: Center(
+                                  child: InfoText(
+                                    text: seapod.userType,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ]
-        ]
+                ]
+              ]
+            ],
+          ),
+        )
       ],
     );
   }

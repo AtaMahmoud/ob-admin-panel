@@ -54,7 +54,7 @@ class _MobileSeapodOwnerState extends State<MobileSeapodOwner> {
                   const ConnectedHomesInfoCard(),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -73,57 +73,60 @@ class _SeapodsOwnerTabletVersionState extends State<SeapodsOwnerTabletVersion> {
   Widget build(BuildContext context) {
     final selectedOwner =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color(
-          ColorConstants.tabBackground,
-        ),
-        drawer: const MobileLeftNavigationMenu(
-          tappedMenuIndex: 0,
-        ),
-        drawerScrimColor: const Color(ColorConstants.drawerScrimColor),
-        body: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const MobileHeader(
-                    showLogo: false,
-                  ),
-                 const SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 20,
-                      left: 20,
-                      bottom: 15,
+    final shortestSide = MediaQuery.of(context).size.shortestSide;
+    return shortestSide < 900
+        ? MobileSeapodOwner()
+        : SafeArea(
+            child: Scaffold(
+              backgroundColor: const Color(
+                ColorConstants.tabBackground,
+              ),
+              drawer: const MobileLeftNavigationMenu(
+                tappedMenuIndex: 0,
+              ),
+              drawerScrimColor: const Color(ColorConstants.drawerScrimColor),
+              body: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const MobileHeader(
+                          showLogo: false,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 20,
+                            left: 20,
+                            bottom: 15,
+                          ),
+                          child: TabTitle(
+                            selectedOwner.userName,
+                            fontSize: 22,
+                          ),
+                        ),
+                        Row(
+                          children: const [
+                            Expanded(
+                              child: ProfileInfoCard(),
+                            ),
+                            Expanded(
+                              child: ContactsInfoCard(),
+                            ),
+                            Expanded(
+                              child: ConnectedHomesInfoCard(),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
-                    child: TabTitle(
-                      selectedOwner.userName,
-                      fontSize: 22,
-                    ),
-                  ),
-                  Row(
-                    children: const[
-                      Expanded(
-                        child: ProfileInfoCard(),
-                      ),
-                      Expanded(
-                        child: ContactsInfoCard(),
-                      ),
-                      Expanded(
-                        child: ConnectedHomesInfoCard(),
-                      ),
-                    ],
                   )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            ),
+          );
   }
 }

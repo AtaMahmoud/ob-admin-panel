@@ -132,7 +132,7 @@ class SeaPod {
     interiorBedroomWallColor = json['interiorBedroomWallColor'] as String;
     deckFloorFinishMaterial = json['deckFloorFinishMaterial'] as String;
     seaPodStatus = json['seaPodStatus'] as String;
-    seaPodType = json['seaPodType'] as String ?? "";
+    seaPodType = json['seaPodType'] as String ?? "Not set yet";
     users = [];
     ownersNames = [];
     accessLevel = 'No Access';
