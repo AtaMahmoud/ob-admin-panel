@@ -5,10 +5,12 @@ import 'package:ob_admin_panel/src/ui/widgets/logo.dart';
 import 'package:provider/provider.dart';
 
 class DesktopHeader extends StatefulWidget {
-  final void Function() showControlOptions;
+  final void Function() onTap;
+  final String selectedSeapodName;
 
   const DesktopHeader({
-    @required this.showControlOptions,
+    @required this.onTap,
+    this.selectedSeapodName,
   });
 
   @override
@@ -21,6 +23,7 @@ class _DesktopHeaderState extends State<DesktopHeader> {
     final admin = Provider.of<AdminAuthProvider>(
       context,
     ).authenticatedAdmin;
+
     return Container(
       padding: const EdgeInsets.only(right: 60),
       height: Constants.headerHeight,
@@ -72,18 +75,18 @@ class _DesktopHeaderState extends State<DesktopHeader> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: widget.showControlOptions,
+                  onTap: widget.onTap,
                   child: Container(
                     width: 140,
                     height: 30,
                     decoration: BoxDecoration(
-                      color:
-                          const Color(ColorConstants.loginRegisterTextColor),
+                      color: const Color(ColorConstants.loginRegisterTextColor),
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Center(
                       child: Text(
-                        '${admin.firstName} ${admin.lastName}',
+                        widget.selectedSeapodName ??
+                            '${admin.firstName} ${admin.lastName}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,

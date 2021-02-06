@@ -9,6 +9,7 @@ import 'package:ob_admin_panel/src/ui/pages/login_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/messages_page/messages_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/register_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_details/seapod_datails_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_locations.dart/seapod_locations.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_owner_details/seapod_owner_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_settings_page/seapod_settings.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapods_page/seapods_page.dart';
@@ -85,6 +86,8 @@ class MyApp extends StatelessWidget {
               SeapodSettingsPage(),
           UsersPage.routeName: (BuildContext context) => UsersPage(),
           WeatherPage.routeName: (BuildContext conetext) => WeatherPage(),
+          SeapodLocationsPage.routeName: (BuildContext context) =>
+              SeapodLocationsPage(),
         },
       ),
     );

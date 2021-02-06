@@ -33,6 +33,19 @@ class ImagePaths {
   static const locationIcon = 'assets/images/location_icon.png';
   static const defaultAvatar = 'assets/images/avatar.png';
   static const tableFilterIcon = 'assets/images/table_filter_icon.png';
+  static const bathroomIcon =
+      'assets/images/seapod_locations_icons/bathroom.png';
+  static const entranceIcon =
+      'assets/images/seapod_locations_icons/entrance.png';
+  static const generalIcon = 'assets/images/seapod_locations_icons/general.png';
+  static const kitchenIcon = 'assets/images/seapod_locations_icons/kitchen.png';
+  static const livingRoomIcon =
+      'assets/images/seapod_locations_icons/living_room.png';
+  static const masterBedroomIcon =
+      'assets/images/seapod_locations_icons/master_bedroom.png';
+  static const patioIcon = 'assets/images/seapod_locations_icons/patio.png';
+  static const roofIcon = 'assets/images/seapod_locations_icons/roof.png';
+  static const storageIcon = 'assets/images/seapod_locations_icons/storage.png';
 }
 
 class ConstantTexts {
@@ -92,6 +105,17 @@ class ConstantTexts {
   static const phone = 'Phone';
   static const about = 'About';
   static const showColumns = 'SHOW COLUMNS';
+  static const mySettings = 'My Settings';
+  static const masterBedroom = 'Master Bedroom';
+  static const bathroom = 'Bathroom';
+  static const kitchen = 'Kitchen';
+  static const livingRoom = 'Living Room';
+  static const entrance = 'Entrance';
+  static const storage = 'Storage';
+  static const general = 'General';
+  static const patio = 'Patio';
+  static const roof = 'Roof';
+
 }
 
 class Constants {
@@ -111,5 +135,3 @@ class Constants {
   static const usersViewIndex = 6;
   static const seapodSettingsViewIndex = 7;
 }
-
-

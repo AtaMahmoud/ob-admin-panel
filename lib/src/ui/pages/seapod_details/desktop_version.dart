@@ -50,42 +50,43 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
 
     return DesktopMainView(
       viewIndex: Constants.homeIndex,
-      view: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 20,
-            top: 25,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TabTitle(
-                ConstantTexts.about,
+      selectedSeapodName: _selectedSeapod.seaPodName,
+      view: Padding(
+        padding: const EdgeInsets.only(
+          left: 20,
+          top: 25,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TabTitle(
+              ConstantTexts.about,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: Row(
+                children: const [
+                  Text(
+                    ConstantTexts.ownership,
+                    style: textStyle1,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    ConstantTexts.devices,
+                    style: textStyle1,
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  children: const [
-                    Text(
-                      ConstantTexts.ownership,
-                      style: textStyle1,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      ConstantTexts.devices,
-                      style: textStyle1,
-                    ),
-                  ],
-                ),
-              ),
-              if (!_isLoading)
-                SingleChildScrollView(
+            ),
+            if (!_isLoading)
+              Expanded(
+                child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Container(
                     padding: const EdgeInsets.only(top: 20, right: 50),
-                    width: tabViewWidth,
+                    width: tabViewWidth > 1000 ? tabViewWidth : 1000,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -133,8 +134,8 @@ class _DesktopSeapodDetailsState extends State<DesktopSeapodDetails> {
                     ),
                   ),
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );

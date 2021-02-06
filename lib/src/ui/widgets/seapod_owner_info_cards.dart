@@ -26,7 +26,7 @@ class ProfileInfoCard extends StatelessWidget {
         ),
         const InfoRow(
           titleText: ConstantTexts.languages,
-          //TODO: Missing info
+          /// TODO: Missing info
           infoText: 'English',
         ),
         Row(
@@ -34,7 +34,7 @@ class ProfileInfoCard extends StatelessWidget {
           children: [
             const Expanded(
               child: InfoText(
-                //TODO: Missing info
+                // TODO: Missing info
                 text: ConstantTexts.healthCondition,
               ),
             ),
@@ -102,11 +102,13 @@ class ContactsInfoCard extends StatelessWidget {
                 text: ConstantTexts.emmergencyContact,
               ),
             ),
-            if (selectedOwner.emergencyContacts.isEmpty)
+            if (selectedOwner.emergencyContacts == null ||
+                selectedOwner.emergencyContacts.isEmpty)
               const Expanded(
                 child: InfoText(text: 'Not set yet'),
               ),
-            if (selectedOwner.emergencyContacts.isNotEmpty)
+            if (selectedOwner.emergencyContacts != null &&
+                selectedOwner.emergencyContacts.isNotEmpty)
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -269,7 +271,7 @@ class InfoCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child:  SizedBox(
+            child: SizedBox(
               height: 22,
               child: Text(
                 title,
@@ -283,19 +285,14 @@ class InfoCard extends StatelessWidget {
               ),
             ),
           ),
-         const SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ...[
-                  for (var child in children) ...[child]
-                ]
-              ],
-            ),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: children),
           ),
         ],
       ),

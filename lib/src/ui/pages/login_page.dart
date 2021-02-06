@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) =>  SeapodsPage(),
+          pageBuilder: (context, animation1, animation2) => SeapodsPage(),
           transitionDuration: const Duration(),
           settings: const RouteSettings(name: SeapodsPage.routeName),
         ),
@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         actions: [
-          FlatButton(
+          TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text(
               'Ok',

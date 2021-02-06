@@ -8,6 +8,7 @@ import 'package:ob_admin_panel/src/ui/pages/devices_page/devices_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/locations_page/locations_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/login_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/messages_page/messages_page.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_locations.dart/seapod_locations.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_settings_page/seapod_settings.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapods_page/seapods_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/users_page/users_page.dart';
@@ -20,10 +21,12 @@ import 'package:speech_bubble/speech_bubble.dart';
 class DesktopMainView extends StatefulWidget {
   final Widget view;
   final int viewIndex;
+  final String selectedSeapodName;
 
   const DesktopMainView({
     @required this.view,
     @required this.viewIndex,
+    this.selectedSeapodName,
   });
 
   @override
@@ -58,11 +61,29 @@ class _DesktopHomepageState extends State<DesktopMainView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       DesktopHeader(
-                        showControlOptions: () {
-                          setState(() {
-                            _showControlOptions = !_showControlOptions;
-                          });
+                        onTap: () {
+                          if (widget.selectedSeapodName != null) {
+                            if (ModalRoute.of(context).settings.name !=
+                                SeapodLocationsPage.routeName) {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (context, _, __) =>
+                                      SeapodLocationsPage(),
+                                  transitionDuration: const Duration(),
+                                  settings: const RouteSettings(
+                                    name: SeapodLocationsPage.routeName,
+                                  ),
+                                ),
+                              );
+                            }
+                          } else {
+                            setState(() {
+                              _showControlOptions = !_showControlOptions;
+                            });
+                          }
                         },
+                        selectedSeapodName: widget.selectedSeapodName,
                       ),
                       Row(
                         children: [

@@ -6,6 +6,7 @@ import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/models/table_column.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
+import 'package:ob_admin_panel/src/ui/pages/seapod_details/seapod_datails_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/desktop_main_view.dart';
 import 'package:ob_admin_panel/src/ui/widgets/map_tab.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
@@ -264,20 +265,35 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
       child: ListView.builder(
         itemCount: itemCount,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 10,
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: _seapodDetails(
-                    seaPodsProvider.allSeaPods.data[index],
-                  ),
+          return GestureDetector(
+            onTap: () {
+              seaPodsProvider.updateSelectedSeapod(seapods[index]);
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) =>
+                      SeapodDetailsPage(),
+                  transitionDuration: const Duration(),
+                  settings:
+                      const RouteSettings(name: SeapodDetailsPage.routeName),
                 ),
-                if (index != itemCount - 1) buildDivider(),
-              ],
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 10,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: _seapodDetails(
+                      seaPodsProvider.allSeaPods.data[index],
+                    ),
+                  ),
+                  if (index != itemCount - 1) buildDivider(),
+                ],
+              ),
             ),
           );
         },

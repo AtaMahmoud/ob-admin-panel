@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
@@ -11,8 +12,14 @@ class DesktopSeapodOwner extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedOwner =
         Provider.of<SeaPodsProvider>(context, listen: false).selectedOwner;
+    final selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
+    const textStyle1 = TextStyle(
+      color: Color(ColorConstants.mainColor),
+      fontSize: 13,
+    );
     return DesktopMainView(
       viewIndex: Constants.homeIndex,
+      selectedSeapodName: selectedSeapod.seaPodName,
       view: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -23,6 +30,24 @@ class DesktopSeapodOwner extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TabTitle(selectedOwner.userName),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: Row(
+                  children: const [
+                    Icon(
+                      CupertinoIcons.gear,
+                      color: Color(ColorConstants.mainColor),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      ConstantTexts.mySettings,
+                      style: textStyle1,
+                    ),
+                  ],
+                ),
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Padding(

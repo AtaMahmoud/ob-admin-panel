@@ -38,7 +38,7 @@ class SeapodOwner {
     lastName = json['lastName'] as String;
     email = json['email'] as String;
     mobileNumber = json['mobileNumber'] as String;
-    emergencyContacts = [];
+   /*  emergencyContacts = [];
     final emergContacts = json['emergencyContacts'] as Map<String, dynamic>;
     if (emergContacts.isNotEmpty) {
       json['emergencyContacts'].forEach(
@@ -46,7 +46,7 @@ class SeapodOwner {
           EmergencyContact.fromJson(e as Map<String, dynamic>),
         ),
       );
-    }
+    } */
   }
 }
 
