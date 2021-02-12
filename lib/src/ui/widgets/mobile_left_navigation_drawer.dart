@@ -149,7 +149,7 @@ class MobileLeftNavigationMenu extends StatelessWidget {
         },
       ),
       MenuItem(
-        title: ConstantTexts.users,
+        title: ConstantTexts.users.toUpperCase(),
         isTapped: isTapped,
         onTap: () {
           Navigator.of(context).pushNamed(UsersPage.routeName);

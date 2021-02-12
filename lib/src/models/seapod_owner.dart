@@ -3,7 +3,7 @@ class SeapodOwner {
   String userName;
   int checkInDate;
   String profilePicUrl;
-  List<Seapod> seapods;
+  List<OwnerSeapod> seapods;
   String country;
   String firstName;
   String lastName;
@@ -32,7 +32,7 @@ class SeapodOwner {
     profilePicUrl = json['profilePicUrl'] as String;
     seapods = [];
     json['seaPods'].forEach(
-        (e) => seapods.add(Seapod.fromJson(e as Map<String, dynamic>)));
+        (e) => seapods.add(OwnerSeapod.fromJson(e as Map<String, dynamic>)));
     country = json['country'] as String;
     firstName = json['firstName'] as String;
     lastName = json['lastName'] as String;
@@ -50,16 +50,16 @@ class SeapodOwner {
   }
 }
 
-class Seapod {
+class OwnerSeapod {
   String seapodName;
   String userType;
 
-  Seapod({
+  OwnerSeapod({
     this.seapodName,
     this.userType,
   });
 
-  Seapod.fromJson(Map<String, dynamic> json) {
+  OwnerSeapod.fromJson(Map<String, dynamic> json) {
     seapodName = json['seapodName'] as String;
     userType = json['userType'] as String;
   }

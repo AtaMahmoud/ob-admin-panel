@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
-class SeapodTableColumn {
+class TableColumn {
   String columnName;
   bool isChecked;
 
-  SeapodTableColumn({
+  TableColumn({
     @required this.columnName,
     this.isChecked = true,
   });

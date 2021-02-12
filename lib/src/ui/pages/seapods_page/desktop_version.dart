@@ -10,6 +10,7 @@ import 'package:ob_admin_panel/src/ui/pages/seapod_details/seapod_datails_page.d
 import 'package:ob_admin_panel/src/ui/widgets/desktop_main_view.dart';
 import 'package:ob_admin_panel/src/ui/widgets/map_tab.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
+import 'package:ob_admin_panel/src/ui/widgets/table_header.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
@@ -33,13 +34,13 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
   var _isLoading = false;
   SeaPodsProvider seaPodsProvider;
   bool showFilterMenu = false;
-  List<SeapodTableColumn> columns = [
-    SeapodTableColumn(columnName: ConstantTexts.seapod),
-    SeapodTableColumn(columnName: ConstantTexts.owner),
-    SeapodTableColumn(columnName: ConstantTexts.type),
-    SeapodTableColumn(columnName: ConstantTexts.location),
-    SeapodTableColumn(columnName: ConstantTexts.status),
-    SeapodTableColumn(columnName: ConstantTexts.accessLevel),
+  List<TableColumn> columns = [
+    TableColumn(columnName: ConstantTexts.seapod),
+    TableColumn(columnName: ConstantTexts.owner),
+    TableColumn(columnName: ConstantTexts.type),
+    TableColumn(columnName: ConstantTexts.location),
+    TableColumn(columnName: ConstantTexts.status),
+    TableColumn(columnName: ConstantTexts.accessLevel),
   ];
 
   @override
@@ -145,7 +146,7 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
                   right: 30,
                   bottom: 30,
                 ),
-                margin: EdgeInsets.only(right: tabViewWidth * 0.15),
+                margin: EdgeInsets.only(right: tabViewWidth * 0.1),
                 child: Stack(
                   children: [
                     Column(
@@ -172,13 +173,18 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
                             ],
                           ),
                         ),
-                        buildTableHeader(),
-                        if (!_isLoading) buildTableContent(allSeapods),
+                        TableHeader(
+                          children: tableFieldsList(),
+                        ),
+                        if (!_isLoading)
+                          SeapodsTableContent(
+                            columns: columns,
+                          ),
                         if (_isLoading)
                           Container(
                             height: 500,
                           ),
-                        buildAddSeapodButton()
+                        const AddSeapodButton()
                       ],
                     ),
                     if (showFilterMenu)
@@ -193,34 +199,13 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
               ),
             if (!_isLoading && widget.seapodsViewIndex == 1)
               Container(
-                margin: EdgeInsets.only(right: tabViewWidth * 0.15),
+                margin: EdgeInsets.only(right: tabViewWidth * 0.1),
                 height: 650,
                 child: MapTab(
                   seapods: allSeapods,
                 ),
               ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildAddSeapodButton() {
-    return DottedBorder(
-      color: const Color(ColorConstants.addSeapodColor),
-      dashPattern: const [8],
-      borderType: BorderType.RRect,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        height: 54,
-        child: const Center(
-          child: Icon(
-            CupertinoIcons.add,
-            size: 40,
-            color: Color(ColorConstants.addSeapodColor),
-          ),
         ),
       ),
     );
@@ -249,16 +234,42 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
     );
   }
 
-  Widget buildDivider() {
-    return Container(
+  List<Widget> tableFieldsList() {
+    final selectedColumns =
+        columns.where((element) => element.isChecked).toList();
+    final List<Widget> widgets = [];
+    for (final element in selectedColumns) {
+      widgets.add(TableHeaderField(text: element.columnName));
+    }
+    return widgets;
+  }
+}
+
+class SeapodsTableContent extends StatefulWidget {
+  const SeapodsTableContent({
+    Key key,
+    @required this.columns,
+  }) : super(key: key);
+
+  final List<TableColumn> columns;
+
+  @override
+  _SeapodsTableContentState createState() => _SeapodsTableContentState();
+}
+
+class _SeapodsTableContentState extends State<SeapodsTableContent> {
+  SeaPodsProvider seaPodsProvider;
+
+  @override
+  Widget build(BuildContext context) {
+    seaPodsProvider = Provider.of<SeaPodsProvider>(context, listen: false);
+    final seapods = seaPodsProvider.allSeaPods.data;
+    final customDivider = Container(
       height: 1,
       color: const Color(
         ColorConstants.tableViewDividerColor,
       ),
     );
-  }
-
-  Widget buildTableContent(List<SeaPod> seapods) {
     final itemCount = seapods.length;
     return SizedBox(
       height: 500,
@@ -291,7 +302,7 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
                       seaPodsProvider.allSeaPods.data[index],
                     ),
                   ),
-                  if (index != itemCount - 1) buildDivider(),
+                  if (index != itemCount - 1) customDivider,
                 ],
               ),
             ),
@@ -301,105 +312,11 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
     );
   }
 
-  List<Widget> _seapodDetails(SeaPod seaPod) {
-    return [
-      if (columns[0].isChecked)
-        buildTableCell(
-          seaPod.seaPodName,
-        ),
-      if (columns[1].isChecked)
-        buildTableCell(
-          seaPod.ownersNames.join(', '),
-        ),
-      if (columns[2].isChecked)
-        buildTableCell(
-          seaPod.seaPodType,
-        ),
-      if (columns[3].isChecked)
-        buildLocationField(
-          seaPod.location,
-        ),
-      if (columns[4].isChecked)
-        buildTableCell(
-          seaPod.seaPodStatus,
-        ),
-      if (columns[5].isChecked)
-        buildTableCell(
-          seaPod.accessLevel,
-        ),
-    ];
-  }
-
-  Widget buildTableHeader() {
-    return Container(
-      height: 50,
-      padding: const EdgeInsets.only(
-        left: 20,
-        right: 10,
-      ),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8.0),
-          topRight: Radius.circular(8.0),
-        ),
-        color: Color(
-          ColorConstants.seapodTableHeaderBackground,
-        ),
-      ),
-      child: Row(
-        children: _tableFieldsList(),
-      ),
-    );
-  }
-
-  List<Widget> _tableFieldsList() {
-    final selectedColumns =
-        columns.where((element) => element.isChecked).toList();
-    final List<Widget> widgets = [];
-    for (final element in selectedColumns) {
-      widgets.add(buildTableField(element.columnName));
-    }
-    return widgets;
-  }
-
-  Widget buildTableField(
-    String cellName,
-  ) {
-    return Expanded(
-      child: Text(
-        cellName.toUpperCase(),
-        textAlign: TextAlign.start,
-        style: const TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-
-  Widget buildTableCell(
-    String cellName,
-  ) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 5,
-          right: 10,
-          bottom: 5,
-        ),
-        child: Text(
-          cellName,
-          textAlign: TextAlign.start,
-          style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Color(
-              ColorConstants.tableViewTextColor,
-            ),
-          ),
-        ),
-      ),
+  TextStyle tableContentTextStyle() {
+    return const TextStyle(
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+      color: Color(ColorConstants.tableViewTextColor),
     );
   }
 
@@ -426,26 +343,92 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
               ),
             ),
             Text(
-              ConstantTexts.latitude +
-                  seaPodLocation.latitude.toStringAsFixed(4),
+              ConstantTexts.latitude + seaPodLocation.latitude.toString(),
               textAlign: TextAlign.start,
-              style: const TextStyle(
-                fontSize: 9,
-                fontWeight: FontWeight.w500,
-                color: Color(ColorConstants.tableViewTextColor),
-              ),
+              style: tableContentTextStyle(),
             ),
             Text(
-              ConstantTexts.logitude +
-                  seaPodLocation.longitude.toStringAsFixed(4),
+              ConstantTexts.logitude + seaPodLocation.longitude.toString(),
               textAlign: TextAlign.start,
-              style: const TextStyle(
-                fontSize: 9,
-                fontWeight: FontWeight.w500,
-                color: Color(ColorConstants.tableViewTextColor),
-              ),
+              style: tableContentTextStyle(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget tableFieldContent(
+    String content,
+  ) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 5,
+          right: 10,
+          bottom: 5,
+        ),
+        child: Text(
+          content,
+          textAlign: TextAlign.start,
+          style: tableContentTextStyle(),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _seapodDetails(SeaPod seaPod) {
+    return [
+      if (widget.columns[0].isChecked)
+        tableFieldContent(
+          seaPod.seaPodName,
+        ),
+      if (widget.columns[1].isChecked)
+        tableFieldContent(
+          seaPod.ownersNames.join(', '),
+        ),
+      if (widget.columns[2].isChecked)
+        tableFieldContent(
+          seaPod.seaPodType,
+        ),
+      if (widget.columns[3].isChecked)
+        buildLocationField(
+          seaPod.location,
+        ),
+      if (widget.columns[4].isChecked)
+        tableFieldContent(
+          seaPod.seaPodStatus,
+        ),
+      if (widget.columns[5].isChecked)
+        tableFieldContent(
+          seaPod.accessLevel,
+        ),
+    ];
+  }
+}
+
+class AddSeapodButton extends StatelessWidget {
+  const AddSeapodButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DottedBorder(
+      color: const Color(ColorConstants.addSeapodColor),
+      dashPattern: const [8],
+      borderType: BorderType.RRect,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        height: 54,
+        child: const Center(
+          child: Icon(
+            CupertinoIcons.add,
+            size: 40,
+            color: Color(ColorConstants.addSeapodColor),
+          ),
         ),
       ),
     );
@@ -459,7 +442,7 @@ class FilterBubble extends StatefulWidget {
     @required this.applyFilter,
   }) : super(key: key);
 
-  final List<SeapodTableColumn> columns;
+  final List<TableColumn> columns;
   final Function applyFilter;
 
   @override

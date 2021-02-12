@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
+import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
+import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/access_management/access_management_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/devices_page/devices_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/locations_page/locations_page.dart';
@@ -36,6 +38,7 @@ class DesktopMainView extends StatefulWidget {
 class _DesktopHomepageState extends State<DesktopMainView> {
   ScrollController _controller;
   bool _showControlOptions = false;
+  SeaPod selectedSeapod;
 
   void scrollCallBack(DragUpdateDetails dragUpdate) {
     setState(() {
@@ -47,7 +50,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
   Widget build(BuildContext context) {
     final sizeCalcs = SizeCalcs(context: context);
     final tabViewWidth = sizeCalcs.calculateTabViewWidth();
-
+    selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -129,21 +132,47 @@ class _DesktopHomepageState extends State<DesktopMainView> {
   }
 
   List<Widget> _buildTabs() {
-    return [
-      _AdminPanelTab(
-        title: ConstantTexts.home,
-        isExpanded: widget.viewIndex == Constants.homeIndex,
-        onTap: () {
-          Navigator.pushReplacement(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) => SeapodsPage(),
-              transitionDuration: const Duration(),
-              settings: const RouteSettings(name: SeapodsPage.routeName),
-            ),
-          );
-        },
-      ),
+    final homeTab = _AdminPanelTab(
+      title:
+          /*  selectedSeapod != null
+          ? selectedSeapod.seaPodName
+          :  */
+          ConstantTexts.home,
+      isExpanded: widget.viewIndex == Constants.homeIndex,
+      onTap: () {
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, _, __) => SeapodsPage(),
+            transitionDuration: const Duration(),
+            settings: const RouteSettings(name: SeapodsPage.routeName),
+          ),
+        );
+      },
+    );
+
+    final usersTab = _AdminPanelTab(
+      title: ConstantTexts.users.toUpperCase(),
+      isExpanded: widget.viewIndex == Constants.usersViewIndex,
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, _, __) => UsersPage(),
+            transitionDuration: const Duration(),
+            settings: const RouteSettings(name: UsersPage.routeName),
+          ),
+        );
+      },
+    );
+    return /* selectedSeapod == null
+        ? [
+            homeTab,
+            usersTab,
+          ]
+        : */
+        [
+      homeTab,
       _AdminPanelTab(
         title: ConstantTexts.weatherMarine,
         isExpanded: widget.viewIndex == Constants.weatherViewIndex,
@@ -215,20 +244,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
           );
         },
       ),
-      _AdminPanelTab(
-        title: ConstantTexts.users,
-        isExpanded: widget.viewIndex == Constants.usersViewIndex,
-        onTap: () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) => UsersPage(),
-              transitionDuration: const Duration(),
-              settings: const RouteSettings(name: UsersPage.routeName),
-            ),
-          );
-        },
-      ),
+      usersTab,
       _AdminPanelTab(
         title: ConstantTexts.seapodsSettings,
         isExpanded: widget.viewIndex == Constants.seapodSettingsViewIndex,

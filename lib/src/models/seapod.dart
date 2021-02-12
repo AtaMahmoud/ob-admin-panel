@@ -191,11 +191,11 @@ class Location {
   double longitude;
   String locationName;
 
-  Location(
+  Location({
     this.latitude,
     this.longitude,
     this.locationName,
-  );
+  });
 
   Location.fromJson(Map<String, dynamic> json) {
     latitude = json['latitude'] as double;

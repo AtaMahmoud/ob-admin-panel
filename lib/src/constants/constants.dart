@@ -17,6 +17,7 @@ class ColorConstants {
   static const switcherColor = 0xFF717D90;
   static const addSeapodColor = 0xFF9AA4B4;
   static const scrollBarColor = 0xFFDADCE4;
+  static const dateColor = 0xFF0B4A52;
 }
 
 class ImagePaths {
@@ -61,11 +62,12 @@ class ConstantTexts {
   static const createAccount = 'CREATE ACCOUNT';
   static const home = 'HOME';
   static const map = 'Map';
+  static const access = 'ACCESS';
   static const weatherMarine = 'WEATHER / MARINE';
   static const devices = 'DEVICES';
   static const messages = 'MESSAGES';
   static const acceseManagement = 'ACCESS MANAGEMENT';
-  static const users = 'USERS';
+  static const users = 'Users';
   static const seapodsSettings = 'SEAPOD SETTINGS';
   static const locations = 'LOCATIONS';
   static const search = 'Search...';
@@ -115,7 +117,7 @@ class ConstantTexts {
   static const general = 'General';
   static const patio = 'Patio';
   static const roof = 'Roof';
-
+  static const details = 'Details';
 }
 
 class Constants {
