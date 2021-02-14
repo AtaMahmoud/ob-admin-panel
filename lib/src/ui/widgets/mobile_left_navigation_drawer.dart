@@ -16,6 +16,7 @@ import 'package:ob_admin_panel/src/ui/pages/weather_page/weather_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/mobile_menu_item.dart';
 import 'package:ob_admin_panel/src/ui/widgets/profile_pic.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class MobileLeftNavigationMenu extends StatelessWidget {
   final int tappedMenuIndex;
@@ -26,78 +27,85 @@ class MobileLeftNavigationMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
-    return SizedBox(
-      width: mediaQuery.width * 0.56,
-      child: Drawer(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 2.0,
-            sigmaY: 2.0,
-          ),
-          child: SafeArea(
-            child: SingleChildScrollView(
-              child: Container(
-                height: mediaQuery.height -
-                    MediaQuery.of(context).padding.bottom -
-                    MediaQuery.of(context).padding.top,
-                color: const Color(ColorConstants.loginRegisterTextColor),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: Stack(
-                        children: [
-                          Builder(
-                            builder: (
-                              BuildContext context,
-                            ) =>
-                                IconButton(
-                              icon: const Icon(
-                                Icons.menu,
-                                color: Colors.white,
-                                size: 35.0,
+    return ResponsiveBuilder(
+      builder: (context, sizingInfo) {
+        return SizedBox(
+          width: sizingInfo.deviceScreenType == DeviceScreenType.tablet
+              ? mediaQuery.width * 0.35
+              : mediaQuery.width * 0.56,
+          child: Drawer(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 2.0,
+                sigmaY: 2.0,
+              ),
+              child: SafeArea(
+                child: SingleChildScrollView(
+                  child: Container(
+                    height: mediaQuery.height -
+                        MediaQuery.of(context).padding.bottom -
+                        MediaQuery.of(context).padding.top,
+                    color: const Color(ColorConstants.loginRegisterTextColor),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: Stack(
+                            children: [
+                              Builder(
+                                builder: (
+                                  BuildContext context,
+                                ) =>
+                                    IconButton(
+                                  icon: const Icon(
+                                    Icons.menu,
+                                    color: Colors.white,
+                                    size: 35.0,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
                               ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, right: 5),
+                                  child: ProfilePic(),
+                                ),
+                              ),
+                            ],
                           ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 5, right: 5),
-                              child: ProfilePic(),
-                            ),
-                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ...[
+                          for (int i = 0; i < Constants.menusCount; i++) ...[
+                            _buildNavigationMenues(
+                                tappedMenuIndex == i, context)[i],
+                          ]
                         ],
-                      ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        GestureDetector(
+                          onTap: () => logout(context),
+                          child: const MenuItem(
+                            title: ConstantTexts.logout,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ...[
-                      for (int i = 0; i < Constants.menusCount; i++) ...[
-                        _buildNavigationMenues(
-                            tappedMenuIndex == i, context)[i],
-                      ]
-                    ],
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () => logout(context),
-                      child: const MenuItem(
-                        title: ConstantTexts.logout,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

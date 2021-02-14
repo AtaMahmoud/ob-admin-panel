@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
-import 'package:ob_admin_panel/src/models/table_column.dart';
 import 'package:ob_admin_panel/src/ui/widgets/desktop_main_view.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
-import 'package:ob_admin_panel/src/ui/widgets/table_header.dart';
-import 'package:ob_admin_panel/src/ui/widgets/user_table_content.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_table.dart';
 
 class DesktopUsersPage extends StatefulWidget {
   @override
@@ -12,14 +10,7 @@ class DesktopUsersPage extends StatefulWidget {
 }
 
 class _DesktopLocationsPageState extends State<DesktopUsersPage> {
-  List<TableColumn> columns = [
-    TableColumn(columnName: ConstantTexts.name),
-    TableColumn(columnName: ConstantTexts.seapod),
-    TableColumn(columnName: ConstantTexts.memberSince),
-    TableColumn(columnName: ConstantTexts.type),
-    TableColumn(columnName: ConstantTexts.access),
-    TableColumn(columnName: ConstantTexts.location),
-  ];
+ 
   @override
   Widget build(BuildContext context) {
     return DesktopMainView(
@@ -48,30 +39,12 @@ class _DesktopLocationsPageState extends State<DesktopUsersPage> {
                 ],
               ),
             ),
-            TableHeader(
-              children: tableFieldsList(),
-            ),
-            UsersTableContent(columns: columns),
+           UsersTable(),
           ],
         ),
       ),
     );
   }
 
-  List<Widget> tableFieldsList() {
-    final selectedColumns =
-        columns.where((element) => element.isChecked).toList();
-    final List<Widget> widgets = [];
-    for (final element in selectedColumns) {
-      widgets.add(
-        TableHeaderField(
-          text: element.columnName,
-          textColor: const Color(
-            ColorConstants.textColor,
-          ),
-        ),
-      );
-    }
-    return widgets;
-  }
+ 
 }

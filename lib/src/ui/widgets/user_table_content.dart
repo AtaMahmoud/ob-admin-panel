@@ -3,6 +3,7 @@ import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/models/table_column.dart';
 import 'package:ob_admin_panel/src/ui/widgets/user_info_bubble.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class UsersTableContent extends StatefulWidget {
   const UsersTableContent({
@@ -18,10 +19,30 @@ class UsersTableContent extends StatefulWidget {
 
 class _UsersTableContentState extends State<UsersTableContent> {
   bool isExpanded = false;
-  bool isUserInfoHidden;
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final padding = MediaQuery.of(context).padding;
+    return ResponsiveBuilder(
+      builder: (context, sizingInfo) {
+        return sizingInfo.deviceScreenType == DeviceScreenType.desktop
+            ? SizedBox(
+                height: 650,
+                child: buildListView(),
+              )
+            : SizedBox(
+                height: height -
+                    kToolbarHeight -
+                    padding.top -
+                    padding.bottom -
+                    206,
+                child: buildListView());
+      },
+    );
+  }
+
+  ListView buildListView() {
     final customDivider = Container(
       height: 1,
       color: const Color(
@@ -29,72 +50,60 @@ class _UsersTableContentState extends State<UsersTableContent> {
       ),
     );
     const itemCount = 20;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isUserInfoHidden = false;
-        });
-      },
-      child: SizedBox(
-        height: 650,
-        child: ListView.builder(
-          itemCount: itemCount,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              padding: const EdgeInsets.only(
-                left: 20,
-                right: 10,
-              ),
-              child: Stack(
+    return ListView.builder(
+      itemCount: itemCount,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 10,
+          ),
+          child: Stack(
+            children: [
+              Column(
                 children: [
-                  Column(
-                    children: [
-                      Row(
-                        children: userDetails(
-                          showUserName: true,
-                        ),
-                      ),
-                      if (isExpanded)
-                        Row(
-                          children: userDetails(showUserName: false),
-                        ),
-                      if (index != itemCount - 1) customDivider,
-                      if (index == itemCount - 1)
-                        const SizedBox(
-                          height: 350,
-                        ),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 30,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isExpanded = !isExpanded;
-                          });
-                        },
-                        child: Icon(
-                          isExpanded
-                              ? Icons.arrow_drop_up
-                              : Icons.arrow_drop_down,
-                          size: 40,
-                          color: const Color(
-                            ColorConstants.tableViewTextColor,
-                          ),
-                        ),
-                      ),
+                  Row(
+                    children: userDetails(
+                      showUserName: true,
                     ),
-                  )
+                  ),
+                  if (isExpanded)
+                    Row(
+                      children: userDetails(showUserName: false),
+                    ),
+                  if (index != itemCount - 1) customDivider,
+                  if (index == itemCount - 1)
+                    const SizedBox(
+                      height: 400,
+                    ),
                 ],
               ),
-            );
-          },
-        ),
-      ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 30,
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                    },
+                    child: Icon(
+                      isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                      size: 40,
+                      color: const Color(
+                        ColorConstants.tableViewTextColor,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -325,5 +334,3 @@ class _UserNameFieldState extends State<UserNameField> {
     );
   }
 }
-
-

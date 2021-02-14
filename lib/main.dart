@@ -17,11 +17,11 @@ import 'package:ob_admin_panel/src/ui/pages/splash_screen.dart';
 import 'package:ob_admin_panel/src/ui/pages/users_page/users_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/weather_page/weather_page.dart';
 import 'package:provider/provider.dart';
-import 'package:url_strategy/url_strategy.dart';
+//import 'package:url_strategy/url_strategy.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  setPathUrlStrategy();
+  //setPathUrlStrategy();
   runApp(MyApp());
 }
 

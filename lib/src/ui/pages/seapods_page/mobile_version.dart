@@ -62,7 +62,7 @@ class _MobileSeapodsPageState extends State<MobileSeapodsPage>
           children: [
             const MobileHeader(),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+              padding: const EdgeInsets.all(15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -132,18 +132,6 @@ class SeapodsView extends StatelessWidget {
   }) : super(key: key);
 
   final List<SeaPod> allSeapods;
-  Widget buildSeapodCardText(
-    String text,
-  ) {
-    return Text(
-      text,
-      style: const TextStyle(
-        color: Color(
-          ColorConstants.tableViewTextColor,
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -254,6 +242,19 @@ class SeapodsView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget buildSeapodCardText(
+    String text,
+  ) {
+    return Text(
+      text,
+      style: const TextStyle(
+        color: Color(
+          ColorConstants.tableViewTextColor,
+        ),
+      ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
+//import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
@@ -119,13 +119,13 @@ class _DesktopHomepageState extends State<DesktopMainView> {
               ),
             ),
           ),
-          FlutterWebScroller(
+          /* FlutterWebScroller(
             scrollCallBack,
             scrollBarBackgroundColor: Colors.white,
             dragHandleColor: const Color(ColorConstants.scrollBarColor),
             dragHandleHeight: 65.0,
             dragHandleWidth: 5.0,
-          ),
+          ), */
         ],
       ),
     );
