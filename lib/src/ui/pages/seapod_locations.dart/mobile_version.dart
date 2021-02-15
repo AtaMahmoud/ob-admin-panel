@@ -50,7 +50,7 @@ class _MobileSeapodLocationsPageState extends State<MobileSeapodLocationsPage> {
             Padding(
               padding: const EdgeInsets.only(left: 20, bottom: 20),
               child: Text(
-                '${ConstantTexts.seapod}  /  ${selectedSeapod.seaPodName}  /  ${ConstantTexts.locations}'
+                '${ConstantTexts.seapod.toUpperCase()}  /  ${selectedSeapod.seaPodName}  /  ${ConstantTexts.locations}'
                     .toUpperCase(),
                 style: textStyle1,
               ),

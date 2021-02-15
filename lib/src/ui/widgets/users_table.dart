@@ -12,10 +12,12 @@ class UsersTable extends StatefulWidget {
 class _UsersTableState extends State<UsersTable> {
   List<TableColumn> columns = [
     TableColumn(columnName: ConstantTexts.name),
-    TableColumn(columnName: ConstantTexts.seapod),
+    TableColumn(columnName: ConstantTexts.seapod.toUpperCase()),
     TableColumn(columnName: ConstantTexts.memberSince),
     TableColumn(columnName: ConstantTexts.type),
-    TableColumn(columnName: ConstantTexts.access),
+    TableColumn(
+      columnName: ConstantTexts.access.toUpperCase(),
+    ),
     TableColumn(columnName: ConstantTexts.location),
   ];
   @override

@@ -211,7 +211,7 @@ class SeapodsView extends StatelessWidget {
                               .location
                               .latitude
                               .toStringAsFixed(4)),
-                      buildSeapodCardText(ConstantTexts.logitude +
+                      buildSeapodCardText(ConstantTexts.longitude +
                           allSeapods[index]
                               .location
                               .longitude

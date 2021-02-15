@@ -12,6 +12,7 @@ class ColorConstants {
   static const tappedMenuBackground = 0xFFCBD1DC;
   static const tabsTitleColor = 0xFF0C1F30;
   static const seapodsCardBackground = 0xFFF3F4F6;
+  static const usersCardBackground = 0xFFE6E9ED;
   static const textColor = 0xFF4A525F;
   static const seapodCardBackground = 0xFFA9B2C0;
   static const switcherColor = 0xFF717D90;
@@ -24,6 +25,7 @@ class ImagePaths {
   static const obLogo = 'assets/images/ob_logo.png';
   static const obTextLogo = 'assets/images/ob_text_logo.png';
   static const obFullLogo = 'assets/images/ob_full_logo.png';
+  static const hamburgerMenu = 'assets/images/hamburger_menu.png';
   static const searchIcon = 'assets/images/search_icon.png';
   static const settingsIcon = 'assets/images/settings_icon.png';
   static const logoutIcon = 'assets/images/logout_icon.png';
@@ -62,7 +64,7 @@ class ConstantTexts {
   static const createAccount = 'CREATE ACCOUNT';
   static const home = 'HOME';
   static const map = 'Map';
-  static const access = 'ACCESS';
+  static const access = 'Access';
   static const weatherMarine = 'WEATHER / MARINE';
   static const devices = 'DEVICES';
   static const messages = 'MESSAGES';
@@ -71,7 +73,7 @@ class ConstantTexts {
   static const seapodsSettings = 'SEAPOD SETTINGS';
   static const locations = 'LOCATIONS';
   static const search = 'Search...';
-  static const seapod = 'SEAPOD';
+  static const seapod = 'Seapod';
   static const owner = 'Owner';
   static const type = 'Type';
   static const location = 'Location';
@@ -79,7 +81,7 @@ class ConstantTexts {
   static const accessLevel = 'Access Level';
   static const seapods = 'SeaPods';
   static const latitude = 'Latitude: ';
-  static const logitude = 'Longitude: ';
+  static const longitude = 'Longitude: ';
   static const settings = 'SETTINGS';
   static const switchAccounts = 'SWITCH ACCOUNTS';
   static const logout = 'LOGOUT';

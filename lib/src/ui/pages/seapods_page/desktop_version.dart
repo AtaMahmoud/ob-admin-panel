@@ -35,7 +35,7 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
   SeaPodsProvider seaPodsProvider;
   bool showFilterMenu = false;
   List<TableColumn> columns = [
-    TableColumn(columnName: ConstantTexts.seapod),
+    TableColumn(columnName: ConstantTexts.seapod.toUpperCase()),
     TableColumn(columnName: ConstantTexts.owner),
     TableColumn(columnName: ConstantTexts.type),
     TableColumn(columnName: ConstantTexts.location),
@@ -348,7 +348,7 @@ class _SeapodsTableContentState extends State<SeapodsTableContent> {
               style: tableContentTextStyle(),
             ),
             Text(
-              ConstantTexts.logitude + seaPodLocation.longitude.toString(),
+              ConstantTexts.longitude + seaPodLocation.longitude.toString(),
               textAlign: TextAlign.start,
               style: tableContentTextStyle(),
             ),

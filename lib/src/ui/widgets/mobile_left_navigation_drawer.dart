@@ -57,15 +57,20 @@ class MobileLeftNavigationMenu extends StatelessWidget {
                                 builder: (
                                   BuildContext context,
                                 ) =>
-                                    IconButton(
-                                  icon: const Icon(
-                                    Icons.menu,
-                                    color: Colors.white,
-                                    size: 35.0,
-                                  ),
-                                  onPressed: () {
+                                    GestureDetector(
+                                  onTap: () {
                                     Navigator.of(context).pop();
                                   },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 20.0,
+                                      left: 15.0,
+                                    ),
+                                    child: Image.asset(
+                                      ImagePaths.hamburgerMenu,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
                               ),
                               Align(

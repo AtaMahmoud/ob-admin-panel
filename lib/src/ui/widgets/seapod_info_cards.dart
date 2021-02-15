@@ -196,7 +196,7 @@ class LocationInfoCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      ConstantTexts.logitude,
+                      ConstantTexts.longitude,
                       style: textStyle,
                     ),
                     Text(

@@ -40,7 +40,7 @@ class _DesktopSeapodLocationsPageState
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 30),
               child: Text(
-                '${ConstantTexts.seapod}  /  ${selectedSeapod.seaPodName}  /  ${ConstantTexts.locations}'
+                '${ConstantTexts.seapod.toUpperCase()}  /  ${selectedSeapod.seaPodName}  /  ${ConstantTexts.locations}'
                     .toUpperCase(),
                 style: textStyle1,
               ),

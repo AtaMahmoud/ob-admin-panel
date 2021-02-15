@@ -88,7 +88,7 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
                             selectedSeapod.location.latitude.toStringAsFixed(4),
                           ),
                           titleWidget(
-                            ConstantTexts.logitude,
+                            ConstantTexts.longitude,
                           ),
                           infoWidget(
                             selectedSeapod.location.longitude
@@ -147,7 +147,7 @@ class _SeaPodInfoWindowState extends State<SeaPodInfoWindow> {
           selectedSeapod.location.latitude.toStringAsFixed(4),
         ),
         titleWidget(
-          ConstantTexts.logitude,
+          ConstantTexts.longitude,
         ),
         infoWidget(
           selectedSeapod.location.longitude.toStringAsFixed(4),

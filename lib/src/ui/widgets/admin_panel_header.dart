@@ -80,7 +80,9 @@ class _DesktopHeaderState extends State<DesktopHeader> {
                     width: 140,
                     height: 30,
                     decoration: BoxDecoration(
-                      color: const Color(ColorConstants.loginRegisterTextColor),
+                      color: const Color(
+                        ColorConstants.loginRegisterTextColor,
+                      ),
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Center(
@@ -108,9 +110,11 @@ class _DesktopHeaderState extends State<DesktopHeader> {
 
 class MobileHeader extends StatelessWidget {
   final bool showLogo;
+  final bool showFilterIcon;
 
   const MobileHeader({
     this.showLogo = true,
+    this.showFilterIcon = false,
   });
 
   @override
@@ -118,7 +122,7 @@ class MobileHeader extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 5),
+          padding: const EdgeInsets.only(top: 10, right: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -126,22 +130,45 @@ class MobileHeader extends StatelessWidget {
                 builder: (
                   BuildContext context,
                 ) =>
-                    IconButton(
-                  icon: const Icon(
-                    Icons.menu,
-                    color: Color(ColorConstants.loginRegisterTextColor),
-                    size: 35.0,
-                  ),
-                  onPressed: () {
+                    GestureDetector(
+                  onTap: () {
                     Scaffold.of(context).openDrawer();
                   },
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                    ),
+                    child: Image.asset(
+                      ImagePaths.hamburgerMenu,
+                      color: const Color(
+                        ColorConstants.loginRegisterTextColor,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              Image.asset(
-                ImagePaths.searchIcon,
-                fit: BoxFit.contain,
-                width: 30,
-                height: 30,
+              Row(
+                children: [
+                  if(showFilterIcon)
+                  Image.asset(
+                    ImagePaths.tableFilterIcon,
+                    color: const Color(
+                      ColorConstants.loginRegisterTextColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Image.asset(
+                    ImagePaths.searchIcon,
+                    fit: BoxFit.contain,
+                    color: const Color(
+                      ColorConstants.loginRegisterTextColor,
+                    ),
+                    width: 30,
+                    height: 30,
+                  ),
+                ],
               ),
             ],
           ),

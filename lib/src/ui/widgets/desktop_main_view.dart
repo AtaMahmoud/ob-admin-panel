@@ -119,7 +119,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
               ),
             ),
           ),
-          /* FlutterWebScroller(
+         /*  FlutterWebScroller(
             scrollCallBack,
             scrollBarBackgroundColor: Colors.white,
             dragHandleColor: const Color(ColorConstants.scrollBarColor),

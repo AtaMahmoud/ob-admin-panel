@@ -172,7 +172,7 @@ class _UsersTableContentState extends State<UsersTableContent> {
             ),
             sizedBox,
             Text(
-              '${ConstantTexts.logitude}${location.longitude}',
+              '${ConstantTexts.longitude}${location.longitude}',
               textAlign: TextAlign.start,
               style: tableContentTextStyle(),
             ),
