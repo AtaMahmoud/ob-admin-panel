@@ -120,6 +120,15 @@ class ConstantTexts {
   static const patio = 'Patio';
   static const roof = 'Roof';
   static const details = 'Details';
+  static const back = 'Back';
+  static const allergies = 'Allergies';
+  static const bloodType = 'Blood Type';
+  static const swiimmingAbility = 'Swimming Ability';
+  static const bodyType = 'Body Type';
+  static const age = 'Age';
+  static const weight = 'Weight';
+  static const hair = 'Hair';
+  static const eyes = 'Eyes';
 }
 
 class Constants {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/models/table_column.dart';
-import 'package:ob_admin_panel/src/ui/widgets/user_info_bubble.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_widgets/desktop_user_info_window.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class UsersTableContent extends StatefulWidget {
@@ -294,7 +294,7 @@ class _UserNameFieldState extends State<UserNameField> {
           link: _layerLink,
           showWhenUnlinked: false,
           offset: Offset(0.0, size.height + 20.0),
-          child: UserInformationBubble(),
+          child: DesktopUserInfoWindow(),
         ),
       ),
     );

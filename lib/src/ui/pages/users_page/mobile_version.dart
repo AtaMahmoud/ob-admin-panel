@@ -6,7 +6,7 @@ import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/mobile_left_navigation_drawer.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
-import 'package:ob_admin_panel/src/ui/widgets/user_info_bubble.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_widgets/mobile_user_info_popover.dart';
 
 class MobileUsersPage extends StatefulWidget {
   @override
@@ -43,27 +43,27 @@ class _MobileLocationsPageState extends State<MobileUsersPage> {
                 child: ListView.builder(
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 20,
-                      ),
-                      decoration: BoxDecoration(
-                        color: index % 2 == 0
-                            ? Colors.white
-                            : const Color(ColorConstants.usersCardBackground),
-                        border: Border.all(
-                          color: const Color(
-                            ColorConstants.tableViewTextColor,
-                          ),
+                    return GestureDetector(
+                      onTap: onUserCardTap,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 20,
                         ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Stack(
-                        children: [
-                          GestureDetector(
-                            onTap: onUserCardTap,
-                            child: Column(
+                        decoration: BoxDecoration(
+                          color: index % 2 == 0
+                              ? Colors.white
+                              : const Color(ColorConstants.usersCardBackground),
+                          border: Border.all(
+                            color: const Color(
+                              ColorConstants.tableViewTextColor,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Stack(
+                          children: [
+                            Column(
                               children: [
                                 buildUserCardInfo(),
                                 if (isExpanded)
@@ -83,30 +83,30 @@ class _MobileLocationsPageState extends State<MobileUsersPage> {
                                   ),
                               ],
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isExpanded = !isExpanded;
-                                });
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 5.0),
-                                child: Icon(
-                                  isExpanded
-                                      ? Icons.arrow_drop_up
-                                      : Icons.arrow_drop_down,
-                                  size: 40.0,
-                                  color: const Color(
-                                    ColorConstants.tableViewTextColor,
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isExpanded = !isExpanded;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                  child: Icon(
+                                    isExpanded
+                                        ? Icons.arrow_drop_up
+                                        : Icons.arrow_drop_down,
+                                    size: 40.0,
+                                    color: const Color(
+                                      ColorConstants.tableViewTextColor,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -292,21 +292,7 @@ class _MobileLocationsPageState extends State<MobileUsersPage> {
       builder: (
         context,
       ) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
-          child: Dialog(
-            backgroundColor: const Color(ColorConstants.loginRegisterTextColor)
-                .withOpacity(0.8),
-            child: Container(
-              height: 470.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              padding: const EdgeInsets.only(top: 20.0),
-              child: const UserInfoList(),
-            ),
-          ),
-        );
+        return const MobileUserInfoPopOver();
       },
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/table_column.dart';
 import 'package:ob_admin_panel/src/ui/widgets/table_header.dart';
-import 'package:ob_admin_panel/src/ui/widgets/user_table_content.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_widgets/user_table_content.dart';
 
 class UsersTable extends StatefulWidget {
   @override
