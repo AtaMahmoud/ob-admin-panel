@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
-import 'package:ob_admin_panel/src/models/table_column.dart';
+import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/ui/widgets/table_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/users_widgets/user_table_content.dart';
 
@@ -10,15 +10,15 @@ class UsersTable extends StatefulWidget {
 }
 
 class _UsersTableState extends State<UsersTable> {
-  List<TableColumn> columns = [
-    TableColumn(columnName: ConstantTexts.name),
-    TableColumn(columnName: ConstantTexts.seapod.toUpperCase()),
-    TableColumn(columnName: ConstantTexts.memberSince),
-    TableColumn(columnName: ConstantTexts.type),
-    TableColumn(
-      columnName: ConstantTexts.access.toUpperCase(),
+  List<Field> columns = [
+    Field(fieldName: ConstantTexts.name),
+    Field(fieldName: ConstantTexts.seapod.toUpperCase()),
+    Field(fieldName: ConstantTexts.memberSince),
+    Field(fieldName: ConstantTexts.type),
+    Field(
+      fieldName: ConstantTexts.access.toUpperCase(),
     ),
-    TableColumn(columnName: ConstantTexts.location),
+    Field(fieldName: ConstantTexts.location),
   ];
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _UsersTableState extends State<UsersTable> {
     for (final element in selectedColumns) {
       widgets.add(
         TableHeaderField(
-          text: element.columnName,
+          text: element.fieldName,
           textColor: const Color(
             ColorConstants.textColor,
           ),

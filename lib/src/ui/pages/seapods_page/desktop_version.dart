@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
-import 'package:ob_admin_panel/src/models/table_column.dart';
+import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_details/seapod_datails_page.dart';
 import 'package:ob_admin_panel/src/ui/widgets/desktop_main_view.dart';
+import 'package:ob_admin_panel/src/ui/widgets/filter_bubble.dart';
 import 'package:ob_admin_panel/src/ui/widgets/map_tab.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:ob_admin_panel/src/ui/widgets/table_header.dart';
 import 'package:provider/provider.dart';
-import 'package:speech_bubble/speech_bubble.dart';
 
 class DesktopSeapodsPage extends StatefulWidget {
   final int seapodsViewIndex;
@@ -34,13 +34,13 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
   var _isLoading = false;
   SeaPodsProvider seaPodsProvider;
   bool showFilterMenu = false;
-  List<TableColumn> columns = [
-    TableColumn(columnName: ConstantTexts.seapod.toUpperCase()),
-    TableColumn(columnName: ConstantTexts.owner),
-    TableColumn(columnName: ConstantTexts.type),
-    TableColumn(columnName: ConstantTexts.location),
-    TableColumn(columnName: ConstantTexts.status),
-    TableColumn(columnName: ConstantTexts.accessLevel),
+  List<Field> columns = [
+    Field(fieldName: ConstantTexts.seapod),
+    Field(fieldName: ConstantTexts.owner),
+    Field(fieldName: ConstantTexts.type),
+    Field(fieldName: ConstantTexts.location),
+    Field(fieldName: ConstantTexts.status),
+    Field(fieldName: ConstantTexts.accessLevel),
   ];
 
   @override
@@ -188,11 +188,19 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
                       ],
                     ),
                     if (showFilterMenu)
-                      FilterBubble(
-                        columns: columns,
-                        applyFilter: () {
-                          setState(() {});
-                        },
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 45.0,
+                          ),
+                          child: FilterBubble(
+                            fields: columns,
+                            applyFilter: () {
+                              setState(() {});
+                            },
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -239,7 +247,7 @@ class _DesktopSeapodsPageState extends State<DesktopSeapodsPage> {
         columns.where((element) => element.isChecked).toList();
     final List<Widget> widgets = [];
     for (final element in selectedColumns) {
-      widgets.add(TableHeaderField(text: element.columnName));
+      widgets.add(TableHeaderField(text: element.fieldName));
     }
     return widgets;
   }
@@ -251,7 +259,7 @@ class SeapodsTableContent extends StatefulWidget {
     @required this.columns,
   }) : super(key: key);
 
-  final List<TableColumn> columns;
+  final List<Field> columns;
 
   @override
   _SeapodsTableContentState createState() => _SeapodsTableContentState();
@@ -428,87 +436,6 @@ class AddSeapodButton extends StatelessWidget {
             CupertinoIcons.add,
             size: 40,
             color: Color(ColorConstants.addSeapodColor),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class FilterBubble extends StatefulWidget {
-  const FilterBubble({
-    Key key,
-    @required this.columns,
-    @required this.applyFilter,
-  }) : super(key: key);
-
-  final List<TableColumn> columns;
-  final Function applyFilter;
-
-  @override
-  _FilterBubbleState createState() => _FilterBubbleState();
-}
-
-class _FilterBubbleState extends State<FilterBubble> {
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topRight,
-      child: Container(
-        margin: const EdgeInsets.only(top: 42),
-        child: SpeechBubble(
-          nipHeight: 15.0,
-          borderRadius: 8.0,
-          nipLocation: NipLocation.TOP_RIGHT,
-          offset: const Offset(-25.0, 0.0),
-          width: 222,
-          height: 285,
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-          color: const Color(ColorConstants.loginRegisterTextColor)
-              .withOpacity(0.85),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                ConstantTexts.showColumns,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.0,
-                ),
-              ),
-              ...[
-                for (var column in widget.columns) ...[
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: column.isChecked,
-                        hoverColor: Colors.white,
-                        fillColor: MaterialStateProperty.all(Colors.white),
-                        checkColor:
-                            const Color(ColorConstants.loginRegisterTextColor),
-                        activeColor: Colors.white,
-                        overlayColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        onChanged: (value) {
-                          setState(() {
-                            column.isChecked = value;
-                            widget.applyFilter();
-                          });
-                        },
-                      ),
-                      Text(
-                        column.columnName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 13.0,
-                        ),
-                      )
-                    ],
-                  )
-                ]
-              ]
-            ],
           ),
         ),
       ),

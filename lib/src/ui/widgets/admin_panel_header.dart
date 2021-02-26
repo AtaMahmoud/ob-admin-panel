@@ -111,10 +111,12 @@ class _DesktopHeaderState extends State<DesktopHeader> {
 class MobileHeader extends StatelessWidget {
   final bool showLogo;
   final bool showFilterIcon;
+  final VoidCallback onTappingFilterIcon;
 
   const MobileHeader({
     this.showLogo = true,
     this.showFilterIcon = false,
+    this.onTappingFilterIcon,
   });
 
   @override
@@ -149,13 +151,16 @@ class MobileHeader extends StatelessWidget {
               ),
               Row(
                 children: [
-                  if(showFilterIcon)
-                  Image.asset(
-                    ImagePaths.tableFilterIcon,
-                    color: const Color(
-                      ColorConstants.loginRegisterTextColor,
+                  if (showFilterIcon)
+                    GestureDetector(
+                      onTap: onTappingFilterIcon,
+                      child: Image.asset(
+                        ImagePaths.tableFilterIcon,
+                        color: const Color(
+                          ColorConstants.loginRegisterTextColor,
+                        ),
+                      ),
                     ),
-                  ),
                   const SizedBox(
                     width: 10,
                   ),

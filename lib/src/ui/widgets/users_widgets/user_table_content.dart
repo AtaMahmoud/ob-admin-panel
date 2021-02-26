@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
-import 'package:ob_admin_panel/src/models/table_column.dart';
+import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/ui/widgets/users_widgets/desktop_user_info_window.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -11,7 +11,7 @@ class UsersTableContent extends StatefulWidget {
     @required this.columns,
   }) : super(key: key);
 
-  final List<TableColumn> columns;
+  final List<Field> columns;
 
   @override
   _UsersTableContentState createState() => _UsersTableContentState();

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
-class TableColumn {
-  String columnName;
+class Field {
+  String fieldName;
   bool isChecked;
 
-  TableColumn({
-    @required this.columnName,
+  Field({
+    @required this.fieldName,
     this.isChecked = true,
   });
 }
