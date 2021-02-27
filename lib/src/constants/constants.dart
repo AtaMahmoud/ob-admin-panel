@@ -129,13 +129,16 @@ class ConstantTexts {
   static const weight = 'Weight';
   static const hair = 'Hair';
   static const eyes = 'Eyes';
+  static const delete = 'Delete';
+  static const save = 'Save';
 }
 
 class Constants {
   static const String mapStyleFile = 'assets/map_style.txt';
   static const double leftNavigationWidth = 200.0;
   static const int menusCount = 8;
-
+  static const int seapodsListIndex = 0;
+  static const int seapodsMapIndex = 1;
   static const double headerHeight = 110.0;
   static const bottomAppPadding = 50.0;
   static const tabHeight = 810.0;

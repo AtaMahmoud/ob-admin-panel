@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapods_page/desktop_version.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapods_page/mobile_version.dart';
 
@@ -12,7 +13,7 @@ class SeapodsPage extends StatefulWidget {
 }
 
 class _SeapodsPageState extends State<SeapodsPage> {
-  int seapodsViewIndex = 0;
+  int seapodsViewIndex = Constants.seapodsListIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +24,12 @@ class _SeapodsPageState extends State<SeapodsPage> {
             seapodsViewIndex: seapodsViewIndex,
             onListTap: () {
               setState(() {
-                seapodsViewIndex = 0;
+                seapodsViewIndex = Constants.seapodsListIndex;
               });
             },
             onMapTap: () {
               setState(() {
-                seapodsViewIndex = 1;
+                seapodsViewIndex = Constants.seapodsMapIndex;
               });
             },
           );
@@ -37,12 +38,12 @@ class _SeapodsPageState extends State<SeapodsPage> {
             seapodsViewIndex: seapodsViewIndex,
             onListTap: () {
               setState(() {
-                seapodsViewIndex = 0;
+                seapodsViewIndex = Constants.seapodsListIndex;
               });
             },
             onMapTap: () {
               setState(() {
-                seapodsViewIndex = 1;
+                seapodsViewIndex = Constants.seapodsMapIndex;
               });
             },
           );
