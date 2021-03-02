@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
 class AddNewSeapod extends StatelessWidget {
@@ -63,7 +64,7 @@ class AddNewSeapodPopover extends StatelessWidget {
       child: Dialog(
         backgroundColor:
             const Color(ColorConstants.loginRegisterTextColor).withOpacity(
-          0.8,
+          0.7,
         ),
         child: Container(
           height: 482,

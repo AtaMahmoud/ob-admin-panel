@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/mobile_left_navigation_drawer.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
-import 'package:ob_admin_panel/src/ui/widgets/users_widgets/users_table.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/users_table.dart';
 
 class TabletUsersPage extends StatefulWidget {
   @override

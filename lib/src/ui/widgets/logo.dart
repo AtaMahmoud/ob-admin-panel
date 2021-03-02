@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/constants/image_paths.dart';
 
 class WebLogo extends StatelessWidget {
   @override

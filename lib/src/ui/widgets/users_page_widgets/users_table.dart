@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/ui/widgets/table_header.dart';
-import 'package:ob_admin_panel/src/ui/widgets/users_widgets/user_table_content.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/user_table_content.dart';
 
 class UsersTable extends StatefulWidget {
   @override
@@ -27,7 +28,9 @@ class _UsersTableState extends State<UsersTable> {
         TableHeader(
           children: tableFieldsList(),
         ),
-        UsersTableContent(columns: columns),
+        UsersTableContent(
+          columns: columns,
+        ),
       ],
     );
   }

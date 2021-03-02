@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
+import 'package:ob_admin_panel/src/constants/image_paths.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/access_management/access_management_page.dart';
@@ -18,6 +17,8 @@ import 'package:ob_admin_panel/src/ui/pages/users_page/users_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/weather_page/weather_page.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
+
+import 'src/constants/color_constants.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

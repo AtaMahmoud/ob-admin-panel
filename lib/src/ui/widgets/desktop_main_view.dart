@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
-import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
+import 'package:ob_admin_panel/src/constants/image_paths.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
@@ -48,8 +50,6 @@ class _DesktopHomepageState extends State<DesktopMainView> {
 
   @override
   Widget build(BuildContext context) {
-    final sizeCalcs = SizeCalcs(context: context);
-    final tabViewWidth = sizeCalcs.calculateTabViewWidth();
     selectedSeapod = Provider.of<SeaPodsProvider>(context).selectedSeapod;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -93,13 +93,14 @@ class _DesktopHomepageState extends State<DesktopMainView> {
                           NavigationMenu(
                             tabs: _buildTabs(),
                           ),
-                          Container(
-                            height: Constants.tabHeight,
-                            width: tabViewWidth,
-                            color: const Color(
-                              ColorConstants.tabBackground,
+                          Expanded(
+                            child: Container(
+                              height: Constants.tabHeight,
+                              color: const Color(
+                                ColorConstants.tabBackground,
+                              ),
+                              child: widget.view,
                             ),
-                            child: widget.view,
                           ),
                         ],
                       ),
@@ -133,11 +134,14 @@ class _DesktopHomepageState extends State<DesktopMainView> {
 
   List<Widget> _buildTabs() {
     final homeTab = _AdminPanelTab(
-      title:
-          /*  selectedSeapod != null
+      titleColor: selectedSeapod == null
+          ? const Color(
+              ColorConstants.loginRegisterTextColor,
+            )
+          : const Color(ColorConstants.mainColor),
+      title: selectedSeapod != null
           ? selectedSeapod.seaPodName
-          :  */
-          ConstantTexts.home,
+          : ConstantTexts.home,
       isExpanded: widget.viewIndex == Constants.homeIndex,
       onTap: () {
         Navigator.pushReplacement(
@@ -165,101 +169,101 @@ class _DesktopHomepageState extends State<DesktopMainView> {
         );
       },
     );
-    return /* selectedSeapod == null
+    return selectedSeapod == null
         ? [
             homeTab,
             usersTab,
           ]
-        : */
-        [
-      homeTab,
-      _AdminPanelTab(
-        title: ConstantTexts.weatherMarine,
-        isExpanded: widget.viewIndex == Constants.weatherViewIndex,
-        onTap: () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) => WeatherPage(),
-              transitionDuration: const Duration(),
-              settings: const RouteSettings(name: WeatherPage.routeName),
+        : [
+            homeTab,
+            _AdminPanelTab(
+              title: ConstantTexts.weatherMarine,
+              isExpanded: widget.viewIndex == Constants.weatherViewIndex,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, _, __) => WeatherPage(),
+                    transitionDuration: const Duration(),
+                    settings: const RouteSettings(name: WeatherPage.routeName),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
-      _AdminPanelTab(
-        title: ConstantTexts.devices,
-        isExpanded: widget.viewIndex == Constants.devicesViewIndex,
-        onTap: () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) => DevicesPage(),
-              transitionDuration: const Duration(),
-              settings: const RouteSettings(name: DevicesPage.routeName),
+            _AdminPanelTab(
+              title: ConstantTexts.devices.toUpperCase(),
+              isExpanded: widget.viewIndex == Constants.devicesViewIndex,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, _, __) => DevicesPage(),
+                    transitionDuration: const Duration(),
+                    settings: const RouteSettings(name: DevicesPage.routeName),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
-      _AdminPanelTab(
-        title: ConstantTexts.messages,
-        isExpanded: widget.viewIndex == Constants.messagesViewIndex,
-        onTap: () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) => MessagesPage(),
-              transitionDuration: const Duration(),
-              settings: const RouteSettings(name: MessagesPage.routeName),
+            _AdminPanelTab(
+              title: ConstantTexts.messages,
+              isExpanded: widget.viewIndex == Constants.messagesViewIndex,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, _, __) => MessagesPage(),
+                    transitionDuration: const Duration(),
+                    settings: const RouteSettings(name: MessagesPage.routeName),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
-      _AdminPanelTab(
-        title: ConstantTexts.acceseManagement,
-        isExpanded: widget.viewIndex == Constants.accessManagementIndex,
-        onTap: () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) => AccessManagementPage(),
-              transitionDuration: const Duration(),
-              settings:
-                  const RouteSettings(name: AccessManagementPage.routeName),
+            _AdminPanelTab(
+              title: ConstantTexts.acceseManagement,
+              isExpanded: widget.viewIndex == Constants.accessManagementIndex,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, _, __) => AccessManagementPage(),
+                    transitionDuration: const Duration(),
+                    settings: const RouteSettings(
+                        name: AccessManagementPage.routeName),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
-      _AdminPanelTab(
-        title: ConstantTexts.locations,
-        isExpanded: widget.viewIndex == Constants.locationsViewIndex,
-        onTap: () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) => LocationsPage(),
-              transitionDuration: const Duration(),
-              settings: const RouteSettings(name: LocationsPage.routeName),
+            _AdminPanelTab(
+              title: ConstantTexts.locations,
+              isExpanded: widget.viewIndex == Constants.locationsViewIndex,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, _, __) => LocationsPage(),
+                    transitionDuration: const Duration(),
+                    settings:
+                        const RouteSettings(name: LocationsPage.routeName),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
-      usersTab,
-      _AdminPanelTab(
-        title: ConstantTexts.seapodsSettings,
-        isExpanded: widget.viewIndex == Constants.seapodSettingsViewIndex,
-        onTap: () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) => SeapodSettingsPage(),
-              transitionDuration: const Duration(),
-              settings: const RouteSettings(name: SeapodSettingsPage.routeName),
+            _AdminPanelTab(
+              title: ConstantTexts.seapodsSettings,
+              isExpanded: widget.viewIndex == Constants.seapodSettingsViewIndex,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, _, __) => SeapodSettingsPage(),
+                    transitionDuration: const Duration(),
+                    settings:
+                        const RouteSettings(name: SeapodSettingsPage.routeName),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
-    ];
+          ];
   }
 }
 
@@ -384,19 +388,22 @@ class _AdminPanelTab extends StatefulWidget {
     this.title,
     this.isExpanded,
     this.onTap,
+    this.titleColor = const Color(
+      ColorConstants.loginRegisterTextColor,
+    ),
   });
 
   final String title;
 
   final bool isExpanded;
   final VoidCallback onTap;
+  final Color titleColor;
 
   @override
   _AdminPanelTabState createState() => _AdminPanelTabState();
 }
 
-class _AdminPanelTabState extends State<_AdminPanelTab>
-    with SingleTickerProviderStateMixin {
+class _AdminPanelTabState extends State<_AdminPanelTab> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -419,11 +426,7 @@ class _AdminPanelTabState extends State<_AdminPanelTab>
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: widget.isExpanded
-                ? Colors.white
-                : const Color(
-                    ColorConstants.loginRegisterTextColor,
-                  ),
+            color: widget.isExpanded ? Colors.white : widget.titleColor,
           ),
         ),
       ),

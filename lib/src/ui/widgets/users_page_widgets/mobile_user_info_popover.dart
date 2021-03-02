@@ -2,10 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
-import 'package:ob_admin_panel/src/ui/widgets/users_widgets/health_condition_details.dart';
-import 'package:ob_admin_panel/src/ui/widgets/users_widgets/information_row.dart';
-import 'package:ob_admin_panel/src/ui/widgets/users_widgets/user_info_list.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/health_condition_details.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/information_row.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/user_info_list.dart';
+
 
 class MobileUserInfoPopOver extends StatefulWidget {
   const MobileUserInfoPopOver({

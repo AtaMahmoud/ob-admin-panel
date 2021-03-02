@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
-import 'package:ob_admin_panel/src/ui/widgets/users_widgets/information_row.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/information_row.dart';
 
 class HealthConditionDetails extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _HealthConditionDetailsState extends State<HealthConditionDetails> {
             ),
             divider,
             InformationRow(
-              title: ConstantTexts.swiimmingAbility,
+              title: ConstantTexts.swimmingAbility,
               info: 'Yes',
             ),
             divider,

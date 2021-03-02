@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
-import 'package:ob_admin_panel/src/ui/widgets/users_widgets/desktop_user_info_window.dart';
+import 'package:ob_admin_panel/src/ui/widgets/table_field_content.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/desktop_user_info_window.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class UsersTableContent extends StatefulWidget {
@@ -37,7 +39,8 @@ class _UsersTableContentState extends State<UsersTableContent> {
                     padding.top -
                     padding.bottom -
                     206,
-                child: buildListView());
+                child: buildListView(),
+              );
       },
     );
   }
@@ -114,30 +117,6 @@ class _UsersTableContentState extends State<UsersTableContent> {
       fontSize: 13,
       fontWeight: FontWeight.w600,
       color: color ?? const Color(ColorConstants.textColor),
-    );
-  }
-
-  Widget tableFieldContent(
-    String content, {
-    Color color,
-  }) {
-    return Expanded(
-      child: GestureDetector(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 5,
-            right: 10,
-            bottom: 5,
-          ),
-          child: Text(
-            content,
-            textAlign: TextAlign.start,
-            style: tableContentTextStyle(
-              color: color,
-            ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -229,17 +208,17 @@ class _UsersTableContentState extends State<UsersTableContent> {
           ),
         ),
       if (widget.columns[2].isChecked)
-        tableFieldContent(
-          '12/08/2019',
-          color: const Color(ColorConstants.dateColor),
+        const TableFieldContent(
+          text: '12/08/2019',
+          color: Color(ColorConstants.dateColor),
         ),
       if (widget.columns[3].isChecked)
-        tableFieldContent(
-          'Member',
+        const TableFieldContent(
+          text: 'Member',
         ),
       if (widget.columns[4].isChecked)
-        tableFieldContent(
-          'Full',
+        const TableFieldContent(
+          text: 'Full',
         ),
       if (widget.columns[5].isChecked)
         buildLocationField(

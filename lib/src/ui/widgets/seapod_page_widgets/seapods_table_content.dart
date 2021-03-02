@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_details/seapod_datails_page.dart';
+import 'package:ob_admin_panel/src/ui/widgets/table_field_content.dart';
 import 'package:provider/provider.dart';
 
 class SeapodsTableContent extends StatefulWidget {
@@ -119,50 +121,37 @@ class _SeapodsTableContentState extends State<SeapodsTableContent> {
     );
   }
 
-  Widget tableFieldContent(
-    String content,
-  ) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 5,
-          right: 10,
-          bottom: 5,
-        ),
-        child: Text(
-          content,
-          textAlign: TextAlign.start,
-          style: tableContentTextStyle(),
-        ),
-      ),
-    );
-  }
-
   List<Widget> _seapodDetails(SeaPod seaPod) {
+    const color = Color(ColorConstants.tableViewTextColor);
     return [
       if (widget.columns[0].isChecked)
-        tableFieldContent(
-          seaPod.seaPodName,
+        TableFieldContent(
+          text: seaPod.seaPodName,
+          color: color,
         ),
       if (widget.columns[1].isChecked)
-        tableFieldContent(
-          seaPod.ownersNames.join(', '),
+        TableFieldContent(
+          text: seaPod.ownersNames.join(', '),
+          color: color,
         ),
       if (widget.columns[2].isChecked)
-        tableFieldContent(
-          seaPod.seaPodType,
+        TableFieldContent(
+          text: seaPod.seaPodType,
+          color: color,
         ),
       if (widget.columns[3].isChecked)
         buildLocationField(
           seaPod.location,
         ),
       if (widget.columns[4].isChecked)
-        tableFieldContent(
-          seaPod.seaPodStatus,
+        TableFieldContent(
+          text: seaPod.seaPodStatus,
+          color: color,
         ),
       if (widget.columns[5].isChecked)
-        tableFieldContent(
-          seaPod.accessLevel,
+        TableFieldContent(
+          text: seaPod.accessLevel,
+          color: color,
         ),
     ];
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
 
 class TableHeader extends StatelessWidget {
   final List<Widget> children;
@@ -21,8 +21,11 @@ class TableHeader extends StatelessWidget {
           ColorConstants.seapodTableHeaderBackground,
         ),
       ),
-      child: Row(
-        children: children,
+      child: Center(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        ),
       ),
     );
   }

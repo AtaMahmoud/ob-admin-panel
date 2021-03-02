@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:ob_admin_panel/src/constants/image_paths.dart';
 import 'package:ob_admin_panel/src/models/seapod.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/seapod_window_info.dart';

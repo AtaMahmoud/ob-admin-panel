@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/desktop_main_view.dart';
@@ -45,6 +47,7 @@ class _DesktopSeapodLocationsPageState
                 style: textStyle1,
               ),
             ),
+            
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:speech_bubble/speech_bubble.dart';

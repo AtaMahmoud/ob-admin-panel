@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/constants/image_paths.dart';
 import 'package:ob_admin_panel/src/ui/widgets/desktop_main_view.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
-import 'package:ob_admin_panel/src/ui/widgets/users_widgets/users_table.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/users_table.dart';
 
 class DesktopUsersPage extends StatefulWidget {
   @override

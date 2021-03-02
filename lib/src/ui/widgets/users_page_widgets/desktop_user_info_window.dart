@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ob_admin_panel/src/constants/constants.dart';
-import 'package:ob_admin_panel/src/ui/widgets/users_widgets/user_info_list.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/user_info_list.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
 class DesktopUserInfoWindow extends StatelessWidget {
