@@ -89,5 +89,6 @@ class ConstantTexts {
   static const changeDate = 'CHANGE DATE';
   static const cost = 'COST';
   static const importance = 'IMPORTANCE';
+  static const addNewDevice = 'Add New Device';
 
 }

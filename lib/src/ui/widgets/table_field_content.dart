@@ -5,25 +5,25 @@ class TableFieldContent extends StatelessWidget {
   const TableFieldContent({
     @required this.text,
     this.color,
+    this.textAlign = TextAlign.start,
   });
   final String text;
   final Color color;
+  final TextAlign textAlign;
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GestureDetector(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 5,
-            right: 10,
-            bottom: 5,
-          ),
-          child: Text(
-            text,
-            textAlign: TextAlign.start,
-            style: tableContentTextStyle(
-              color: color,
-            ),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 5,
+          right: 10,
+          bottom: 5,
+        ),
+        child: Text(
+          text,
+          textAlign: textAlign,
+          style: tableContentTextStyle(
+            color: color,
           ),
         ),
       ),
@@ -34,7 +34,7 @@ class TableFieldContent extends StatelessWidget {
     Color color,
   }) {
     return TextStyle(
-      fontSize: 13,
+      fontSize: 16,
       fontWeight: FontWeight.w600,
       color: color ?? const Color(ColorConstants.textColor),
     );

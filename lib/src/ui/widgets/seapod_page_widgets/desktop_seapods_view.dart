@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ob_admin_panel/src/constants/color_constants.dart';
 import 'package:ob_admin_panel/src/constants/constant_texts.dart';
-import 'package:ob_admin_panel/src/constants/image_paths.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
-import 'package:ob_admin_panel/src/ui/widgets/seapod_page_widgets/add_new_seapod_desktop.dart';
+import 'package:ob_admin_panel/src/ui/widgets/add_new_element.dart';
+import 'package:ob_admin_panel/src/ui/widgets/filter_icon.dart';
+import 'package:ob_admin_panel/src/ui/widgets/seapod_page_widgets/add_new_seapod_popover.dart';
 import 'package:ob_admin_panel/src/ui/widgets/seapod_page_widgets/seapods_table_content.dart';
 import 'package:ob_admin_panel/src/ui/widgets/table_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/filter_bubble.dart';
@@ -48,18 +50,11 @@ class _DesktopSeapodsViewState extends State<DesktopSeapodsView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    GestureDetector(
+                    FilterIcon(
                       onTap: () => setState(
                         () => showFilterMenu = !showFilterMenu,
                       ),
-                      child: Center(
-                        child: Image.asset(
-                          ImagePaths.tableFilterIcon,
-                          height: 20,
-                          width: 20,
-                        ),
-                      ),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -74,7 +69,19 @@ class _DesktopSeapodsViewState extends State<DesktopSeapodsView> {
                 Container(
                   height: 500,
                 ),
-              const AddNewSeapod()
+              //Add new seapod
+              AddNewElement(
+                hintText: ConstantTexts.addNewSeapod,
+                onTap: () {
+                  showDialog(
+                    barrierColor: const Color(ColorConstants.drawerScrimColor),
+                    context: context,
+                    builder: (context) {
+                      return const AddNewSeapodPopover();
+                    },
+                  );
+                },
+              )
             ],
           ),
           if (showFilterMenu)

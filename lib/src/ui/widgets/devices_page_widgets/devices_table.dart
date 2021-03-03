@@ -12,21 +12,22 @@ class DevicesTable extends StatefulWidget {
 
 class _DevicesTableState extends State<DevicesTable> {
   List<Field> columns = [
-    Field(fieldName: ConstantTexts.category),
-    Field(fieldName: ConstantTexts.devices),
-    Field(fieldName: ConstantTexts.element),
-    Field(fieldName: ConstantTexts.product),
     Field(
-      fieldName: ConstantTexts.lifeSpan,
+      fieldName: ConstantTexts.category,
     ),
-    Field(fieldName: ConstantTexts.maintenance),
-    Field(fieldName: ConstantTexts.usageStartDate),
-    Field(fieldName: ConstantTexts.maintenanceDate),
-    Field(fieldName: ConstantTexts.changeDate),
-    Field(fieldName: ConstantTexts.location),
-    Field(fieldName: ConstantTexts.cost),
-    Field(fieldName: ConstantTexts.status),
-    Field(fieldName: ConstantTexts.importance),
+    Field(fieldName: ConstantTexts.devices, textAlign: TextAlign.center),
+    Field(fieldName: ConstantTexts.element, textAlign: TextAlign.center),
+    Field(fieldName: ConstantTexts.product),
+    Field(fieldName: ConstantTexts.lifeSpan, textAlign: TextAlign.center),
+    Field(fieldName: ConstantTexts.maintenance, textAlign: TextAlign.center),
+    Field(fieldName: ConstantTexts.usageStartDate, textAlign: TextAlign.center),
+    Field(
+        fieldName: ConstantTexts.maintenanceDate, textAlign: TextAlign.center),
+    Field(fieldName: ConstantTexts.changeDate, textAlign: TextAlign.center),
+    Field(fieldName: ConstantTexts.location, textAlign: TextAlign.center),
+    Field(fieldName: ConstantTexts.cost, textAlign: TextAlign.center),
+    Field(fieldName: ConstantTexts.status, textAlign: TextAlign.center),
+    Field(fieldName: ConstantTexts.importance, textAlign: TextAlign.center),
   ];
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,9 @@ class _DevicesTableState extends State<DevicesTable> {
             children: [
               TableHeader(
                 children: tableFieldsList(),
+              ),
+              const SizedBox(
+                height: 15.0,
               ),
               DevicesTableContent(),
             ],
@@ -59,6 +63,7 @@ class _DevicesTableState extends State<DevicesTable> {
           textColor: const Color(
             ColorConstants.textColor,
           ),
+          textAlign: element.textAlign,
         ),
       );
     }

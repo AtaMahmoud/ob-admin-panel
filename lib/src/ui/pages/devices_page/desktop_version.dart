@@ -3,8 +3,10 @@ import 'package:ob_admin_panel/src/constants/color_constants.dart';
 import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
+import 'package:ob_admin_panel/src/ui/widgets/add_new_element.dart';
 import 'package:ob_admin_panel/src/ui/widgets/desktop_main_view.dart';
 import 'package:ob_admin_panel/src/ui/widgets/devices_page_widgets/devices_table.dart';
+import 'package:ob_admin_panel/src/ui/widgets/filter_icon.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
 import 'package:provider/provider.dart';
 
@@ -30,22 +32,54 @@ class _DesktopDevicesPageState extends State<DesktopDevicesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const TabTitle(ConstantTexts.devices),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 30),
-              child: Text(
-                '${ConstantTexts.seapod.toUpperCase()}  /  ${_selectedSeapod.seaPodName}  /  ${ConstantTexts.devices}'
-                    .toUpperCase(),
-                style: const TextStyle(
-                  color: Color(ColorConstants.mainColor),
-                  fontSize: 13,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                DevicesHeader(),
+                Padding(
+                  padding: EdgeInsets.only(right: 30.0, top: 20.0),
+                  child: FilterIcon(),
                 ),
-              ),
+              ],
             ),
             DevicesTable(),
+            //Add new device
+            const AddNewElement(
+              hintText: ConstantTexts.addNewDevice,
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class DevicesHeader extends StatelessWidget {
+  const DevicesHeader({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _selectedSeapod =
+        Provider.of<SeaPodsProvider>(context).selectedSeapod;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const TabTitle(ConstantTexts.devices),
+        Padding(
+          padding: const EdgeInsets.only(top: 10, bottom: 30),
+          child: Text(
+            '${ConstantTexts.seapod.toUpperCase()}  /  ${_selectedSeapod.seaPodName}  /  ${ConstantTexts.devices}'
+                .toUpperCase(),
+            style: const TextStyle(
+              color: Color(ColorConstants.mainColor),
+              fontSize: 13,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

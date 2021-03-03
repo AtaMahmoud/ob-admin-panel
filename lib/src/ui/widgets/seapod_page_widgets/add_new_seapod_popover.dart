@@ -1,56 +1,9 @@
 import 'dart:ui';
 
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/color_constants.dart';
 import 'package:ob_admin_panel/src/constants/constant_texts.dart';
-import 'package:speech_bubble/speech_bubble.dart';
-
-class AddNewSeapod extends StatelessWidget {
-  const AddNewSeapod({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () {
-            showDialog(
-              barrierColor: const Color(ColorConstants.drawerScrimColor),
-              context: context,
-              builder: (context) {
-                return const AddNewSeapodPopover();
-              },
-            );
-          },
-          child: const AddSeapodButton(),
-        ),
-        const SizedBox(
-          height: 6.0,
-        ),
-        SpeechBubble(
-          nipLocation: NipLocation.TOP,
-          color: const Color(
-            ColorConstants.loginRegisterTextColor,
-          ),
-          width: 152.0,
-          child: const Center(
-            child: Text(
-              ConstantTexts.addNewSeapod,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12.0,
-              ),
-            ),
-          ),
-        )
-      ],
-    );
-  }
-}
 
 class AddNewSeapodPopover extends StatelessWidget {
   const AddNewSeapodPopover({
@@ -203,34 +156,6 @@ class AddNewSeapodRow extends StatelessWidget {
             child: const TextField(),
           )
         ],
-      ),
-    );
-  }
-}
-
-class AddSeapodButton extends StatelessWidget {
-  const AddSeapodButton({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return DottedBorder(
-      color: const Color(ColorConstants.addSeapodColor),
-      dashPattern: const [8],
-      borderType: BorderType.RRect,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        height: 54,
-        child: const Center(
-          child: Icon(
-            CupertinoIcons.add,
-            size: 40,
-            color: Color(ColorConstants.addSeapodColor),
-          ),
-        ),
       ),
     );
   }
