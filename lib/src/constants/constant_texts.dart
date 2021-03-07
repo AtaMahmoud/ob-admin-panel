@@ -78,17 +78,17 @@ class ConstantTexts {
   static const eyes = 'Eyes';
   static const delete = 'Delete';
   static const save = 'Save';
-  static const category = 'CATEGORY';
-  static const device = 'DEVICE';
-  static const element = 'ELEMENT';
-  static const product = 'PRODUCT';
-  static const lifeSpan = 'LIFE SPAN';
-  static const maintenance = 'MAINTENANCE';
-  static const usageStartDate = 'USAGE START DATE';
-  static const maintenanceDate = 'MAINTENANCE DATE';
-  static const changeDate = 'CHANGE DATE';
-  static const cost = 'COST';
-  static const importance = 'IMPORTANCE';
+  static const category = 'Category';
+  static const device = 'Device';
+  static const element = 'Element';
+  static const product = 'Product';
+  static const lifeSpan = 'Life Span';
+  static const maintenance = 'Maintenance';
+  static const usageStartDate = 'Usage Start Date';
+  static const maintenanceDate = 'Maintenance Date';
+  static const changeDate = 'Change Date';
+  static const cost = 'Cost';
+  static const importance = 'Importance';
   static const addNewDevice = 'Add New Device';
 
 }

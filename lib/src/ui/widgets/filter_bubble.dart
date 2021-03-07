@@ -8,7 +8,7 @@ class FilterBubble extends StatefulWidget {
   const FilterBubble({
     Key key,
     @required this.fields,
-    @required this.applyFilter,
+    this.applyFilter,
   }) : super(key: key);
 
   final List<Field> fields;
@@ -58,17 +58,21 @@ class _FilterBubbleState extends State<FilterBubble> {
                         const Color(ColorConstants.loginRegisterTextColor),
                     activeColor: Colors.white,
                     overlayColor: MaterialStateProperty.all(Colors.transparent),
-                    onChanged: (value) {
-                      setState(() {
-                        field.isChecked = value;
-                        widget.applyFilter();
-                      });
-                    },
+                    onChanged: field.isFixed
+                        ? null
+                        : (value) {
+                            setState(() {
+                              field.isChecked = value;
+                              widget.applyFilter();
+                            });
+                          },
                   ),
                   Text(
                     field.fieldName,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: field.isFixed
+                          ? const Color(ColorConstants.textColor)
+                          : Colors.white,
                       fontSize: 13.0,
                     ),
                   )

@@ -20,7 +20,10 @@ class DesktopSeapodsView extends StatefulWidget {
 class _DesktopSeapodsViewState extends State<DesktopSeapodsView> {
   bool showFilterMenu = false;
   List<Field> columns = [
-    Field(fieldName: ConstantTexts.seapod),
+    Field(
+      fieldName: ConstantTexts.seapod,
+      isFixed: true,
+    ),
     Field(fieldName: ConstantTexts.owner),
     Field(fieldName: ConstantTexts.type),
     Field(fieldName: ConstantTexts.location),
@@ -30,8 +33,7 @@ class _DesktopSeapodsViewState extends State<DesktopSeapodsView> {
   @override
   Widget build(BuildContext context) {
     final allSeapods = Provider.of<SeaPodsProvider>(context).allSeaPods.data;
-    final sizeCalcs = SizeCalcs(context: context);
-    final tabViewWidth = sizeCalcs.calculateTabViewWidth();
+    final tabViewWidth = SizeCalcs(context: context).calculateTabViewWidth();
     return Container(
       padding: const EdgeInsets.only(
         left: 20,

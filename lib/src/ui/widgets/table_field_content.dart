@@ -16,7 +16,7 @@ class TableFieldContent extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 5,
-          right: 10,
+          //right: 10,
           bottom: 5,
         ),
         child: Text(
