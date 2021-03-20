@@ -3,12 +3,14 @@ import 'package:ob_admin_panel/src/constants/color_constants.dart';
 
 class MenuItem extends StatelessWidget {
   final String title;
-  final bool isTapped;
+  final Color titleColor;
+  final bool isSelected;
   final VoidCallback onTap;
 
   const MenuItem({
     @required this.title,
-    this.isTapped = false,
+    this.titleColor = Colors.white,
+    this.isSelected = false,
     this.onTap,
   });
 
@@ -23,7 +25,7 @@ class MenuItem extends StatelessWidget {
           left: 15,
           top: 10,
         ),
-        color: isTapped
+        color: isSelected
             ? const Color(
                 ColorConstants.tappedMenuBackground,
               )
@@ -31,10 +33,10 @@ class MenuItem extends StatelessWidget {
         child: Text(
           title,
           textAlign: TextAlign.start,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: Colors.white,
+            color: titleColor,
           ),
         ),
       ),

@@ -1,4 +1,4 @@
-class ImagePaths {
+abstract class ImagePaths {
   static const obLogo = 'assets/images/ob_logo.png';
   static const obTextLogo = 'assets/images/ob_text_logo.png';
   static const obFullLogo = 'assets/images/ob_full_logo.png';

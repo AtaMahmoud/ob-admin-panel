@@ -1,5 +1,4 @@
-
-class Constants {
+abstract class Constants {
   static const String mapStyleFile = 'assets/map_style.txt';
   static const double leftNavigationWidth = 200.0;
   static const int menusCount = 8;

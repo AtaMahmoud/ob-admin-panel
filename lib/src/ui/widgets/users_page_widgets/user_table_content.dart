@@ -196,38 +196,46 @@ class _UsersTableContentState extends State<UsersTableContent> {
     bool showUserName,
   }) {
     return [
-      if (widget.columns[0].isChecked)
-        UserNameField(
-          userName: showUserName ? 'John Doe' : '',
-        ),
-      if (widget.columns[1].isChecked)
-        buildSeapodField(
+      UserNameField(
+        visible: widget.columns[0].isChecked,
+        userName: showUserName ? 'John Doe' : '',
+      ),
+      Visibility(
+        visible: widget.columns[1].isChecked,
+        child: buildSeapodField(
           SeaPod(
             seaPodName: 'Black Pearl',
             seaPodType: 'Private',
           ),
         ),
-      if (widget.columns[2].isChecked)
-        const TableFieldContent(
-          text: '12/08/2019',
-          color: Color(ColorConstants.dateColor),
-        ),
-      if (widget.columns[3].isChecked)
-        const TableFieldContent(
-          text: 'Member',
-        ),
-      if (widget.columns[4].isChecked)
-        const TableFieldContent(
-          text: 'Full',
-        ),
-      if (widget.columns[5].isChecked)
-        buildLocationField(
+      ),
+      //Member Since row
+      TableFieldContent(
+        visible: widget.columns[2].isChecked,
+        text: '12/08/2019',
+        color: const Color(ColorConstants.dateColor),
+      ),
+      //Type row
+      TableFieldContent(
+        visible: widget.columns[3].isChecked,
+        text: 'Member',
+      ),
+      //Access row
+      TableFieldContent(
+        visible: widget.columns[4].isChecked,
+        text: 'Full',
+      ),
+      //Location row
+      Visibility(
+        visible: widget.columns[5].isChecked,
+        child: buildLocationField(
           Location(
             locationName: 'Panama',
             latitude: 2.24548755,
             longitude: 4.0215454,
           ),
         ),
+      ),
     ];
   }
 }
@@ -235,8 +243,11 @@ class _UsersTableContentState extends State<UsersTableContent> {
 class UserNameField extends StatefulWidget {
   const UserNameField({
     @required this.userName,
+    @required this.visible,
   });
+
   final String userName;
+  final bool visible;
 
   @override
   _UserNameFieldState createState() => _UserNameFieldState();
@@ -281,30 +292,33 @@ class _UserNameFieldState extends State<UserNameField> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: CompositedTransformTarget(
-        link: _layerLink,
-        child: GestureDetector(
-          onTap: () {
-            if (_focusNode.hasFocus) {
-              _focusNode.unfocus();
-            } else {
-              FocusScope.of(context).requestFocus(_focusNode);
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 5,
-              right: 10,
-              bottom: 5,
-            ),
-            child: Text(
-              widget.userName,
-              textAlign: TextAlign.start,
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: Color(ColorConstants.mainColor),
+    return Visibility(
+      visible: widget.visible,
+      child: Expanded(
+        child: CompositedTransformTarget(
+          link: _layerLink,
+          child: GestureDetector(
+            onTap: () {
+              if (_focusNode.hasFocus) {
+                _focusNode.unfocus();
+              } else {
+                FocusScope.of(context).requestFocus(_focusNode);
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 5,
+                right: 10,
+                bottom: 5,
+              ),
+              child: Text(
+                widget.userName,
+                textAlign: TextAlign.start,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Color(ColorConstants.mainColor),
+                ),
               ),
             ),
           ),

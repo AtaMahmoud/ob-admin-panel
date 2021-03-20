@@ -1,4 +1,4 @@
-class ColorConstants {
+abstract class ColorConstants {
   static const loginContainerBackground = 0xFFFAF9FE;
   static const textFieldBorder = 0xFFE7E7E7;
   static const loginRegisterTextColor = 0xFF8B96A9;

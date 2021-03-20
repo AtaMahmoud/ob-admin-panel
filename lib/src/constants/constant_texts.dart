@@ -1,4 +1,4 @@
-class ConstantTexts {
+abstract class ConstantTexts {
   static const email = 'Email';
   static const password = 'PASSWORD';
   static const confirmPassword = 'CONFIRM PASSWORD';

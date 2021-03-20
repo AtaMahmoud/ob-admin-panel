@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/color_constants.dart';
 import 'package:ob_admin_panel/src/constants/constant_texts.dart';
+import 'package:ob_admin_panel/src/helpers/fields_intializer.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
@@ -19,17 +20,7 @@ class DesktopSeapodsView extends StatefulWidget {
 
 class _DesktopSeapodsViewState extends State<DesktopSeapodsView> {
   bool showFilterMenu = false;
-  List<Field> columns = [
-    Field(
-      fieldName: ConstantTexts.seapod,
-      isFixed: true,
-    ),
-    Field(fieldName: ConstantTexts.owner),
-    Field(fieldName: ConstantTexts.type),
-    Field(fieldName: ConstantTexts.location),
-    Field(fieldName: ConstantTexts.status),
-    Field(fieldName: ConstantTexts.accessLevel),
-  ];
+  List<Field> columns = FieldsInitializer.seapodPageFields();
   @override
   Widget build(BuildContext context) {
     final allSeapods = Provider.of<SeaPodsProvider>(context).allSeaPods.data;

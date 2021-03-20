@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/color_constants.dart';
 import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
+import 'package:ob_admin_panel/src/helpers/fields_intializer.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/add_new_element.dart';
@@ -19,6 +20,7 @@ class DesktopDevicesPage extends StatefulWidget {
 
 class _DesktopDevicesPageState extends State<DesktopDevicesPage> {
   bool _showFilterBubble = false;
+  List<Field> columns = FieldsInitializer.devicesPageFields();
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,7 @@ class _DesktopDevicesPageState extends State<DesktopDevicesPage> {
                   ],
                 ),
                 DevicesTable(
+                  isMobileView: false,
                   columns: columns,
                 ),
 
@@ -85,57 +88,6 @@ class _DesktopDevicesPageState extends State<DesktopDevicesPage> {
       ),
     );
   }
-
-  List<Field> columns = [
-    Field(fieldName: ConstantTexts.category, isFixed: true),
-    Field(
-      fieldName: ConstantTexts.device,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.element,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.product,
-    ),
-    Field(
-      fieldName: ConstantTexts.lifeSpan,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.maintenance,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.usageStartDate,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.maintenanceDate,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.changeDate,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.location,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.cost,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.status,
-      textAlign: TextAlign.center,
-    ),
-    Field(
-      fieldName: ConstantTexts.importance,
-      textAlign: TextAlign.center,
-    ),
-  ];
 }
 
 class DevicesHeader extends StatelessWidget {

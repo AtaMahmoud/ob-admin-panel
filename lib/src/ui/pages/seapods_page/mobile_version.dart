@@ -4,6 +4,7 @@ import 'package:ob_admin_panel/src/constants/color_constants.dart';
 import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/helpers/api_response.dart';
+import 'package:ob_admin_panel/src/helpers/fields_intializer.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/admin_panel_header.dart';
@@ -34,14 +35,7 @@ class _MobileSeapodsPageState extends State<MobileSeapodsPage>
   var _isInit = true;
   var _showFilterbubble = false;
   SeaPodsProvider seaPodsProvider;
-  List<Field> fields = [
-    Field(fieldName: ConstantTexts.seapod),
-    Field(fieldName: ConstantTexts.owner),
-    Field(fieldName: ConstantTexts.type),
-    Field(fieldName: ConstantTexts.location),
-    Field(fieldName: ConstantTexts.status),
-    Field(fieldName: ConstantTexts.accessLevel),
-  ];
+  List<Field> fields = FieldsInitializer.seapodPageFields();
 
   @override
   Future<void> didChangeDependencies() async {
@@ -138,6 +132,7 @@ class _MobileSeapodsPageState extends State<MobileSeapodsPage>
                       children: [
                         MobileSeapodsView(
                           allSeapods: allSeapods.data,
+                          fields: fields,
                         ),
                         MapTab(
                           seapods: allSeapods.data,
@@ -152,7 +147,7 @@ class _MobileSeapodsPageState extends State<MobileSeapodsPage>
                 alignment: Alignment.topRight,
                 child: Container(
                   padding: const EdgeInsets.only(top: 50, right: 20.0),
-                  height: 300,
+                  height: 320,
                   child: FilterBubble(
                     fields: fields,
                     applyFilter: () {

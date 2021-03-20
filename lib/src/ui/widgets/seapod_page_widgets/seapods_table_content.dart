@@ -124,35 +124,43 @@ class _SeapodsTableContentState extends State<SeapodsTableContent> {
   List<Widget> _seapodDetails(SeaPod seaPod) {
     const color = Color(ColorConstants.tableViewTextColor);
     return [
-      if (widget.columns[0].isChecked)
-        TableFieldContent(
-          text: seaPod.seaPodName,
-          color: color,
-        ),
-      if (widget.columns[1].isChecked)
-        TableFieldContent(
-          text: seaPod.ownersNames.join(', '),
-          color: color,
-        ),
-      if (widget.columns[2].isChecked)
-        TableFieldContent(
-          text: seaPod.seaPodType,
-          color: color,
-        ),
-      if (widget.columns[3].isChecked)
-        buildLocationField(
+      //Seapod Name row
+      TableFieldContent(
+        visible: widget.columns[0].isChecked,
+        text: seaPod.seaPodName,
+        color: color,
+      ),
+      //Owner Name row
+      TableFieldContent(
+        visible: widget.columns[1].isChecked,
+        text: seaPod.ownersNames.join(', '),
+        color: color,
+      ),
+      //Seapod Type row
+      TableFieldContent(
+        visible: widget.columns[2].isChecked,
+        text: seaPod.seaPodType,
+        color: color,
+      ),
+      //Location row
+      Visibility(
+        visible: widget.columns[3].isChecked,
+        child: buildLocationField(
           seaPod.location,
         ),
-      if (widget.columns[4].isChecked)
-        TableFieldContent(
-          text: seaPod.seaPodStatus,
-          color: color,
-        ),
-      if (widget.columns[5].isChecked)
-        TableFieldContent(
-          text: seaPod.accessLevel,
-          color: color,
-        ),
+      ),
+      //Seapod Status row 
+      TableFieldContent(
+        visible: widget.columns[4].isChecked,
+        text: seaPod.seaPodStatus,
+        color: color,
+      ),
+      //Access Level row
+      TableFieldContent(
+        visible: widget.columns[5].isChecked,
+        text: seaPod.accessLevel,
+        color: color,
+      ),
     ];
   }
 }

@@ -7,6 +7,7 @@ import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/constants/image_paths.dart';
 import 'package:ob_admin_panel/src/providers/admin_auth_provider.dart';
+import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/pages/access_management/access_management_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/devices_page/devices_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/locations_page/locations_page.dart';
@@ -90,12 +91,7 @@ class MobileLeftNavigationMenu extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        ...[
-                          for (int i = 0; i < Constants.menusCount; i++) ...[
-                            _buildNavigationMenues(
-                                tappedMenuIndex == i, context)[i],
-                          ]
-                        ],
+                        ..._buildNavigationMenues(context),
                         const SizedBox(
                           height: 15,
                         ),
@@ -118,67 +114,78 @@ class MobileLeftNavigationMenu extends StatelessWidget {
   }
 
   List<Widget> _buildNavigationMenues(
-    bool isTapped,
     BuildContext context,
   ) {
-    return [
-      MenuItem(
-        title: ConstantTexts.home,
-        isTapped: isTapped,
-        onTap: () {
-          Navigator.of(context).pushReplacementNamed(SeapodsPage.routeName);
-        },
-      ),
-      MenuItem(
-        title: ConstantTexts.weatherMarine,
-        isTapped: isTapped,
-        onTap: () {
-          Navigator.of(context).pushNamed(WeatherPage.routeName);
-        },
-      ),
-      MenuItem(
-        title: ConstantTexts.devices.toUpperCase(),
-        isTapped: isTapped,
-        onTap: () {
-          Navigator.of(context).pushNamed(DevicesPage.routeName);
-        },
-      ),
-      MenuItem(
-        title: ConstantTexts.messages,
-        isTapped: isTapped,
-        onTap: () {
-          Navigator.of(context).pushNamed(MessagesPage.routeName);
-        },
-      ),
-      MenuItem(
-        title: ConstantTexts.acceseManagement,
-        isTapped: isTapped,
-        onTap: () {
-          Navigator.of(context).pushNamed(AccessManagementPage.routeName);
-        },
-      ),
-      MenuItem(
-        title: ConstantTexts.locations,
-        isTapped: isTapped,
-        onTap: () {
-          Navigator.of(context).pushNamed(LocationsPage.routeName);
-        },
-      ),
-      MenuItem(
-        title: ConstantTexts.users.toUpperCase(),
-        isTapped: isTapped,
-        onTap: () {
-          Navigator.of(context).pushNamed(UsersPage.routeName);
-        },
-      ),
-      MenuItem(
-        title: ConstantTexts.seapodsSettings,
-        isTapped: isTapped,
-        onTap: () {
-          Navigator.of(context).pushNamed(SeapodSettingsPage.routeName);
-        },
-      ),
-    ];
+    final selectedSeapod =
+        Provider.of<SeaPodsProvider>(context, listen: false).selectedSeapod;
+    final home = MenuItem(
+      titleColor: selectedSeapod == null
+          ? Colors.white
+          : const Color(ColorConstants.mainColor),
+      title: selectedSeapod != null
+          ? selectedSeapod.seaPodName
+          : ConstantTexts.home,
+      isSelected: tappedMenuIndex == Constants.homeIndex,
+      onTap: () {
+        Navigator.of(context).pushReplacementNamed(SeapodsPage.routeName);
+      },
+    );
+    return selectedSeapod == null
+        ? [
+            home,
+            MenuItem(
+              title: ConstantTexts.users.toUpperCase(),
+              isSelected: tappedMenuIndex == Constants.usersViewIndex,
+              onTap: () {
+                Navigator.of(context).pushNamed(UsersPage.routeName);
+              },
+            ),
+          ]
+        : [
+            home,
+            MenuItem(
+              title: ConstantTexts.weatherMarine,
+              isSelected: tappedMenuIndex == Constants.weatherViewIndex,
+              onTap: () {
+                Navigator.of(context).pushNamed(WeatherPage.routeName);
+              },
+            ),
+            MenuItem(
+              title: ConstantTexts.devices.toUpperCase(),
+              isSelected: tappedMenuIndex == Constants.devicesViewIndex,
+              onTap: () {
+                Navigator.of(context).pushNamed(DevicesPage.routeName);
+              },
+            ),
+            MenuItem(
+              title: ConstantTexts.messages,
+              isSelected: tappedMenuIndex == Constants.messagesViewIndex,
+              onTap: () {
+                Navigator.of(context).pushNamed(MessagesPage.routeName);
+              },
+            ),
+            MenuItem(
+              title: ConstantTexts.acceseManagement,
+              isSelected: tappedMenuIndex == Constants.accessManagementIndex,
+              onTap: () {
+                Navigator.of(context).pushNamed(AccessManagementPage.routeName);
+              },
+            ),
+            MenuItem(
+              title: ConstantTexts.locations,
+              isSelected: tappedMenuIndex == Constants.locationsViewIndex,
+              onTap: () {
+                Navigator.of(context).pushNamed(LocationsPage.routeName);
+              },
+            ),
+            MenuItem(
+              title: ConstantTexts.seapodsSettings,
+              isSelected: tappedMenuIndex == Constants.seapodSettingsViewIndex,
+              onTap: () {
+                Navigator.of(context).pushNamed(SeapodSettingsPage.routeName);
+              },
+            ),
+          ];
   }
 
   Future<void> logout(BuildContext context) async {

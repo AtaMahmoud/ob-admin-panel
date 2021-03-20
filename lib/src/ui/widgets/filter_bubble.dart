@@ -48,35 +48,40 @@ class _FilterBubbleState extends State<FilterBubble> {
           ),
           ...[
             for (var field in widget.fields) ...[
-              Row(
-                children: [
-                  Checkbox(
-                    value: field.isChecked,
-                    hoverColor: Colors.white,
-                    fillColor: MaterialStateProperty.all(Colors.white),
-                    checkColor:
-                        const Color(ColorConstants.loginRegisterTextColor),
-                    activeColor: Colors.white,
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
-                    onChanged: field.isFixed
-                        ? null
-                        : (value) {
-                            setState(() {
-                              field.isChecked = value;
-                              widget.applyFilter();
-                            });
-                          },
-                  ),
-                  Text(
-                    field.fieldName,
-                    style: TextStyle(
-                      color: field.isFixed
+              SizedBox(
+                height: 35.0,
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: field.isChecked,
+                      hoverColor: Colors.white,
+                      fillColor: MaterialStateProperty.all(Colors.white),
+                      checkColor: field.isFixed
                           ? const Color(ColorConstants.textColor)
-                          : Colors.white,
-                      fontSize: 13.0,
+                          : const Color(ColorConstants.loginRegisterTextColor),
+                      activeColor: Colors.white,
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      onChanged: field.isFixed
+                          ? null
+                          : (value) {
+                              setState(() {
+                                field.isChecked = value;
+                                widget.applyFilter();
+                              });
+                            },
                     ),
-                  )
-                ],
+                    Text(
+                      field.fieldName,
+                      style: TextStyle(
+                        color: field.isFixed
+                            ? const Color(ColorConstants.textColor)
+                            : Colors.white,
+                        fontSize: 13.0,
+                      ),
+                    )
+                  ],
+                ),
               )
             ]
           ]

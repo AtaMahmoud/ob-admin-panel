@@ -8,7 +8,6 @@ import 'package:ob_admin_panel/src/ui/pages/login_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/messages_page/messages_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/register_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_details/seapod_datails_page.dart';
-import 'package:ob_admin_panel/src/ui/pages/seapod_locations.dart/seapod_locations.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_owner_details/seapod_owner_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_settings_page/seapod_settings.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapods_page/seapods_page.dart';
@@ -16,13 +15,13 @@ import 'package:ob_admin_panel/src/ui/pages/splash_screen.dart';
 import 'package:ob_admin_panel/src/ui/pages/users_page/users_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/weather_page/weather_page.dart';
 import 'package:provider/provider.dart';
-import 'package:url_strategy/url_strategy.dart';
+//import 'package:url_strategy/url_strategy.dart';
 
 import 'src/constants/color_constants.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  setPathUrlStrategy();
+  //setPathUrlStrategy();
   runApp(MyApp());
 }
 
@@ -87,8 +86,6 @@ class MyApp extends StatelessWidget {
               SeapodSettingsPage(),
           UsersPage.routeName: (BuildContext context) => UsersPage(),
           WeatherPage.routeName: (BuildContext conetext) => WeatherPage(),
-          SeapodLocationsPage.routeName: (BuildContext context) =>
-              SeapodLocationsPage(),
         },
       ),
     );

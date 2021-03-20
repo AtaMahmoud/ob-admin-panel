@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
+//import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 import 'package:ob_admin_panel/src/constants/color_constants.dart';
 import 'package:ob_admin_panel/src/constants/constant_texts.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
@@ -12,7 +12,6 @@ import 'package:ob_admin_panel/src/ui/pages/devices_page/devices_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/locations_page/locations_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/login_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/messages_page/messages_page.dart';
-import 'package:ob_admin_panel/src/ui/pages/seapod_locations.dart/seapod_locations.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapod_settings_page/seapod_settings.dart';
 import 'package:ob_admin_panel/src/ui/pages/seapods_page/seapods_page.dart';
 import 'package:ob_admin_panel/src/ui/pages/users_page/users_page.dart';
@@ -65,26 +64,9 @@ class _DesktopHomepageState extends State<DesktopMainView> {
                     children: [
                       DesktopHeader(
                         onTap: () {
-                          if (widget.selectedSeapodName != null) {
-                            if (ModalRoute.of(context).settings.name !=
-                                SeapodLocationsPage.routeName) {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (context, _, __) =>
-                                      SeapodLocationsPage(),
-                                  transitionDuration: const Duration(),
-                                  settings: const RouteSettings(
-                                    name: SeapodLocationsPage.routeName,
-                                  ),
-                                ),
-                              );
-                            }
-                          } else {
-                            setState(() {
-                              _showControlOptions = !_showControlOptions;
-                            });
-                          }
+                          setState(() {
+                            _showControlOptions = !_showControlOptions;
+                          });
                         },
                         selectedSeapodName: widget.selectedSeapodName,
                       ),
@@ -120,13 +102,13 @@ class _DesktopHomepageState extends State<DesktopMainView> {
               ),
             ),
           ),
-          FlutterWebScroller(
+          /*  FlutterWebScroller(
             scrollCallBack,
             scrollBarBackgroundColor: Colors.white,
             dragHandleColor: const Color(ColorConstants.scrollBarColor),
             dragHandleHeight: 65.0,
             dragHandleWidth: 5.0,
-          ),
+          ), */
         ],
       ),
     );
@@ -142,7 +124,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
       title: selectedSeapod != null
           ? selectedSeapod.seaPodName
           : ConstantTexts.home,
-      isExpanded: widget.viewIndex == Constants.homeIndex,
+      isSelected: widget.viewIndex == Constants.homeIndex,
       onTap: () {
         Navigator.pushReplacement(
           context,
@@ -157,7 +139,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
 
     final usersTab = _AdminPanelTab(
       title: ConstantTexts.users.toUpperCase(),
-      isExpanded: widget.viewIndex == Constants.usersViewIndex,
+      isSelected: widget.viewIndex == Constants.usersViewIndex,
       onTap: () {
         Navigator.push(
           context,
@@ -178,7 +160,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
             homeTab,
             _AdminPanelTab(
               title: ConstantTexts.weatherMarine,
-              isExpanded: widget.viewIndex == Constants.weatherViewIndex,
+              isSelected: widget.viewIndex == Constants.weatherViewIndex,
               onTap: () {
                 Navigator.push(
                   context,
@@ -192,7 +174,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
             ),
             _AdminPanelTab(
               title: ConstantTexts.devices.toUpperCase(),
-              isExpanded: widget.viewIndex == Constants.devicesViewIndex,
+              isSelected: widget.viewIndex == Constants.devicesViewIndex,
               onTap: () {
                 Navigator.push(
                   context,
@@ -206,7 +188,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
             ),
             _AdminPanelTab(
               title: ConstantTexts.messages,
-              isExpanded: widget.viewIndex == Constants.messagesViewIndex,
+              isSelected: widget.viewIndex == Constants.messagesViewIndex,
               onTap: () {
                 Navigator.push(
                   context,
@@ -220,7 +202,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
             ),
             _AdminPanelTab(
               title: ConstantTexts.acceseManagement,
-              isExpanded: widget.viewIndex == Constants.accessManagementIndex,
+              isSelected: widget.viewIndex == Constants.accessManagementIndex,
               onTap: () {
                 Navigator.push(
                   context,
@@ -235,7 +217,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
             ),
             _AdminPanelTab(
               title: ConstantTexts.locations,
-              isExpanded: widget.viewIndex == Constants.locationsViewIndex,
+              isSelected: widget.viewIndex == Constants.locationsViewIndex,
               onTap: () {
                 Navigator.push(
                   context,
@@ -250,7 +232,7 @@ class _DesktopHomepageState extends State<DesktopMainView> {
             ),
             _AdminPanelTab(
               title: ConstantTexts.seapodsSettings,
-              isExpanded: widget.viewIndex == Constants.seapodSettingsViewIndex,
+              isSelected: widget.viewIndex == Constants.seapodSettingsViewIndex,
               onTap: () {
                 Navigator.push(
                   context,
@@ -386,7 +368,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
 class _AdminPanelTab extends StatefulWidget {
   const _AdminPanelTab({
     this.title,
-    this.isExpanded,
+    this.isSelected,
     this.onTap,
     this.titleColor = const Color(
       ColorConstants.loginRegisterTextColor,
@@ -395,7 +377,7 @@ class _AdminPanelTab extends StatefulWidget {
 
   final String title;
 
-  final bool isExpanded;
+  final bool isSelected;
   final VoidCallback onTap;
   final Color titleColor;
 
@@ -415,7 +397,7 @@ class _AdminPanelTabState extends State<_AdminPanelTab> {
           left: 15,
           top: 15,
         ),
-        color: widget.isExpanded
+        color: widget.isSelected
             ? const Color(
                 ColorConstants.loginRegisterTextColor,
               )
@@ -426,7 +408,7 @@ class _AdminPanelTabState extends State<_AdminPanelTab> {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: widget.isExpanded ? Colors.white : widget.titleColor,
+            color: widget.isSelected ? Colors.white : widget.titleColor,
           ),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/color_constants.dart';
-import 'package:ob_admin_panel/src/constants/constant_texts.dart';
+import 'package:ob_admin_panel/src/helpers/fields_intializer.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/ui/widgets/table_header.dart';
 import 'package:ob_admin_panel/src/ui/widgets/users_page_widgets/user_table_content.dart';
@@ -11,16 +11,7 @@ class UsersTable extends StatefulWidget {
 }
 
 class _UsersTableState extends State<UsersTable> {
-  List<Field> columns = [
-    Field(fieldName: ConstantTexts.name),
-    Field(fieldName: ConstantTexts.seapod.toUpperCase()),
-    Field(fieldName: ConstantTexts.memberSince),
-    Field(fieldName: ConstantTexts.type),
-    Field(
-      fieldName: ConstantTexts.access.toUpperCase(),
-    ),
-    Field(fieldName: ConstantTexts.location),
-  ];
+  List<Field> columns = FieldsInitializer.usersPageFields();
   @override
   Widget build(BuildContext context) {
     return Column(

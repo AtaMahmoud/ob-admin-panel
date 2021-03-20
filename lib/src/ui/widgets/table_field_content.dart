@@ -4,26 +4,32 @@ import 'package:ob_admin_panel/src/constants/color_constants.dart';
 class TableFieldContent extends StatelessWidget {
   const TableFieldContent({
     @required this.text,
+    @required this.visible,
     this.color,
     this.textAlign = TextAlign.start,
   });
+
   final String text;
+  final bool visible;
   final Color color;
   final TextAlign textAlign;
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 5,
-          //right: 10,
-          bottom: 5,
-        ),
-        child: Text(
-          text,
-          textAlign: textAlign,
-          style: tableContentTextStyle(
-            color: color,
+    return Visibility(
+      visible: visible,
+      child: Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 5,
+            bottom: 5,
+          ),
+          child: Text(
+            text,
+            textAlign: textAlign,
+            style: tableContentTextStyle(
+              color: color,
+            ),
           ),
         ),
       ),
