@@ -30,16 +30,18 @@ abstract class FieldsInitializer {
     ];
   }
 
-  static List<Field> devicesPageFields() {
+  static List<Field> devicesPageFields({
+    bool isMobileView = false,
+  }) {
     return [
       Field(fieldName: ConstantTexts.category, isFixed: true),
       Field(
         fieldName: ConstantTexts.device,
-        textAlign: TextAlign.center,
+        textAlign: isMobileView ? TextAlign.start : TextAlign.center,
       ),
       Field(
         fieldName: ConstantTexts.element,
-        textAlign: TextAlign.center,
+        textAlign: isMobileView ? TextAlign.start : TextAlign.center,
       ),
       Field(
         fieldName: ConstantTexts.product,

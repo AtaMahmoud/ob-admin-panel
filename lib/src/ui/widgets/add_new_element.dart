@@ -7,7 +7,7 @@ class AddNewElement extends StatelessWidget {
   const AddNewElement({
     Key key,
     this.onTap,
-    this.hintText,
+   @required this.hintText,
   }) : super(key: key);
 
   final VoidCallback onTap;

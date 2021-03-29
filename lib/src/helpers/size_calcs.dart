@@ -16,3 +16,14 @@ class SizeCalcs {
         Constants.leftNavigationWidth;
   }
 }
+
+abstract class DeviceTableSizeCalcs {
+  static double calculateDeviceRowHeight(
+    int devicesLength,
+    int elementsLength,
+  ) {
+    return ((Constants.elementRowHeight * elementsLength) +
+            Constants.elementsColumnBottomPadding) *
+        devicesLength;
+  }
+}

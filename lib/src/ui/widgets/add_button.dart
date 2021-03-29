@@ -6,7 +6,12 @@ import 'package:ob_admin_panel/src/constants/color_constants.dart';
 class AddButton extends StatelessWidget {
   const AddButton({
     Key key,
+    this.height = 54.0,
+    this.iconSize = 40.0,
   }) : super(key: key);
+
+  final double iconSize;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +23,12 @@ class AddButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
         ),
-        height: 54,
-        child: const Center(
+        height: height,
+        child: Center(
           child: Icon(
             CupertinoIcons.add,
-            size: 40,
-            color: Color(ColorConstants.addSeapodColor),
+            size: iconSize,
+            color: const Color(ColorConstants.addSeapodColor),
           ),
         ),
       ),

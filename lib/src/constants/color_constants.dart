@@ -19,4 +19,5 @@ abstract class ColorConstants {
   static const addSeapodColor = 0xFF9AA4B4;
   static const scrollBarColor = 0xFFDADCE4;
   static const dateColor = 0xFF0B4A52;
+  static const categoryColumnBackground = 0xFFF3F3F3;
 }

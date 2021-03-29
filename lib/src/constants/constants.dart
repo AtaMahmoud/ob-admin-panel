@@ -15,4 +15,6 @@ abstract class Constants {
   static const locationsViewIndex = 5;
   static const usersViewIndex = 6;
   static const seapodSettingsViewIndex = 7;
+  static const elementRowHeight = 60.0;
+  static const elementsColumnBottomPadding = 10.0;
 }

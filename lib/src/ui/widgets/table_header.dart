@@ -48,13 +48,16 @@ class TableHeaderField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Text(
-        text.toUpperCase(),
-        textAlign: textAlign,
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w700,
-          color: textColor,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Text(
+          text.toUpperCase(),
+          textAlign: textAlign,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: textColor,
+          ),
         ),
       ),
     );

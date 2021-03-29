@@ -7,7 +7,7 @@ import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/providers/seapods_provider.dart';
 import 'package:ob_admin_panel/src/ui/widgets/add_new_element.dart';
 import 'package:ob_admin_panel/src/ui/widgets/desktop_main_view.dart';
-import 'package:ob_admin_panel/src/ui/widgets/devices_page_widgets/devices_table.dart';
+import 'package:ob_admin_panel/src/ui/widgets/devices_page_widgets/desktop_devices_table.dart';
 import 'package:ob_admin_panel/src/ui/widgets/filter_bubble.dart';
 import 'package:ob_admin_panel/src/ui/widgets/filter_icon.dart';
 import 'package:ob_admin_panel/src/ui/widgets/tab_title.dart';
@@ -58,8 +58,7 @@ class _DesktopDevicesPageState extends State<DesktopDevicesPage> {
                     ),
                   ],
                 ),
-                DevicesTable(
-                  isMobileView: false,
+                DesktopDevicesTable(
                   columns: columns,
                 ),
 
