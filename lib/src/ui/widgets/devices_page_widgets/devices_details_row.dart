@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/color_constants.dart';
 import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
+import 'package:ob_admin_panel/src/ui/widgets/devices_page_widgets/devices_field_content.dart';
 import 'package:ob_admin_panel/src/ui/widgets/table_field_content.dart';
 
 class DeviceDetailsRow extends StatelessWidget {
@@ -23,20 +24,17 @@ class DeviceDetailsRow extends StatelessWidget {
             Row(
               children: [
                 //Device Row
-                TableFieldContent(
-                  visible: columns[1].isChecked,
+                DevicesFieldContent(
                   text: 'Device$i',
-                  color: const Color(ColorConstants.mainColor),
-                  textAlign: isMobileView ? TextAlign.start : TextAlign.center,
+                  visible: columns[1].isChecked,
+                  textAlign: columns[1].textAlign,
                 ),
                 Expanded(
-                  flex: isMobileView ? columns.length - 1 : columns.length - 2,
                   child: Padding(
                     padding: const EdgeInsets.only(
                       bottom: Constants.elementsColumnBottomPadding,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ...[
                           for (int j = 0; j < 2; j++) ...[
@@ -51,9 +49,7 @@ class DeviceDetailsRow extends StatelessWidget {
                                     text: 'Element$j',
                                     color:
                                         const Color(ColorConstants.mainColor),
-                                    textAlign: isMobileView
-                                        ? TextAlign.start
-                                        : TextAlign.center,
+                                    textAlign: columns[2].textAlign,
                                   ),
                                   //Product Row
                                   TableFieldContent(

@@ -41,7 +41,8 @@ abstract class FieldsInitializer {
       ),
       Field(
         fieldName: ConstantTexts.element,
-        textAlign: isMobileView ? TextAlign.start : TextAlign.center,
+        textAlign: TextAlign.center,
+        isFixed: true,
       ),
       Field(
         fieldName: ConstantTexts.product,

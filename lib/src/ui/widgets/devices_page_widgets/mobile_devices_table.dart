@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/helpers/size_calcs.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/ui/widgets/devices_page_widgets/devices_details_row.dart';
@@ -16,8 +17,11 @@ class MobileDevicesTable extends StatefulWidget {
 }
 
 class _MobileDevicesTableState extends State<MobileDevicesTable> {
+  List<Field> selectedColumns;
   @override
   Widget build(BuildContext context) {
+    selectedColumns =
+        widget.columns.where((element) => element.isChecked).toList();
     return Expanded(
       child: _getBodyWidget(),
     );
@@ -26,7 +30,8 @@ class _MobileDevicesTableState extends State<MobileDevicesTable> {
   Widget _getBodyWidget() {
     return HorizontalDataTable(
       leftHandSideColumnWidth: 100,
-      rightHandSideColumnWidth: 1300,
+      rightHandSideColumnWidth:
+          (selectedColumns.length - 1) * Constants.tableFieldWidth,
       isFixedHeader: true,
       headerWidgets: _getTitleWidgets(),
       leftSideItemBuilder: _generateFirstColumnRow,
@@ -47,11 +52,9 @@ class _MobileDevicesTableState extends State<MobileDevicesTable> {
       ),
     );
 
-    final selectedColumns = widget.columns
-        .sublist(1)
-        .where((element) => element.isChecked)
-        .toList();
-    for (final element in selectedColumns) {
+    final columns = selectedColumns.sublist(1);
+
+    for (final element in columns) {
       widgets.add(
         _getTitleItemWidget(element),
       );
@@ -66,10 +69,8 @@ class _MobileDevicesTableState extends State<MobileDevicesTable> {
       ColorConstants.seapodTableHeaderBackground,
     ),
   }) {
-    final _selectedColumnsLength =
-        widget.columns.where((element) => element.isChecked).toList().length;
     return Container(
-      width: width ?? 1300 / (_selectedColumnsLength - 1),
+      width: width ?? Constants.tableFieldWidth,
       height: 55,
       color: backgroundColor,
       padding: const EdgeInsets.only(top: 10.0, left: 10.0),
@@ -109,7 +110,7 @@ class _MobileDevicesTableState extends State<MobileDevicesTable> {
 
   Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: [
           DeviceDetailsRow(

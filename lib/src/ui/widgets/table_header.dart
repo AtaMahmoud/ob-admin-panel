@@ -26,6 +26,7 @@ class TableHeader extends StatelessWidget {
       child: Center(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: children,
         ),
       ),

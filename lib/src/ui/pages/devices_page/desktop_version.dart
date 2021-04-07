@@ -73,7 +73,7 @@ class _DesktopDevicesPageState extends State<DesktopDevicesPage> {
                 alignment: Alignment.topRight,
                 child: Container(
                   margin: const EdgeInsets.only(top: 55.0),
-                  height: 480,
+                  height: 515,
                   child: FilterBubble(
                     fields: columns,
                     applyFilter: () {

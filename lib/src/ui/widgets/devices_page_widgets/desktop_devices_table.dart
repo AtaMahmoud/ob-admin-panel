@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ob_admin_panel/src/constants/color_constants.dart';
+import 'package:ob_admin_panel/src/constants/constants.dart';
 import 'package:ob_admin_panel/src/models/field.dart';
 import 'package:ob_admin_panel/src/ui/widgets/devices_page_widgets/devices_details_row.dart';
-import 'package:ob_admin_panel/src/ui/widgets/table_field_content.dart';
+import 'package:ob_admin_panel/src/ui/widgets/devices_page_widgets/devices_field_content.dart';
 import 'package:ob_admin_panel/src/ui/widgets/table_header.dart';
 
 class DesktopDevicesTable extends StatefulWidget {
@@ -17,20 +18,23 @@ class DesktopDevicesTable extends StatefulWidget {
 }
 
 class _DesktopDevicesTableState extends State<DesktopDevicesTable> {
+  List<Field> selectedColumns;
   @override
   Widget build(BuildContext context) {
+    selectedColumns =
+        widget.columns.where((element) => element.isChecked).toList();
     return Expanded(
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: SizedBox(
-          width: 1780.0,
+          width: (selectedColumns.length * Constants.tableFieldWidth) + 40,
           child: Column(
             children: [
-              _DevicesTableHeader(
-                columns: widget.columns,
+              TableHeader(
+                children: tableFieldsList(),
               ),
               const SizedBox(
-                height: 15.0,
+                height: 8.0,
               ),
               SizedBox(
                 height: 500,
@@ -44,83 +48,8 @@ class _DesktopDevicesTableState extends State<DesktopDevicesTable> {
       ),
     );
   }
-}
-
-class _DevicesTableHeader extends StatelessWidget {
-  const _DevicesTableHeader({
-    @required this.columns,
-  });
-  final List<Field> columns;
-  @override
-  Widget build(BuildContext context) {
-    return TableHeader(
-      children: [
-        _CategoryField(
-          categoryField: columns[0],
-        ),
-        Expanded(
-          flex: columns.length - 1,
-          child: _DeviceDetailsHeaderRow(
-            columns: columns,
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class _CategoryField extends StatelessWidget {
-  const _CategoryField({
-    Key key,
-    @required this.categoryField,
-  }) : super(key: key);
-
-  final Field categoryField;
-
-  @override
-  Widget build(BuildContext context) {
-    return TableHeaderField(
-      text: categoryField.fieldName,
-      textColor: const Color(
-        ColorConstants.textColor,
-      ),
-      textAlign: categoryField.textAlign,
-    );
-  }
-}
-
-class _DeviceDetailsHeaderRow extends StatelessWidget {
-  const _DeviceDetailsHeaderRow({
-    Key key,
-    @required this.columns,
-  }) : super(key: key);
-
-  final List<Field> columns;
-
-  @override
-  Widget build(BuildContext context) {
-    final deviceField = columns[1];
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DeviceField(
-          visible: deviceField.isChecked,
-          deviceField: deviceField,
-        ),
-        Expanded(
-          flex: columns.length - 2,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: tableFieldsList(),
-          ),
-        ),
-      ],
-    );
-  }
 
   List<Widget> tableFieldsList() {
-    final selectedColumns =
-        columns.sublist(2).where((element) => element.isChecked).toList();
     final List<Widget> widgets = [];
     for (final element in selectedColumns) {
       widgets.add(
@@ -134,31 +63,6 @@ class _DeviceDetailsHeaderRow extends StatelessWidget {
       );
     }
     return widgets;
-  }
-}
-
-class DeviceField extends StatelessWidget {
-  const DeviceField({
-    Key key,
-    @required this.deviceField,
-    @required this.visible,
-  }) : super(key: key);
-
-  final Field deviceField;
-  final bool visible;
-
-  @override
-  Widget build(BuildContext context) {
-    return Visibility(
-      visible: visible,
-      child: TableHeaderField(
-        text: deviceField.fieldName,
-        textColor: const Color(
-          ColorConstants.textColor,
-        ),
-        textAlign: deviceField.textAlign,
-      ),
-    );
   }
 }
 
@@ -183,6 +87,7 @@ class _DevicesTableContentState extends State<DevicesTableContent> {
       ),
     );
     const itemCount = 10;
+
     return ListView.builder(
       itemCount: itemCount,
       itemBuilder: (BuildContext context, int index) {
@@ -195,14 +100,15 @@ class _DevicesTableContentState extends State<DevicesTableContent> {
           child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   //Category Row
-                  TableFieldContent(
+                  DevicesFieldContent(
                     text: 'Category$index',
                     visible: true,
+                    textAlign: widget.columns[0].textAlign,
                   ),
                   Expanded(
-                    flex: widget.columns.length - 1,
                     child: DeviceDetailsRow(
                       columns: widget.columns,
                       isMobileView: false,
